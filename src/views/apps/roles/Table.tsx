@@ -66,15 +66,11 @@ const userStatusObj: UserStatusType = {
 
 // ** renders client column
 const renderClient = (row: UsersType) => {
-  if (row.avatar.length) {
-    return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: 30, height: 30 }} />
-  } else {
     return (
-      <CustomAvatar skin='light' color={row.avatarColor} sx={{ mr: 3, width: 30, height: 30, fontSize: '.875rem' }}>
+      <CustomAvatar skin='light' color="red" sx={{ mr: 3, width: 30, height: 30, fontSize: '.875rem' }}>
         {getInitials(row.fullName ? row.fullName : 'John Doe')}
       </CustomAvatar>
     )
-  }
 }
 
 const columns: GridColDef[] = [
