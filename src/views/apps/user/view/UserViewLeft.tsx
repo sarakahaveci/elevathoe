@@ -48,17 +48,7 @@ interface ColorsType {
 
 const data: UsersType = {
   id: 1,
-  role: 'admin',
-  status: 'active',
-  username: 'gslixby0',
-  avatarColor: 'primary',
-  country: 'El Salvador',
-  company: 'Yotz PVT LTD',
-  contact: '(479) 232-9151',
-  currentPlan: 'enterprise',
   fullName: 'Daisy Patterson',
-  email: 'gslixby0@abc.net.au',
-  avatar: '/images/avatars/4.png'
 }
 
 const roleColors: ColorsType = {
@@ -105,18 +95,11 @@ const UserViewLeft = () => {
         <Grid item xs={12}>
           <Card>
             <CardContent sx={{ pt: 15, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-              {data.avatar ? (
-                <CustomAvatar
-                  src={data.avatar}
-                  variant='rounded'
-                  alt={data.fullName}
-                  sx={{ width: 120, height: 120, fontWeight: 600, mb: 4 }}
-                />
-              ) : (
+              {(
                 <CustomAvatar
                   skin='light'
                   variant='rounded'
-                  color={data.avatarColor as ThemeColor}
+                  color={'primary' as ThemeColor}
                   sx={{ width: 120, height: 120, fontWeight: 600, mb: 4, fontSize: '3rem' }}
                 >
                   {getInitials(data.fullName)}
@@ -128,8 +111,7 @@ const UserViewLeft = () => {
               <CustomChip
                 skin='light'
                 size='small'
-                label={data.role}
-                color={roleColors[data.role]}
+                color='primary'
                 sx={{ textTransform: 'capitalize' }}
               />
             </CardContent>
@@ -163,22 +145,18 @@ const UserViewLeft = () => {
               <Box sx={{ pb: 1 }}>
                 <Box sx={{ display: 'flex', mb: 2 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Username:</Typography>
-                  <Typography variant='body2'>@{data.username}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', mb: 2 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Billing Email:</Typography>
-                  <Typography variant='body2'>{data.email}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', mb: 2 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Status:</Typography>
                   <Typography variant='body2' sx={{ textTransform: 'capitalize' }}>
-                    {data.status}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', mb: 2 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Role:</Typography>
                   <Typography variant='body2' sx={{ textTransform: 'capitalize' }}>
-                    {data.role}
                   </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', mb: 2 }}>
@@ -187,7 +165,6 @@ const UserViewLeft = () => {
                 </Box>
                 <Box sx={{ display: 'flex', mb: 2 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Contact:</Typography>
-                  <Typography variant='body2'>+1 {data.contact}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', mb: 2 }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Language:</Typography>
@@ -195,7 +172,6 @@ const UserViewLeft = () => {
                 </Box>
                 <Box sx={{ display: 'flex' }}>
                   <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>Country:</Typography>
-                  <Typography variant='body2'>{data.country}</Typography>
                 </Box>
               </Box>
             </CardContent>
@@ -245,19 +221,14 @@ const UserViewLeft = () => {
                       <TextField
                         fullWidth
                         label='Username'
-                        defaultValue={data.username}
                         InputProps={{ startAdornment: <InputAdornment position='start'>@</InputAdornment> }}
                       />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth type='email' label='Billing Email' defaultValue={data.email} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <FormControl fullWidth>
                         <InputLabel id='user-view-status-label'>Status</InputLabel>
                         <Select
                           label='Status'
-                          defaultValue={data.status}
                           id='user-view-status'
                           labelId='user-view-status-label'
                         >
@@ -269,9 +240,6 @@ const UserViewLeft = () => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField fullWidth label='TAX ID' defaultValue='Tax-8894' />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label='Contact' defaultValue={`+1 ${data.contact}`} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <FormControl fullWidth>
