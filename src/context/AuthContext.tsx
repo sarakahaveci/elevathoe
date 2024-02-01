@@ -79,7 +79,10 @@ const AuthProvider = ({ children }: Props) => {
       .post(authConfig.loginEndpoint, params, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${supabaseToken}`
+          Authorization: `Bearer ${supabaseToken}`,
+          'Access-Control-Allow-Origin': 'https://ciargyanclokbcragarw.supabase.co',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
         }
       })
       .then(async response => {
