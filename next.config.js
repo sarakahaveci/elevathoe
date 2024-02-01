@@ -28,7 +28,7 @@ module.exports = {
     return [
       {
         // Apply CORS headers to all routes
-        source: '/:path*',
+        source: '/rest/:path*',
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
           { key: 'Access-Control-Allow-Origin', value: '*' },
