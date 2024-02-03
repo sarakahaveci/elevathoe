@@ -38,6 +38,11 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Kullanicilar',
       path: '/ui/icons',
       icon: 'mdi:google-circles-extended'
+    },
+    {
+      title: 'Musteriler',
+      icon: 'mdi:calendar-blank-outline',
+      path: '/apps/user/list'
     }
   ]
 }
