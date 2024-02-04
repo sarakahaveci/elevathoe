@@ -90,6 +90,8 @@ const RowOptions = ({ id }: { id: number | string }) => {
     handleRowOptionsClose()
   }
 
+  console.log("in RowOptions for user");
+
   return (
     <>
       <IconButton size='small' onClick={handleRowOptionsClick}>
@@ -159,6 +161,8 @@ const columns: GridColDef[] = [
 ]
 
 const UserList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  console.log("build UserList");
+
   // ** State
   const [role, setRole] = useState<string>('')
   const [plan, setPlan] = useState<string>('')
@@ -170,6 +174,8 @@ const UserList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) =
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.user)
+
+  console.log("fetching data");
 
   useEffect(() => {
     dispatch(
@@ -211,6 +217,7 @@ const UserList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) =
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  console.log("getStaticProps for user");
   const res = await axios.get('/cards/statistics')
   const apiData: CardStatsType = res.data
 

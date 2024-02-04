@@ -19,16 +19,17 @@ interface Redux {
 
 // ** Fetch Customers
 export const fetchData = createAsyncThunk('appCustomers/fetchData', async (params: DataParams) => {
-  console.log("sex-1");
-  console.log(params);
+  console.log("fetching data /apps/customers/list");
   const response = await axios.get('/apps/customers/list', {
     params
   })
 
+  console.log(response.data);
+
   return response.data
 })
 
-// ** Add Custoer
+// ** Add Customer
 export const addCustomer = createAsyncThunk(
   'appCustomers/addCustomer',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
@@ -54,7 +55,7 @@ export const deleteCustomer = createAsyncThunk(
   }
 )
 
-export const appCustomersSlice = createSlice({
+export const appCustomerSlice = createSlice({
   name: 'appCustomers',
   initialState: {
     data: [],
@@ -73,4 +74,4 @@ export const appCustomersSlice = createSlice({
   }
 })
 
-export default appCustomersSlice.reducer
+export default appCustomerSlice.reducer

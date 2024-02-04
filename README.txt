@@ -19,6 +19,7 @@ src/store/index.ts
 src/store/apps/<moduleName>/
 
 3) @fake-db
+src/@fake-db/index.ts
 src/@fake-db/apps/
 
 4) pages

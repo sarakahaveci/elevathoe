@@ -106,6 +106,7 @@ mock.onPost('/apps/users/add-user').reply(config => {
 
 // GET: DATA
 mock.onGet('/apps/users/list').reply(config => {
+  console.log("in @fake-db /apps/users/list");
   const { q = '', role = null, status = null, currentPlan = null } = config.params ?? ''
 
   const queryLowered = q.toLowerCase()

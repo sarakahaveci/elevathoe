@@ -172,6 +172,7 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   const store = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
+    console.log("fetchData call in customer");
     dispatch(
       fetchData({
         role,
