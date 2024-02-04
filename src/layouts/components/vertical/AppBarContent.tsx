@@ -93,6 +93,12 @@ const shortcuts: ShortcutsType[] = [
     icon: 'mdi:account-outline'
   },
   {
+    title: 'Customers',
+    url: '/apps/customer/list',
+    subtitle: 'Manage Customers',
+    icon: 'mdi:account-outline'
+  },
+  {
     url: '/apps/roles',
     title: 'Role Management',
     subtitle: 'Permissions',

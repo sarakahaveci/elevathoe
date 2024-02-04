@@ -725,7 +725,14 @@ const searchData: AppBarSearchType[] = [
     icon: 'mdi:shield-outline',
     title: 'Access Control (ACL)',
     category: 'chartsMisc'
-  }
+  },
+  {
+    id: 104,
+    url: '/apps/customer/list',
+    icon: 'mdi:account-group',
+    title: 'Customer List',
+    category: 'appsPages'
+  },
 ]
 
 // ** GET Search Data

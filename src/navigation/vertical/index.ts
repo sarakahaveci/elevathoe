@@ -47,7 +47,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Uyeler',
       icon: 'mdi:calendar-blank-outline',
-      path: '/apps/users/list'
+      path: '/apps/user/list'
     }
 
   ]

@@ -13,7 +13,12 @@ const data: { customers: CustomerTypes[] } = {
     {
       id: 2,
       fullName: 'İstinye AVM'
+    },
+    {
+      id: 3,
+      fullName: 'Mahmut AVM'
     }
+
   ]
 }
 
@@ -106,6 +111,7 @@ mock.onPost('/apps/customers/add-customer').reply(config => {
 
 // GET: DATA
 mock.onGet('/apps/customers/list').reply(config => {
+  console.log("sex-2");
   const { q = '', role = null, status = null, currentPlan = null } = config.params ?? ''
 
   const queryLowered = q.toLowerCase()

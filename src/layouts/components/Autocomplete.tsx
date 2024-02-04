@@ -79,6 +79,11 @@ const defaultSuggestionsData: DefaultSuggestionsType[] = [
         icon: 'mdi:account-group',
         suggestion: 'User List',
         link: '/apps/user/list'
+      },
+      {
+        icon: 'mdi:account-group',
+        suggestion: 'Customer List',
+        link: '/apps/customer/list'
       }
     ]
   },
