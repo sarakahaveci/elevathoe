@@ -8,11 +8,11 @@ const data: { users: UsersType[] } = {
   users: [
     {
       id: 1,
-      fullName: 'Cevavir AVM'
+      fullName: 'Taygun Yildirim'
     },
     {
       id: 2,
-      fullName: 'İstinye AVM'
+      fullName: 'Aziz Yildirim'
     }
   ]
 }

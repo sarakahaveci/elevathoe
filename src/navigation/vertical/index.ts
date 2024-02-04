@@ -13,17 +13,17 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Arama Kayitlari',
-      icon: 'mdi:email-outline',
+      icon: 'ri:customer-service-fill',
       path: '/apps/email'
     },
     {
       title: 'Asansorler',
-      icon: 'mdi:message-outline',
+      icon: 'game-icons:elevator',
       path: '/apps/chat'
     },
     {
       title: 'Projeler',
-      icon: 'mdi:calendar-blank-outline',
+      icon: 'ph:projector-screen-chart-fill',
       path: '/apps/calendar'
     },
     {
@@ -31,22 +31,17 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Bakimcilar',
-      icon: 'mdi:format-letter-case',
+      icon: 'wpf:maintenance',
       path: '/ui/typography'
     },
     {
-      title: 'Kullanicilar',
-      path: '/ui/icons',
-      icon: 'mdi:google-circles-extended'
-    },
-    {
       title: 'Musteriler',
-      icon: 'mdi:calendar-blank-outline',
+      icon: 'bi:building-fill',
       path: '/apps/customer/list'
     },
     {
-      title: 'Uyeler',
-      icon: 'mdi:calendar-blank-outline',
+      title: 'Kullanicilar',
+      icon: 'mdi:account',
       path: '/apps/user/list'
     }
 

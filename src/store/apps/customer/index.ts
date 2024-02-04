@@ -24,7 +24,7 @@ export const fetchData = createAsyncThunk('appCustomers/fetchData', async (param
     params
   })
 
-  console.log(response.data);
+  console.log("fetched data /apps/customers/list");
 
   return response.data
 })
@@ -55,7 +55,7 @@ export const deleteCustomer = createAsyncThunk(
   }
 )
 
-export const appCustomerSlice = createSlice({
+export const appCustomersSlice = createSlice({
   name: 'appCustomers',
   initialState: {
     data: [],
@@ -74,4 +74,4 @@ export const appCustomerSlice = createSlice({
   }
 })
 
-export default appCustomerSlice.reducer
+export default appCustomersSlice.reducer

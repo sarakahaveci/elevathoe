@@ -122,6 +122,8 @@ mock.onGet('/apps/customers/list').reply(config => {
     )
   )
 
+  console.log("returning from @fake-db");
+  
   return [
     200,
     {

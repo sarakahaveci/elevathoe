@@ -169,7 +169,7 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.user)
+  const store = useSelector((state: RootState) => state.customer)
 
   useEffect(() => {
     console.log("fetchData call in customer");
@@ -183,11 +183,19 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
     )
   }, [dispatch, plan, role, status, value])
 
+  console.log("before useCallback");
+
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
 
+  console.log("before setAddCustomerOpen");
+
   const toggleAddCustomerDrawer = () => setAddCustomerOpen(!addCustomerOpen)
+
+  console.log(store.data);
+
+  console.log("trying to return sth");
 
   return (
     <Grid container spacing={6}>
