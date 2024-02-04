@@ -26,15 +26,14 @@ export const fetchData = createAsyncThunk('appCustomers/fetchData', async (param
   return response.data
 })
 
-// ** Add Customer
+// ** Add Custoer
 export const addCustomer = createAsyncThunk(
   'appCustomers/addCustomer',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     const response = await axios.post('/apps/customers/add-customer', {
       data
     })
-    dispatch(fetchData(getState().
-    ser.params))
+    dispatch(fetchData(getState().customer.params))
 
     return response.data
   }
