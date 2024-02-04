@@ -43,7 +43,13 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Musteriler',
       icon: 'mdi:calendar-blank-outline',
       path: '/apps/customer/list'
+    },
+    {
+      title: 'Uyeler',
+      icon: 'mdi:calendar-blank-outline',
+      path: '/apps/users/list'
     }
+
   ]
 }
 
