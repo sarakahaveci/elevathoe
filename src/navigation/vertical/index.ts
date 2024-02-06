@@ -32,7 +32,20 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Bakimcilar',
       icon: 'wpf:maintenance',
-      path: '/ui/typography'
+      children: [
+        {
+          title: 'Organizasyon',
+          path: '/pages/wizard-examples/checkout'
+        },
+        {
+          title: 'Proje',
+          path: '/pages/wizard-examples/property-listing'
+        },
+        {
+          title: 'Asansor',
+          path: '/pages/wizard-examples/create-deal'
+        }
+      ]
     },
     {
       title: 'Musteriler',
