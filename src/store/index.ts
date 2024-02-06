@@ -9,6 +9,7 @@ import invoice from 'src/store/apps/invoice'
 import calendar from 'src/store/apps/calendar'
 import permissions from 'src/store/apps/permissions'
 import customer from 'src/store/apps/customer'
+import maintainer from 'src/store/apps/maintainer'
 
 export const store = configureStore({
   reducer: {
@@ -18,7 +19,8 @@ export const store = configureStore({
     invoice,
     calendar,
     permissions,
-    customer
+    customer,
+    maintainer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
