@@ -8,11 +8,13 @@ const data: { maintainers: MaintainerTypes[] } = {
   maintainers: [
     {
       id: 1,
-      fullName: 'Deniz Yildirim'
+      fullName: 'Deniz Yildirim',
+      phoneNumber: '05533366024'
     },
     {
       id: 2,
-      fullName: 'Cevdet Yildirim'
+      fullName: 'Cevdet Yildirim',
+      phoneNumber: '05533366024'
     }
   ]
 }
@@ -41,7 +43,8 @@ mock.onGet('/apps/maintainers/list').reply(config => {
   const filteredData = data.maintainers.filter(
     maintainer =>
     (
-      maintainer.fullName.toLowerCase().includes(queryLowered)
+      maintainer.fullName.toLowerCase().includes(queryLowered),
+      maintainer.phoneNumber.toLowerCase().includes(queryLowered)
     )
   )
 

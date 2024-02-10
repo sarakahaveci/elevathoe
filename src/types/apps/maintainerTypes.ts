@@ -4,6 +4,7 @@ import { ThemeColor } from 'src/@core/layouts/types'
 export type MaintainerTypes = {
   id: number
   fullName: string
+  phoneNumber: string
 }
 
 export type ProjectListDataType = {

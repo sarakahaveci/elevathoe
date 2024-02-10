@@ -38,7 +38,8 @@ interface SidebarAddMaintainerType {
 }
 
 interface MaintainerData {
-  fullName: string
+  fullName: string,
+  phoneNumber: string
 }
 
 const showErrors = (field: string, valueLen: number, min: number) => {
@@ -67,7 +68,8 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  fullName: ''
+  fullName: '',
+  phoneNumber: ''
 }
 
 const SidebarAddMaintainer = (props: SidebarAddMaintainerType) => {
@@ -127,6 +129,17 @@ const SidebarAddMaintainer = (props: SidebarAddMaintainerType) => {
               )}
             />
             {errors.fullName && <FormHelperText sx={{ color: 'error.main' }}>{errors.fullName.message}</FormHelperText>}
+          </FormControl>
+          <FormControl fullWidth sx={{ mb: 6 }}>
+            <Controller
+              name='phoneNumber'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <TextField value={value} label='Phone Number' onChange={onChange} error={Boolean(errors.phoneNumber)} />
+              )}
+            />
+            {errors.phoneNumber && <FormHelperText sx={{ color: 'error.main' }}>{errors.phoneNumber.message}</FormHelperText>}
           </FormControl>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Button size='large' type='submit' variant='contained' sx={{ mr: 3 }}>

@@ -149,6 +149,21 @@ const columns: GridColDef[] = [
     }
   },
   {
+    flex: 0.2,
+    minWidth: 230,
+    field: 'phoneNumber',
+    headerName: 'Phone Number',
+    renderCell: ({ row }: CellType) => {
+      const { phoneNumber } = row
+
+      return (
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ color: "#000", display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{phoneNumber}</Box>
+        </Box>
+      )
+    }
+  },
+  {
     flex: 0,
     minWidth: 90,
     sortable: false,
