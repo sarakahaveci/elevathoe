@@ -24,7 +24,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Projeler',
       icon: 'ph:projector-screen-chart-fill',
-      path: '/apps/calendar'
+      path: '/apps/project/list'
     },
     {
       sectionTitle: 'Firma Bilgileri'
