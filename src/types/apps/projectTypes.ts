@@ -11,3 +11,9 @@ export type ProjectListDataType = {
     progressValue: number
     progressColor: ThemeColor
   }
+
+  export type ProjectType = {
+    id: number
+    name: string
+    customer: string
+  }

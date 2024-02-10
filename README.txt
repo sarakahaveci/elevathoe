@@ -18,16 +18,16 @@ src/navigation/vertical/index.ts
 src/store/index.ts
 src/store/apps/<moduleName>/
 
-3) @fake-db
+3) types
+src/types/apps/<moduleType>.ts
+
+4) @fake-db
 src/@fake-db/index.ts
 src/@fake-db/apps/
 
-4) pages
+5) pages
 src/pages/apps/<moduleName>/list/index.ts
 src/pages/apps/<moduleName>/view/[tab].tsx
-
-5) types
-src/types/apps/<moduleType>.ts
 
 6) views
 src/views/apps/<moduleName>/
