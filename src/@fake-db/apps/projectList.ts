@@ -9,12 +9,12 @@ const data: { projects: ProjectType[] } = {
     {
       id: 1,
       name: 'Nike',
-      customer: 'Cevahir'
+      customer: 'Cevahir AVM'
     },
     {
       id: 2,
       name: 'Adidas',
-      customer: 'Profilo'
+      customer: 'Profilo AVM'
     }
   ]
 }

@@ -11,6 +11,7 @@ import permissions from 'src/store/apps/permissions'
 import customer from 'src/store/apps/customer'
 import maintainer from 'src/store/apps/maintainer'
 import project from 'src/store/apps/project'
+import elevator from 'src/store/apps/elevator'
 
 export const store = configureStore({
   reducer: {
@@ -22,7 +23,8 @@ export const store = configureStore({
     permissions,
     customer,
     maintainer,
-    project
+    project,
+    elevator
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
