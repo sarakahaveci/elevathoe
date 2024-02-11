@@ -79,6 +79,8 @@ const defaultValues = {
 const SidebarAddElevator = (props: SidebarAddElevatorType) => {
   // ** Props
   const { open, toggle } = props
+  const [project, setProject] = useState<string>('subscriber')
+
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -135,26 +137,19 @@ const SidebarAddElevator = (props: SidebarAddElevatorType) => {
             {errors.name && <FormHelperText sx={{ color: 'error.main' }}>{errors.name.message}</FormHelperText>}
           </FormControl>
           <FormControl fullWidth sx={{ mb: 6 }}>
-            <Controller
-              name='customer'
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, onChange } }) => (
-                <TextField value={value} label='Customer' onChange={onChange} error={Boolean(errors.customer)} />
-              )}
-            />
-            {errors.customer && <FormHelperText sx={{ color: 'error.main' }}>{errors.customer.message}</FormHelperText>}
-          </FormControl>
-          <FormControl fullWidth sx={{ mb: 6 }}>
-            <Controller
-              name='project'
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, onChange } }) => (
-                <TextField value={value} label='Project' onChange={onChange} error={Boolean(errors.project)} />
-              )}
-            />
-            {errors.project && <FormHelperText sx={{ color: 'error.main' }}>{errors.project.message}</FormHelperText>}
+            <InputLabel id='project-select'>Project</InputLabel>
+            <Select
+              fullWidth
+              value={project}
+              id='select-project'
+              label='Select Project'
+              labelId='customer-select'
+              onChange={e => setProject(e.target.value)}
+              inputProps={{ placeholder: 'Select Project' }}
+            >
+              <MenuItem value='admin'>Nike</MenuItem>
+              <MenuItem value='author'>Adidas</MenuItem>
+            </Select>
           </FormControl>
           <FormControl fullWidth sx={{ mb: 6 }}>
             <Controller
