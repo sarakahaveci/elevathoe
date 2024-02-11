@@ -19,7 +19,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Asansorler',
       icon: 'game-icons:elevator',
-      path: '/apps/chat'
+      path: '/apps/elevator/list'
     },
     {
       title: 'Projeler',
