@@ -75,6 +75,7 @@ const defaultValues = {
 const SidebarAddProject = (props: SidebarAddProjectType) => {
   // ** Props
   const { open, toggle } = props
+  const [customer, setCustomer] = useState<string>('subscriber')
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -98,6 +99,7 @@ const SidebarAddProject = (props: SidebarAddProjectType) => {
   }
 
   const handleClose = () => {
+    setCustomer('subscriber')
     toggle()
     reset()
   }
@@ -131,15 +133,19 @@ const SidebarAddProject = (props: SidebarAddProjectType) => {
             {errors.name && <FormHelperText sx={{ color: 'error.main' }}>{errors.name.message}</FormHelperText>}
           </FormControl>
           <FormControl fullWidth sx={{ mb: 6 }}>
-            <Controller
-              name='customer'
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, onChange } }) => (
-                <TextField value={value} label='Customer' onChange={onChange} error={Boolean(errors.customer)} />
-              )}
-            />
-            {errors.customer && <FormHelperText sx={{ color: 'error.main' }}>{errors.customer.message}</FormHelperText>}
+            <InputLabel id='customer-select'>Customer</InputLabel>
+            <Select
+              fullWidth
+              value={customer}
+              id='select-customer'
+              label='Select Customer'
+              labelId='customer-select'
+              onChange={e => setCustomer(e.target.value)}
+              inputProps={{ placeholder: 'Select Customer' }}
+            >
+              <MenuItem value='admin'>Cevahir AVM</MenuItem>
+              <MenuItem value='author'>Istinye AVM</MenuItem>
+            </Select>
           </FormControl>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Button size='large' type='submit' variant='contained' sx={{ mr: 3 }}>
