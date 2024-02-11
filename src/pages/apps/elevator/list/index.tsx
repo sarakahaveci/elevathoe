@@ -193,7 +193,6 @@ const columns: GridColDef[] = [
       )
     }
   },
-
   {
     flex: 0,
     minWidth: 90,
@@ -235,7 +234,7 @@ const elevatorList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
     setValue(val)
   }, [])
 
-  console.log("before setAddpElevatorOpen");
+  console.log("before setAddElevatorOpen");
 
   const toggleAddElevatorDrawer = () => setAddElevatorOpen(!addElevatorOpen)
 
