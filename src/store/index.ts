@@ -5,26 +5,26 @@ import { configureStore } from '@reduxjs/toolkit'
 import chat from 'src/store/apps/chat'
 import user from 'src/store/apps/user'
 import email from 'src/store/apps/email'
-import invoice from 'src/store/apps/invoice'
 import calendar from 'src/store/apps/calendar'
 import permissions from 'src/store/apps/permissions'
 import customer from 'src/store/apps/customer'
 import maintainer from 'src/store/apps/maintainer'
 import project from 'src/store/apps/project'
 import elevator from 'src/store/apps/elevator'
+import call from 'src/store/apps/call'
 
 export const store = configureStore({
   reducer: {
     user,
     chat,
     email,
-    invoice,
     calendar,
     permissions,
     customer,
     maintainer,
     project,
-    elevator
+    elevator,
+    call
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

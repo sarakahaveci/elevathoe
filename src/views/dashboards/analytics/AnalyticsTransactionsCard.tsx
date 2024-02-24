@@ -28,27 +28,27 @@ interface DataType {
 
 const salesData: DataType[] = [
   {
-    stats: '245k',
-    title: 'Sales',
+    stats: '10',
+    title: 'Customers',
     color: 'primary',
     icon: <Icon icon='mdi:trending-up' />
   },
   {
-    stats: '12.5k',
-    title: 'Customers',
+    stats: '120',
+    title: 'Projects',
     color: 'success',
     icon: <Icon icon='mdi:account-outline' />
   },
   {
-    stats: '1.54k',
+    stats: '1250',
     color: 'warning',
-    title: 'Products',
+    title: 'Elevators',
     icon: <Icon icon='mdi:cellphone-link' />
   },
   {
-    stats: '$88k',
+    stats: '0',
     color: 'info',
-    title: 'Revenue',
+    title: 'Calls',
     icon: <Icon icon='mdi:currency-usd' />
   }
 ]
@@ -77,7 +77,7 @@ const AnalyticsTransactionsCard = () => {
   return (
     <Card>
       <CardHeader
-        title='Transactions'
+        title='Summary'
         action={
           <OptionsMenu
             options={['Last 28 Days', 'Last Month', 'Last Year']}
