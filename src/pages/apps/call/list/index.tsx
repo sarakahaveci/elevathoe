@@ -151,7 +151,7 @@ const defaultColumns: GridColDef[] = [
     flex: 0.25,
     field: 'name',
     minWidth: 300,
-    headerName: 'Client',
+    headerName: 'Project',
     renderCell: ({ row }: CellType) => {
       const { name, companyEmail } = row
 
@@ -174,14 +174,14 @@ const defaultColumns: GridColDef[] = [
     flex: 0.1,
     minWidth: 90,
     field: 'total',
-    headerName: 'Total',
+    headerName: 'Unique ID',
     renderCell: ({ row }: CellType) => <Typography variant='body2'>{`$${row.total || 0}`}</Typography>
   },
   {
     flex: 0.15,
     minWidth: 125,
     field: 'issuedDate',
-    headerName: 'Issued Date',
+    headerName: 'Date',
     renderCell: ({ row }: CellType) => <Typography variant='body2'>{row.issuedDate}</Typography>
   },
   {
@@ -306,12 +306,12 @@ const InvoiceList = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <CardHeader title='Filtrele' />
+            <CardHeader title='Filter' />
             <CardContent>
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel id='invoice-status-select'>Durum</InputLabel>
+                    <InputLabel id='invoice-status-select'>Status</InputLabel>
 
                     <Select
                       fullWidth
@@ -321,8 +321,8 @@ const InvoiceList = () => {
                       onChange={handleStatusValue}
                       labelId='invoice-status-select'
                     >
-                      <MenuItem value='downloaded'>Acik</MenuItem>
-                      <MenuItem value='paid'>Kapali</MenuItem>
+                      <MenuItem value='downloaded'>Open</MenuItem>
+                      <MenuItem value='paid'>Closed</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -341,7 +341,7 @@ const InvoiceList = () => {
                       <CustomInput
                         dates={dates}
                         setDates={setDates}
-                        label='Tarih'
+                        label='Date'
                         end={endDateRange as number | Date}
                         start={startDateRange as number | Date}
                       />

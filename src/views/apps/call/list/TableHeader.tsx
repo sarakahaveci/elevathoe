@@ -37,7 +37,7 @@ const TableHeader = (props: TableHeaderProps) => {
           size='small'
           value={value}
           sx={{ mr: 4, mb: 2 }}
-          placeholder='Kayit Ara'
+          placeholder='Search'
           onChange={e => handleFilter(e.target.value)}
         />
       </Box>
