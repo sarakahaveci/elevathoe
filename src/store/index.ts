@@ -6,6 +6,7 @@ import chat from 'src/store/apps/chat'
 import user from 'src/store/apps/user'
 import email from 'src/store/apps/email'
 import calendar from 'src/store/apps/calendar'
+import invoice from 'src/store/apps/invoice'
 import permissions from 'src/store/apps/permissions'
 import customer from 'src/store/apps/customer'
 import maintainer from 'src/store/apps/maintainer'
@@ -19,6 +20,7 @@ export const store = configureStore({
     chat,
     email,
     calendar,
+    invoice,
     permissions,
     customer,
     maintainer,
