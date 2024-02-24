@@ -30,12 +30,12 @@ import DatePicker from 'react-datepicker'
 
 // ** Store & Actions Imports
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
+import { fetchData, deleteCall } from 'src/store/apps/call'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
 import { ThemeColor } from 'src/@core/layouts/types'
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
+import { InvoiceType } from 'src/types/apps/callTypes'
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Utils Import
@@ -45,7 +45,7 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
-import TableHeader from 'src/views/apps/invoice/list/TableHeader'
+import TableHeader from 'src/views/apps/call/list/TableHeader'
 
 // ** Styled Components
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
@@ -108,7 +108,7 @@ const defaultColumns: GridColDef[] = [
     field: 'id',
     minWidth: 80,
     headerName: '#',
-    renderCell: ({ row }: CellType) => <LinkStyled href={`/apps/invoice/preview/${row.id}`}>{`#${row.id}`}</LinkStyled>
+    renderCell: ({ row }: CellType) => <LinkStyled href={`/apps/call/preview/${row.id}`}>{`#${row.id}`}</LinkStyled>
   },
   {
     flex: 0.1,
@@ -227,7 +227,7 @@ const InvoiceList = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.invoice)
+  const store = useSelector((state: RootState) => state.call)
 
   useEffect(() => {
     dispatch(
@@ -267,12 +267,12 @@ const InvoiceList = () => {
       renderCell: ({ row }: CellType) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title='Delete Invoice'>
-            <IconButton size='small' onClick={() => dispatch(deleteInvoice(row.id))}>
+            <IconButton size='small' onClick={() => dispatch(deleteCall(row.id))}>
               <Icon icon='mdi:delete-outline' fontSize={20} />
             </IconButton>
           </Tooltip>
           <Tooltip title='View'>
-            <IconButton size='small' component={Link} href={`/apps/invoice/preview/${row.id}`}>
+            <IconButton size='small' component={Link} href={`/apps/call/preview/${row.id}`}>
               <Icon icon='mdi:eye-outline' fontSize={20} />
             </IconButton>
           </Tooltip>
@@ -287,7 +287,7 @@ const InvoiceList = () => {
               },
               {
                 text: 'Edit',
-                href: `/apps/invoice/edit/${row.id}`,
+                href: `/apps/call/edit/${row.id}`,
                 icon: <Icon icon='mdi:pencil-outline' fontSize={20} />
               },
               {

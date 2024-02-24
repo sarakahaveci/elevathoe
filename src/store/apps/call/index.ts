@@ -16,29 +16,29 @@ interface Redux {
   dispatch: Dispatch<any>
 }
 
-// ** Fetch Invoices
-export const fetchData = createAsyncThunk('appInvoice/fetchData', async (params: DataParams) => {
-  const response = await axios.get('/apps/invoice/invoices', {
+// ** Fetch Calls
+export const fetchData = createAsyncThunk('appCall/fetchData', async (params: DataParams) => {
+  const response = await axios.get('/apps/call/calls', {
     params
   })
 
   return response.data
 })
 
-export const deleteInvoice = createAsyncThunk(
-  'appInvoice/deleteData',
+export const deleteCall = createAsyncThunk(
+  'appCall/deleteData',
   async (id: number | string, { getState, dispatch }: Redux) => {
-    const response = await axios.delete('/apps/invoice/delete', {
+    const response = await axios.delete('/apps/call/delete', {
       data: id
     })
-    await dispatch(fetchData(getState().invoice.params))
+    await dispatch(fetchData(getState().call.params))
 
     return response.data
   }
 )
 
-export const appInvoiceSlice = createSlice({
-  name: 'appInvoice',
+export const appCallSlice = createSlice({
+  name: 'appCall',
   initialState: {
     data: [],
     total: 1,
@@ -48,7 +48,7 @@ export const appInvoiceSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchData.fulfilled, (state, action) => {
-      state.data = action.payload.invoices
+      state.data = action.payload.calls
       state.params = action.payload.params
       state.allData = action.payload.allData
       state.total = action.payload.total
@@ -56,4 +56,4 @@ export const appInvoiceSlice = createSlice({
   }
 })
 
-export default appInvoiceSlice.reducer
+export default appCallSlice.reducer
