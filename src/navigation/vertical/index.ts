@@ -9,38 +9,38 @@ const navigation = (): VerticalNavItemsType => {
       path: '/dashboards/analytics'
     },
     {
-      sectionTitle: 'Kurtarma Modulu'
+      sectionTitle: 'Rescue'
     },
     {
-      title: 'Arama Kayitlari',
+      title: 'Records',
       icon: 'ri:customer-service-fill',
       path: '/apps/call/list'
     },
     {
-      title: 'Asansorler',
+      title: 'Elevators',
       icon: 'game-icons:elevator',
       path: '/apps/elevator/list'
     },
     {
-      title: 'Projeler',
+      title: 'Projects',
       icon: 'ph:projector-screen-chart-fill',
       path: '/apps/project/list'
     },
     {
-      sectionTitle: 'Firma Bilgileri'
+      sectionTitle: 'Company Info'
     },
     {
-      title: 'Bakimcilar',
+      title: 'Maintainers',
       icon: 'wpf:maintenance',
       path: '/apps/maintainer/list'
     },
     {
-      title: 'Musteriler',
+      title: 'Customers',
       icon: 'bi:building-fill',
       path: '/apps/customer/list'
     },
     {
-      title: 'Kullanicilar',
+      title: 'Users',
       icon: 'mdi:account',
       path: '/apps/user/list'
     }
