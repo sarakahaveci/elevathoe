@@ -35,7 +35,7 @@ import { fetchData, deleteCall } from 'src/store/apps/call'
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
 import { ThemeColor } from 'src/@core/layouts/types'
-import { InvoiceType } from 'src/types/apps/callTypes'
+import { InvoiceType, CallType } from 'src/types/apps/callTypes'
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Utils Import
@@ -116,7 +116,7 @@ const defaultColumns: GridColDef[] = [
     field: 'invoiceStatus',
     renderHeader: () => <Icon icon='mdi:trending-up' fontSize={20} />,
     renderCell: ({ row }: CellType) => {
-      const { dueDate, balance, invoiceStatus } = row
+      const { balance, invoiceStatus } = row
 
       const color = invoiceStatusObj[invoiceStatus] ? invoiceStatusObj[invoiceStatus].color : 'primary'
 
@@ -129,14 +129,9 @@ const defaultColumns: GridColDef[] = [
               </Typography>
               <br />
               <Typography variant='caption' sx={{ color: 'common.white', fontWeight: 600 }}>
-                Balance:
+                Duration:
               </Typography>{' '}
               {balance}
-              <br />
-              <Typography variant='caption' sx={{ color: 'common.white', fontWeight: 600 }}>
-                Due Date:
-              </Typography>{' '}
-              {dueDate}
             </div>
           }
         >
@@ -175,8 +170,13 @@ const defaultColumns: GridColDef[] = [
     minWidth: 90,
     field: 'total',
     headerName: 'Unique ID',
-    renderCell: ({ row }: CellType) => <Typography variant='body2'>{`$${row.total || 0}`}</Typography>
-  },
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography variant='body2' sx={{ color: 'text.primary' }}>
+          {row.address}
+        </Typography>
+      )
+    }  },
   {
     flex: 0.15,
     minWidth: 125,
@@ -188,14 +188,12 @@ const defaultColumns: GridColDef[] = [
     flex: 0.1,
     minWidth: 90,
     field: 'balance',
-    headerName: 'Balance',
+    headerName: 'Maintainer',
     renderCell: ({ row }: CellType) => {
-      return row.balance !== 0 ? (
+      return (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.balance}
+          {row.country}
         </Typography>
-      ) : (
-        <CustomChip size='small' skin='light' color='success' label='Paid' />
       )
     }
   }

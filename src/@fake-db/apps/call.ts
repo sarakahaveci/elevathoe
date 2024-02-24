@@ -5,28 +5,73 @@ import mock from 'src/@fake-db/mock'
 import { getDateRange } from 'src/@core/utils/get-daterange'
 
 // ** Types
-import { InvoiceType } from 'src/types/apps/callTypes'
+import { InvoiceType, CallType } from 'src/types/apps/callTypes'
 
 const now = new Date()
 const currentMonth = now.toLocaleString('default', { month: 'short' })
+
+const data2: { mycalls: CallType[] } = {
+  mycalls: [
+      {
+        id: 1,
+        issuedDate: `13 ${currentMonth} ${now.getFullYear()}`,
+        project: 'Nike',
+        customer: 'Cevahir AVM',
+        maintainer: 'Ali Yildirim',
+        duration: '01:01',
+        elevatorId: '11-22-33',
+        status: 'Open'
+      },
+      {
+        id: 2,
+        issuedDate: `14 ${currentMonth} ${now.getFullYear()}`,
+        project: 'Adidas',
+        customer: 'Profilo AVM',
+        maintainer: 'Ali Yildirim',
+        duration: '01:01',
+        elevatorId: '11-22-33',
+        status: 'Closed'
+      },
+      {
+        id: 3,
+        issuedDate: `15 ${currentMonth} ${now.getFullYear()}`,
+        project: 'Nike',
+        customer: 'Cevahir AVM',
+        maintainer: 'Ali Yildirim',
+        duration: '01:01',
+        elevatorId: '11-22-33',
+        status: 'Closed'
+      },
+      {
+        id: 4,
+        issuedDate: `16 ${currentMonth} ${now.getFullYear()}`,
+        project: 'Adidas',
+        customer: 'Profilo AVM',
+        maintainer: 'Ali Yildirim',
+        duration: '01:01',
+        elevatorId: '11-22-33',
+        status: 'Open'
+      },
+  ]
+};
 
 const data: { calls: InvoiceType[] } = {
   calls: [
     {
       id: 4987,
       issuedDate: `13 ${currentMonth} ${now.getFullYear()}`,
-      address: '7777 Mendez Plains',
+      address: '11-22-33',
       company: 'Hall-Robbins PLC',
-      companyEmail: 'don85@johnson.com',
+      companyEmail: 'Profilo AVM',
       country: 'USA',
       contact: '(616) 865-4180',
-      name: 'Jordan Stevenson',
+      name: 'Nike',
       service: 'Software Development',
-      total: 3428,
+      total: 11-22-33,
       avatar: '',
       avatarColor: 'primary',
       invoiceStatus: 'Paid',
-      balance: '$724',
+      balance: 'Ali Yildirim',
       dueDate: `23 ${currentMonth} ${now.getFullYear()}`
     },
     {
