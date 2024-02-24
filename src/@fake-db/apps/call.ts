@@ -5,7 +5,7 @@ import mock from 'src/@fake-db/mock'
 import { getDateRange } from 'src/@core/utils/get-daterange'
 
 // ** Types
-import { InvoiceType, CallType } from 'src/types/apps/callTypes'
+import { CallType } from 'src/types/apps/callTypes'
 
 const now = new Date()
 const currentMonth = now.toLocaleString('default', { month: 'short' })
@@ -59,6 +59,7 @@ const data: { calls: CallType[] } = {
 // GET: Return Invoice List
 // ------------------------------------------------
 mock.onGet('/apps/call/calls').reply(config => {
+  console.log(config.params);
   const { q = '', status = '', dates = [] } = config.params ?? ''
   const queryLowered = q.toLowerCase()
   const filteredData = data.calls.filter(call => {

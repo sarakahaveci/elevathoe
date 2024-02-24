@@ -83,27 +83,9 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 // ** Vars
-const InvoiceStatusObj: InvoiceStatusObj = {
-  Sent: { color: 'secondary', icon: 'mdi:send' },
-  Paid: { color: 'success', icon: 'mdi:check' },
-  Closed: { color: 'success', icon: 'mdi:check' },
-  Open: { color: 'secondary', icon: 'mdi:send' },
-  Draft: { color: 'primary', icon: 'mdi:content-save-outline' },
-  'Partial Payment': { color: 'warning', icon: 'mdi:chart-pie' },
-  'Past Due': { color: 'error', icon: 'mdi:information-outline' },
-  Downloaded: { color: 'info', icon: 'mdi:arrow-down' }
-}
-
-// ** Vars
 const callStatusObj: CallStatusObj = {
-  Sent: { color: 'secondary', icon: 'mdi:send' },
-  Paid: { color: 'success', icon: 'mdi:check' },
   Closed: { color: 'success', icon: 'mdi:check' },
-  Open: { color: 'secondary', icon: 'mdi:send' },
-  Draft: { color: 'primary', icon: 'mdi:content-save-outline' },
-  'Partial Payment': { color: 'warning', icon: 'mdi:chart-pie' },
-  'Past Due': { color: 'error', icon: 'mdi:information-outline' },
-  Downloaded: { color: 'info', icon: 'mdi:arrow-down' }
+  Open: { color: 'secondary', icon: 'mdi:send' }
 }
 
 const defaultColumns: GridColDef[] = [
@@ -322,8 +304,8 @@ const InvoiceList = () => {
                       onChange={handleStatusValue}
                       labelId='invoice-status-select'
                     >
-                      <MenuItem value='downloaded'>Open</MenuItem>
-                      <MenuItem value='paid'>Closed</MenuItem>
+                      <MenuItem value='open'>Open</MenuItem>
+                      <MenuItem value='closed'>Closed</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
