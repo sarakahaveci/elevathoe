@@ -272,7 +272,7 @@ const InvoiceList = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title='View'>
-            <IconButton size='small' component={Link} href={`/apps/call/preview/${row.id}`}>
+            <IconButton size='small' component={Link} href={`/apps/invoice/preview/${row.id}`}>
               <Icon icon='mdi:eye-outline' fontSize={20} />
             </IconButton>
           </Tooltip>
@@ -306,12 +306,12 @@ const InvoiceList = () => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Card>
-            <CardHeader title='Filters' />
+            <CardHeader title='Filtrele' />
             <CardContent>
               <Grid container spacing={6}>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel id='invoice-status-select'>Invoice Status</InputLabel>
+                    <InputLabel id='invoice-status-select'>Durum</InputLabel>
 
                     <Select
                       fullWidth
@@ -321,13 +321,8 @@ const InvoiceList = () => {
                       onChange={handleStatusValue}
                       labelId='invoice-status-select'
                     >
-                      <MenuItem value=''>none</MenuItem>
-                      <MenuItem value='downloaded'>Downloaded</MenuItem>
-                      <MenuItem value='draft'>Draft</MenuItem>
-                      <MenuItem value='paid'>Paid</MenuItem>
-                      <MenuItem value='partial payment'>Partial Payment</MenuItem>
-                      <MenuItem value='past due'>Past Due</MenuItem>
-                      <MenuItem value='sent'>Sent</MenuItem>
+                      <MenuItem value='downloaded'>Acik</MenuItem>
+                      <MenuItem value='paid'>Kapali</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -346,7 +341,7 @@ const InvoiceList = () => {
                       <CustomInput
                         dates={dates}
                         setDates={setDates}
-                        label='Invoice Date'
+                        label='Tarih'
                         end={endDateRange as number | Date}
                         start={startDateRange as number | Date}
                       />
