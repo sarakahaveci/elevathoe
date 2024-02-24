@@ -35,7 +35,7 @@ import { fetchData, deleteCall } from 'src/store/apps/call'
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
 import { ThemeColor } from 'src/@core/layouts/types'
-import { InvoiceType, CallType } from 'src/types/apps/callTypes'
+import { CallType } from 'src/types/apps/callTypes'
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Utils Import
@@ -73,7 +73,7 @@ interface CustomInputProps {
 }
 
 interface CellType {
-  row: InvoiceType
+  row: CallType
 }
 
 // ** Styled component for the link in the dataTable
@@ -117,30 +117,30 @@ const defaultColumns: GridColDef[] = [
   {
     flex: 0.1,
     minWidth: 80,
-    field: 'invoiceStatus',
+    field: 'callStatus',
     renderHeader: () => <Icon icon='mdi:trending-up' fontSize={20} />,
     renderCell: ({ row }: CellType) => {
-      const { balance, invoiceStatus } = row
+      const { status, duration } = row
 
-      const color = callStatusObj[invoiceStatus] ? callStatusObj[invoiceStatus].color : 'primary'
+      const color = callStatusObj[status] ? callStatusObj[status].color : 'primary'
 
       return (
         <Tooltip
           title={
             <div>
               <Typography variant='caption' sx={{ color: 'common.white', fontWeight: 600 }}>
-                {invoiceStatus}
+                {status}
               </Typography>
               <br />
               <Typography variant='caption' sx={{ color: 'common.white', fontWeight: 600 }}>
                 Duration:
               </Typography>{' '}
-              {balance}
+              {duration}
             </div>
           }
         >
           <CustomAvatar skin='light' color={color} sx={{ width: '1.875rem', height: '1.875rem' }}>
-            <Icon icon={callStatusObj[invoiceStatus].icon} fontSize='1rem' />
+            <Icon icon={callStatusObj[status].icon} fontSize='1rem' />
           </CustomAvatar>
         </Tooltip>
       )
