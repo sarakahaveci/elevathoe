@@ -14,7 +14,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Arama Kayitlari',
       icon: 'ri:customer-service-fill',
-      path: '/apps/email'
+      path: '/apps/call/list'
     },
     {
       title: 'Asansorler',

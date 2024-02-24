@@ -12,6 +12,7 @@ import customer from 'src/store/apps/customer'
 import maintainer from 'src/store/apps/maintainer'
 import project from 'src/store/apps/project'
 import elevator from 'src/store/apps/elevator'
+import call from 'src/store/apps/call'
 
 export const store = configureStore({
   reducer: {
@@ -24,7 +25,8 @@ export const store = configureStore({
     customer,
     maintainer,
     project,
-    elevator
+    elevator,
+    call
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
