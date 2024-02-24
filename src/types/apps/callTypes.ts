@@ -1,6 +1,6 @@
 export type InvoiceStatus = 'Paid' | string
 
-export type CallStatus = 'Open' | string
+export type CallStatus = 'Closed' | string
 
 export type InvoiceLayoutProps = {
   id: string | undefined
@@ -28,20 +28,20 @@ export type CallType = {
 
 export type InvoiceType = {
   id: number
-  name: string
+  project: string
   total: number
   avatar: string
   service: string
   dueDate: string
-  address: string
+  elevatorId: string
   company: string
-  country: string
+  maintainer: string
   contact: string
   avatarColor?: string
   issuedDate: string
-  companyEmail: string
+  customer: string
   balance: string | number
-  invoiceStatus: InvoiceStatus
+  invoiceStatus: CallStatus
 }
 
 export type InvoicePaymentType = {

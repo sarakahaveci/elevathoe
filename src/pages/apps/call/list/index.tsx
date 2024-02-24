@@ -57,6 +57,13 @@ interface InvoiceStatusObj {
   }
 }
 
+interface CallStatusObj {
+  [key: string]: {
+    icon: string
+    color: ThemeColor
+  }
+}
+
 interface CustomInputProps {
   dates: Date[]
   label: string
@@ -76,30 +83,27 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 // ** Vars
-const invoiceStatusObj: InvoiceStatusObj = {
+const InvoiceStatusObj: InvoiceStatusObj = {
   Sent: { color: 'secondary', icon: 'mdi:send' },
   Paid: { color: 'success', icon: 'mdi:check' },
+  Closed: { color: 'success', icon: 'mdi:check' },
+  Open: { color: 'secondary', icon: 'mdi:send' },
   Draft: { color: 'primary', icon: 'mdi:content-save-outline' },
   'Partial Payment': { color: 'warning', icon: 'mdi:chart-pie' },
   'Past Due': { color: 'error', icon: 'mdi:information-outline' },
   Downloaded: { color: 'info', icon: 'mdi:arrow-down' }
 }
 
-// ** renders client column
-const renderClient = (row: InvoiceType) => {
-  if (row.avatar.length) {
-    return <CustomAvatar src={row.avatar} sx={{ mr: 3, width: '1.875rem', height: '1.875rem' }} />
-  } else {
-    return (
-      <CustomAvatar
-        skin='light'
-        color={(row.avatarColor as ThemeColor) || ('primary' as ThemeColor)}
-        sx={{ mr: 3, fontSize: '.8rem', width: '1.875rem', height: '1.875rem' }}
-      >
-        {getInitials(row.name || 'John Doe')}
-      </CustomAvatar>
-    )
-  }
+// ** Vars
+const callStatusObj: CallStatusObj = {
+  Sent: { color: 'secondary', icon: 'mdi:send' },
+  Paid: { color: 'success', icon: 'mdi:check' },
+  Closed: { color: 'success', icon: 'mdi:check' },
+  Open: { color: 'secondary', icon: 'mdi:send' },
+  Draft: { color: 'primary', icon: 'mdi:content-save-outline' },
+  'Partial Payment': { color: 'warning', icon: 'mdi:chart-pie' },
+  'Past Due': { color: 'error', icon: 'mdi:information-outline' },
+  Downloaded: { color: 'info', icon: 'mdi:arrow-down' }
 }
 
 const defaultColumns: GridColDef[] = [
@@ -118,7 +122,7 @@ const defaultColumns: GridColDef[] = [
     renderCell: ({ row }: CellType) => {
       const { balance, invoiceStatus } = row
 
-      const color = invoiceStatusObj[invoiceStatus] ? invoiceStatusObj[invoiceStatus].color : 'primary'
+      const color = callStatusObj[invoiceStatus] ? callStatusObj[invoiceStatus].color : 'primary'
 
       return (
         <Tooltip
@@ -136,7 +140,7 @@ const defaultColumns: GridColDef[] = [
           }
         >
           <CustomAvatar skin='light' color={color} sx={{ width: '1.875rem', height: '1.875rem' }}>
-            <Icon icon={invoiceStatusObj[invoiceStatus].icon} fontSize='1rem' />
+            <Icon icon={callStatusObj[invoiceStatus].icon} fontSize='1rem' />
           </CustomAvatar>
         </Tooltip>
       )
@@ -148,16 +152,16 @@ const defaultColumns: GridColDef[] = [
     minWidth: 300,
     headerName: 'Project',
     renderCell: ({ row }: CellType) => {
-      const { name, companyEmail } = row
+      const { project, customer } = row
 
       return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography noWrap variant='body2' sx={{ color: 'text.primary', fontWeight: 600 }}>
-              {name}
+              {project}
             </Typography>
             <Typography noWrap variant='caption'>
-              {companyEmail}
+              {customer}
             </Typography>
           </Box>
         </Box>
@@ -172,7 +176,7 @@ const defaultColumns: GridColDef[] = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.address}
+          {row.elevatorId}
         </Typography>
       )
     }  },
@@ -191,7 +195,7 @@ const defaultColumns: GridColDef[] = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography variant='body2' sx={{ color: 'text.primary' }}>
-          {row.country}
+          {row.maintainer}
         </Typography>
       )
     }
