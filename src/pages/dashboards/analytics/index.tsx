@@ -21,6 +21,7 @@ import AnalyticsWeeklyOverview from 'src/views/dashboards/analytics/AnalyticsWee
 import AnalyticsDepositWithdraw from 'src/views/dashboards/analytics/AnalyticsDepositWithdraw'
 import AnalyticsSalesByCountries from 'src/views/dashboards/analytics/AnalyticsSalesByCountries'
 import AnalyticsTransactionsCard from 'src/views/dashboards/analytics/AnalyticsTransactionsCard'
+import CrmMeetingSchedule from 'src/views/dashboards/analytics/CrmMeetingSchedule'
 
 const AnalyticsDashboard = () => {
   return (
@@ -33,10 +34,10 @@ const AnalyticsDashboard = () => {
           <AnalyticsTransactionsCard />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <AnalyticsWeeklyOverview />
+          <CrmMeetingSchedule />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
-          <AnalyticsTotalEarning />
+          <AnalyticsWeeklyOverview />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>
           <Grid container spacing={6}>
@@ -68,16 +69,7 @@ const AnalyticsDashboard = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <AnalyticsPerformance />
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <AnalyticsDepositWithdraw />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <AnalyticsSalesByCountries />
-        </Grid>
-        <Grid item xs={12} md={12} lg={8}>
+        <Grid item xs={12} md={12} lg={12}>
           <AnalyticsTable />
         </Grid>
       </Grid>
