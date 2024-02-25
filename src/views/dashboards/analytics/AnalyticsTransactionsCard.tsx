@@ -87,9 +87,9 @@ const AnalyticsTransactionsCard = () => {
         subheader={
           <Typography variant='body2'>
             <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
-              Total 48.5% growth
+              10% growth
             </Box>{' '}
-            😎 this month
+            on installations in this month
           </Typography>
         }
         titleTypographyProps={{

@@ -42,30 +42,44 @@ const AnalyticsDashboard = () => {
         <Grid item xs={12} md={6} lg={4}>
           <Grid container spacing={6}>
             <Grid item xs={6}>
-              <AnalyticsTotalProfit />
-            </Grid>
-            <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='$25.6k'
+                stats='22:00'
                 icon={<Icon icon='mdi:poll' />}
                 color='secondary'
-                trendNumber='+42%'
-                title='Total Profit'
-                subtitle='Weekly Profit'
+                trendNumber='3 mins'
+                title='Last Call'
+                subtitle='Nike'
               />
             </Grid>
             <Grid item xs={6}>
               <CardStatisticsVerticalComponent
-                stats='862'
+                stats='25.02'
                 trend='negative'
-                trendNumber='-18%'
-                title='New Project'
-                subtitle='Yearly Project'
+                trendNumber='4 hours'
+                title='Maintenance'
+                subtitle='Adidas'
                 icon={<Icon icon='mdi:briefcase-variant-outline' />}
               />
             </Grid>
             <Grid item xs={6}>
-              <AnalyticsSessions />
+              <CardStatisticsVerticalComponent
+                stats='10'
+                trend='negative'
+                trendNumber=''
+                title='Active Installs'
+                subtitle='latest is Adidas'
+                icon={<Icon icon='mdi:briefcase-variant-outline' />}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <CardStatisticsVerticalComponent
+                stats='4'
+                trend='negative'
+                trendNumber=''
+                title="Week's Visits"
+                subtitle='latest is Nike'
+                icon={<Icon icon='mdi:briefcase-variant-outline' />}
+              />
             </Grid>
           </Grid>
         </Grid>
