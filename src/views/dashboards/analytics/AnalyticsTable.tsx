@@ -20,25 +20,19 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
 
-interface TableBodyRowType {
+interface CallTableBodyRowType {
   id: number
-  name: string
-  email: string
-  username: string
-  avatarSrc?: string
+  project: string
+  customer: string
+  elevator: string
+  maintainer: string
+  hour: string
+  date: string
   status: 'active' | 'pending' | 'inactive'
-  role: 'editor' | 'author' | 'maintainer' | 'subscriber'
 }
 
 interface CellType {
-  row: TableBodyRowType
-}
-
-interface RoleObj {
-  [key: string]: {
-    color: ThemeColor
-    icon: ReactElement
-  }
+  row: CallTableBodyRowType
 }
 
 interface StatusObj {
@@ -47,88 +41,48 @@ interface StatusObj {
   }
 }
 
-const rows: TableBodyRowType[] = [
+const myrows: CallTableBodyRowType[] = [
   {
     id: 1,
-    role: 'maintainer',
     status: 'inactive',
-    username: '@gslixby0',
-    name: 'Joseph Wheeler',
-    email: 'nuroani@icpair.com',
-    avatarSrc: '/images/avatars/1.png'
+    project: 'Nike',
+    customer: 'Cevahir AVM',
+    elevator: '11-22-33',
+    maintainer: 'Taygun Yildirim',
+    date: '01.01.2024',
+    hour: '23:59'
   },
   {
     id: 2,
     status: 'active',
-    name: 'May Lloyd',
-    role: 'subscriber',
-    email: 'jeju@ma.co.uk',
-    username: '@hredmore1',
-    avatarSrc: '/images/avatars/2.png'
+    project: 'Adidas',
+    customer: 'Cevahir AVM',
+    elevator: '11-22-33',
+    maintainer: 'Taygun Yildirim',
+    date: '02.01.2024',
+    hour: '23:59'
   },
   {
     id: 3,
-    status: 'pending',
-    role: 'subscriber',
-    username: '@msicely2',
-    name: 'William Mckinney',
-    email: 'cidagehe@nonalbo.com'
+    status: 'active',
+    project: 'Adidas',
+    customer: 'Cevahir AVM',
+    elevator: '11-22-33',
+    maintainer: 'Taygun Yildirim',
+    date: '02.01.2024',
+    hour: '23:59'
   },
   {
     id: 4,
-    role: 'editor',
     status: 'active',
-    name: 'Warren Clarke',
-    username: '@mhurran4',
-    email: 'hirasles@zozzetkuv.edu',
-    avatarSrc: '/images/avatars/5.png'
+    project: 'Adidas',
+    customer: 'Cevahir AVM',
+    elevator: '11-22-33',
+    maintainer: 'Taygun Yildirim',
+    date: '02.01.2024',
+    hour: '23:59'
   },
-  {
-    id: 5,
-    role: 'maintainer',
-    status: 'inactive',
-    username: '@crisby3',
-    name: 'Isabel Briggs',
-    email: 'temiwiho@ohacma.gov'
-  },
-  {
-    id: 6,
-    role: 'author',
-    status: 'pending',
-    email: 'boz@peh.co.uk',
-    name: 'Adeline Bennett',
-    username: '@shalstead5',
-    avatarSrc: '/images/avatars/4.png'
-  },
-  {
-    id: 7,
-    role: 'editor',
-    status: 'active',
-    name: 'Lora Simpson',
-    email: 'dude@oco.nl',
-    username: '@bkildayr',
-    avatarSrc: '/images/avatars/8.png'
-  }
 ]
-
-const roleObj: RoleObj = {
-  author: {
-    color: 'success',
-    icon: <Icon icon='mdi:cog' />
-  },
-  maintainer: {
-    color: 'primary',
-    icon: <Icon icon='mdi:chart-pie' />
-  },
-  editor: {
-    color: 'info',
-    icon: <Icon icon='mdi:pencil' />
-  },
-  subscriber: {
-    color: 'warning',
-    icon: <Icon icon='mdi:account-outline' />
-  }
-}
 
 const statusObj: StatusObj = {
   active: { color: 'success' },
@@ -136,28 +90,15 @@ const statusObj: StatusObj = {
   inactive: { color: 'secondary' }
 }
 
-const renderUserAvatar = (row: TableBodyRowType) => {
-  if (row.avatarSrc) {
-    return <CustomAvatar src={row.avatarSrc} sx={{ mr: 3, width: 30, height: 30 }} />
-  } else {
-    return (
-      <CustomAvatar skin='light' sx={{ mr: 3, width: 30, height: 30, fontSize: '.8rem' }}>
-        {getInitials(row.name ? row.name : 'John Doe')}
-      </CustomAvatar>
-    )
-  }
-}
-
 const columns: GridColDef[] = [
   {
     flex: 0.25,
-    field: 'name',
+    field: 'project',
     minWidth: 200,
-    headerName: 'Name',
+    headerName: 'Project',
     renderCell: ({ row }: CellType) => {
       return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {renderUserAvatar(row)}
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
               sx={{
@@ -168,10 +109,10 @@ const columns: GridColDef[] = [
                 letterSpacing: '0.22px'
               }}
             >
-              {row.name}
+              {row.customer}
             </Typography>
             <Typography variant='body2' sx={{ fontSize: '0.75rem', letterSpacing: '0.4px' }}>
-              {row.username}
+              {row.project}
             </Typography>
           </Box>
         </Box>
@@ -181,29 +122,33 @@ const columns: GridColDef[] = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'email',
-    headerName: 'Email',
+    field: 'maintainer',
+    headerName: 'Maintainer',
     renderCell: ({ row }: CellType) => (
       <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
-        {row.email}
+        {row.maintainer}
       </Typography>
     )
   },
   {
     flex: 0.2,
     minWidth: 140,
-    field: 'role',
-    headerName: 'Role',
+    field: 'elevator',
+    headerName: 'Elevator',
     renderCell: ({ row }: CellType) => (
-      <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { fontSize: '1rem' } }}>
-        <CustomAvatar skin='light' color={roleObj[row.role].color} sx={{ mr: 2.5, width: 30, height: 30 }}>
-          {roleObj[row.role].icon}
-        </CustomAvatar>
-        <Typography variant='body2' sx={{ textTransform: 'capitalize' }}>
-          {row.role}
-        </Typography>
-      </Box>
-    )
+      <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
+        {row.elevator}
+      </Typography>    )
+  },
+  {
+    flex: 0.2,
+    minWidth: 140,
+    field: 'date',
+    headerName: 'Call',
+    renderCell: ({ row }: CellType) => (
+      <Typography variant='body2' sx={{ letterSpacing: '0.25px' }}>
+        {row.date + ' ' + row.hour}
+      </Typography>    )
   },
   {
     flex: 0.2,
@@ -229,7 +174,7 @@ const columns: GridColDef[] = [
 const AnalyticsTable = () => {
   return (
     <Card>
-      <DataGrid autoHeight hideFooter rows={rows} columns={columns} disableRowSelectionOnClick pagination={undefined} />
+      <DataGrid autoHeight hideFooter rows={myrows} columns={columns} disableRowSelectionOnClick pagination={undefined} />
     </Card>
   )
 }
