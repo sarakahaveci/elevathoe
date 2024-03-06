@@ -26,38 +26,38 @@ interface DataType {
 
 const data: DataType[] = [
   {
-    chipText: 'Business',
-    chipColor: 'primary',
-    title: 'Call with Woods',
-    src: '/images/avatars/4.png',
+    chipText: 'No Service',
+    chipColor: 'secondary',
+    title: 'Nike',
+    src: '/images/avatars/countdown-2.png',
     subtitle: '21 Jul | 08:20-10:30'
   },
   {
     chipColor: 'success',
-    chipText: 'Meditation',
-    title: 'Call with hilda',
-    src: '/images/avatars/8.png',
+    chipText: 'Periodic',
+    title: 'Adidas',
+    src: '/images/avatars/countdown.png',
     subtitle: '24 Jul | 11:30-12:00'
   },
   {
-    chipText: 'Dinner',
+    chipText: 'Rescue',
     chipColor: 'error',
-    title: 'Conference call',
-    src: '/images/avatars/7.png',
+    title: 'Nike',
+    src: '/images/avatars/countdown.png',
     subtitle: '28 Jul | 05:00-6:45'
   },
   {
-    chipText: 'Meetup',
-    chipColor: 'secondary',
-    title: 'Meeting with Mark',
-    src: '/images/avatars/3.png',
+    chipText: 'Periodic',
+    chipColor: 'success',
+    title: 'Louis Vitton',
+    src: '/images/avatars/countdown.png',
     subtitle: '03 Aug | 07:00-8:30'
   },
   {
-    chipText: 'Business',
-    chipColor: 'primary',
-    title: 'Meeting in Oakland',
-    src: '/images/avatars/2.png',
+    chipText: 'No-Service',
+    chipColor: 'secondary',
+    title: 'Ahmet Villa',
+    src: '/images/avatars/countdown.png',
     subtitle: '14 Aug | 04:15-05:30'
   },
 ]
