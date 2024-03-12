@@ -14,10 +14,10 @@ const users: UserDataType[] = [
   {
     id: 'd36cbcce-e245-403b-b641-ca41aafcacc3',
     role: 'authenticated',
-    password: '123456',
-    fullName: 'Emircan Cakmak',
-    username: 'emircancakmak',
-    email: 'emircancakmak82@gmail.com'
+    password: '12345678',
+    fullName: 'Kivanc Cakmak',
+    username: 'kivanccakmak',
+    email: 'kivanccakmak@gmail.com'
   }
 ]
 
