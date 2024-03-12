@@ -33,7 +33,53 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+import * as yup from 'yup';
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2';
+
+const schema = yup.object().shape({
+  companyName: yup.string().required(),
+  email: yup.string().email().required(),
+  password: yup.string().min(5).required(),
+});
+
+interface FormData {
+  companyName: string;
+  email: string;
+  password: string;
+}
+const handleSignup = async (formData: FormData) => {
+  try {
+    const { companyName, email, password } = formData;
+    const apiEndpoint = "https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/signup";
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXJneWFuY2xva2JjcmFnYXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU3Mzg1NzUsImV4cCI6MjAyMTMxNDU3NX0.c8h74b1YIhcd4Y1CFVLvJKqAMVXRAH1h2UXLGJ9cNqQ", 
+      },
+      body: JSON.stringify({
+        orgName: companyName,
+        email,
+        password,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Signup successful:", data);
+    } else {
+      const errorData = await response.json();
+      console.error("Signup failed:", errorData);
+    }
+
+  } catch (error) {
+    console.error("Error during signup:", error);
+
+
+  } finally {
+  }
+};
+
 
 // ** Styled Components
 const RegisterIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -285,10 +331,10 @@ const Register = () => {
       </RightWrapper>
     </Box>
   )
-}
+  }
 
 Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 Register.guestGuard = true
-
+    
 export default Register
