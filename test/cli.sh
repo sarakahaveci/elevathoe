@@ -25,5 +25,8 @@ token=$(curl -X POST $login_url \
 #api_url=$base_url"forgotPassword"
 #curl -X POST  $api_url -H "apikey: $anonKey" -H "Content-Type: application/json" -H "Authorization: Bearer $anonKey" --data "{\"email\": \"$email\"}"
 
-api_url=$base_url"addCustomer"
-curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"burj el arab\", \"cancel\": 0}"
+#api_url=$base_url"addCustomer"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"burj el arab\", \"cancel\": 0}"
+#
+api_url=$base_url"getCustomers"
+curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
