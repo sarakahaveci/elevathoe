@@ -39,3 +39,6 @@ token=$(curl -X POST $login_url \
 #
 #api_url=$base_url"getMaintainers"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
+#
+#api_url=$base_url"getElevators"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
