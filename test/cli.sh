@@ -55,3 +55,6 @@ token=$(curl -X POST $login_url \
 #
 #api_url=$base_url"addElevator"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"uniqueId\": \"11-22-33\", \"cancel\": 0, \"name\": \"myname\", \"projectId\": \"c053ce75-386e-47a2-a457-49f28057d0f2\"}"
+#
+#api_url=$base_url"addMaintainer"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Taygun Yildirim\", \"cancel\": 0, \"phoneNumber\": \"05533366024\", \"isCustomer\": 0}"
