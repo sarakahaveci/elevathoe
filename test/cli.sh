@@ -21,10 +21,8 @@ token=$(curl -X POST $login_url \
 	--data "{\"email\":\"$email\", \"password\": \"$password\"}" \
 	| jq -r '.signInResponse.data.session.access_token')
 	
-	
-
 #api_url=$base_url"signup"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"orgName\": \"myCompany-1\", \"email\": \"a@b.com\", \"password\": \"mypassword\"}"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"orgName\": \"myCompany-1\", \"email\": \"m@karabacak3.com\", \"password\": \"mypassword\", \"fullname\": \"karabacak3\"}"
 
 #api_url=$base_url"forgotPassword"
 #curl -X POST  $api_url -H "apikey: $anonKey" -H "Content-Type: application/json" -H "Authorization: Bearer $anonKey" --data "{\"email\": \"$email\"}"
@@ -39,22 +37,22 @@ token=$(curl -X POST $login_url \
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
 
 #api_url=$base_url"getUsers"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
 
 #api_url=$base_url"getProjects"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
+
+#api_url=$base_url"addMaintainer"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Taygun Yildirim\", \"cancel\": 0, \"phoneNumber\": \"05533366024\", \"isCustomer\": 0}" | python3 -m json.tool
 
 #api_url=$base_url"getMaintainers"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
-
-#api_url=$base_url"getElevators"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
 
 #api_url=$base_url"updatePassword"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"newPassword\": \"osman\"}"
 #
+#api_url=$base_url"getElevators"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
+#
 #api_url=$base_url"addElevator"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"uniqueId\": \"11-22-33\", \"cancel\": 0, \"name\": \"myname\", \"projectId\": \"c053ce75-386e-47a2-a457-49f28057d0f2\"}"
-#
-#api_url=$base_url"addMaintainer"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Taygun Yildirim\", \"cancel\": 0, \"phoneNumber\": \"05533366024\", \"isCustomer\": 0}"
