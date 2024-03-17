@@ -28,13 +28,13 @@ token=$(curl -X POST $login_url \
 #curl -X POST  $api_url -H "apikey: $anonKey" -H "Content-Type: application/json" -H "Authorization: Bearer $anonKey" --data "{\"email\": \"$email\"}"
 
 #api_url=$base_url"addCustomer"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"burj el arab\", \"cancel\": 0}"
-#
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Soyak Insaat\", \"cancel\": 0}"
+
 #api_url=$base_url"addProject"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Kristal Kule\", \"cancel\": 0, \"customerId\": \"74d3e1f8-d4b3-4e87-ab4f-cc6a04b1fdfb\", \"address\": \"4 Levent\"}"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Kristal Kule\", \"cancel\": 0, \"customerId\": \"c02aa3df-3147-4014-8fd6-e7f064a29ba0\", \"address\": \"4 Levent\"}" | python3 -m json.tool
 
 #api_url=$base_url"getCustomers"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
 
 #api_url=$base_url"getUsers"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
@@ -55,4 +55,7 @@ token=$(curl -X POST $login_url \
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
 #
 #api_url=$base_url"addElevator"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"uniqueId\": \"11-22-33\", \"cancel\": 0, \"name\": \"myname\", \"projectId\": \"c053ce75-386e-47a2-a457-49f28057d0f2\"}"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"uniqueId\": \"11-22-33\", \"cancel\": 0, \"name\": \"myname\", \"projectId\": \"a74bb3ef-1830-41bf-b71a-9fc44e57587c\"}" | python3 -m json.tool
+
+#api_url=$base_url"call/initCall"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"mainId\": \"4c6a1881-5a45-4fe5-8c3a-fbac8b7c787a\", \"elevatorId\": \"135fe4ec-291b-45f3-bb8e-f0cad2646b67\"}" 
