@@ -32,7 +32,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
-const VerifyEmailV1 = () => {
+const VerifyEmailV1 = ({ email }: { email: string }) => {
   // ** Hook
   const theme = useTheme()
 
@@ -118,7 +118,7 @@ const VerifyEmailV1 = () => {
               Verify your email ✉️
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>
-              Account activation link sent to your email address: <strong>john.doe@email.com</strong> Please follow the
+              Account activation link sent to your email address: <strong>{email}</strong> Please follow the
               link inside to continue.
             </Typography>
           </Box>
@@ -139,5 +139,6 @@ const VerifyEmailV1 = () => {
 }
 
 VerifyEmailV1.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+VerifyEmailV1.guestGuard = true
 
 export default VerifyEmailV1
