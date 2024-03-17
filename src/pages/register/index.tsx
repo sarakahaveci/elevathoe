@@ -35,30 +35,34 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 // ** Demo Imports
 import * as yup from 'yup';
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2';
+import { Controller, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { FormHelperText } from '@mui/material'
+import { useAuth } from 'src/hooks/useAuth'
 
 const schema = yup.object().shape({
-  companyName: yup.string().required(),
+  orgName: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().min(5).required(),
 });
 
 interface FormData {
-  companyName: string;
+  orgName: string;
   email: string;
   password: string;
 }
 const handleSignup = async (formData: FormData) => {
   try {
-    const { companyName, email, password } = formData;
+    const { orgName, email, password } = formData;
     const apiEndpoint = "https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/signup";
     const response = await fetch(apiEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXJneWFuY2xva2JjcmFnYXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU3Mzg1NzUsImV4cCI6MjAyMTMxNDU3NX0.c8h74b1YIhcd4Y1CFVLvJKqAMVXRAH1h2UXLGJ9cNqQ", 
+        "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXJneWFuY2xva2JjcmFnYXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU3Mzg1NzUsImV4cCI6MjAyMTMxNDU3NX0.c8h74b1YIhcd4Y1CFVLvJKqAMVXRAH1h2UXLGJ9cNqQ",
       },
       body: JSON.stringify({
-        orgName: companyName,
+        orgName: orgName,
         email,
         password,
       }),
@@ -133,6 +137,12 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
+const defaultValues = {
+  password: '',
+  email: '',
+  orgName:''
+}
+
 const Register = () => {
   // ** States
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -142,8 +152,31 @@ const Register = () => {
   const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
+  const auth = useAuth()
+
   // ** Vars
   const { skin } = settings
+
+  const {
+    control,
+    setError,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    defaultValues,
+    mode: 'onBlur',
+    resolver: yupResolver(schema)
+  })
+
+  const onSubmit = (data: FormData) => {
+    const { email, password, orgName } = data
+    auth.signup({ email, password, orgName }, () => {
+      setError('email', {
+        type: 'manual',
+        message: 'Email or Password is invalid'
+      })
+    })
+  }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-register-illustration-bordered' : 'auth-v2-register-illustration'
 
@@ -258,27 +291,80 @@ const Register = () => {
               <TypographyStyled variant='h5'>Adventure starts here 🚀</TypographyStyled>
               <Typography variant='body2'>Make your app management easy and fun!</Typography>
             </Box>
-            <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
-              <TextField autoFocus fullWidth sx={{ mb: 4 }} label='Organization' placeholder='Company Name' />
-              <TextField fullWidth label='Email' sx={{ mb: 4 }} placeholder='user@email.com' />
-              <FormControl fullWidth>
-                <InputLabel htmlFor='auth-login-v2-password'>Password</InputLabel>
-                <OutlinedInput
-                  label='Password'
-                  id='auth-login-v2-password'
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position='end'>
-                      <IconButton
-                        edge='end'
-                        onMouseDown={e => e.preventDefault()}
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} />
-                      </IconButton>
-                    </InputAdornment>
-                  }
+            <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+              <FormControl fullWidth sx={{ mb: 4 }}>
+                <Controller
+                  name='orgName'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      autoFocus
+                      label='Organization'
+                      value={value}
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      error={Boolean(errors.email)}
+                      placeholder='Company Name'
+                    />
+                  )}
                 />
+              </FormControl>
+              <FormControl fullWidth sx={{ mb: 4 }}>
+                <Controller
+                  name='email'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <TextField
+                      autoFocus
+                      label='Email'
+                      value={value}
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      error={Boolean(errors.email)}
+                      placeholder='admin@elevathor.com'
+                    />
+                  )}
+                />
+                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
+              </FormControl>
+              <FormControl fullWidth>
+                <InputLabel htmlFor='auth-login-v2-password' error={Boolean(errors.password)}>
+                  Password
+                </InputLabel>
+                <Controller
+                  name='password'
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field: { value, onChange, onBlur } }) => (
+                    <OutlinedInput
+                      value={value}
+                      onBlur={onBlur}
+                      label='Password'
+                      onChange={onChange}
+                      id='auth-login-v2-password'
+                      error={Boolean(errors.password)}
+                      type={showPassword ? 'text' : 'password'}
+                      endAdornment={
+                        <InputAdornment position='end'>
+                          <IconButton
+                            edge='end'
+                            onMouseDown={e => e.preventDefault()}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                  )}
+                />
+                {errors.password && (
+                  <FormHelperText sx={{ color: 'error.main' }} id=''>
+                    {errors.password.message}
+                  </FormHelperText>
+                )}
               </FormControl>
               <FormControlLabel
                 control={<Checkbox />}
@@ -331,10 +417,10 @@ const Register = () => {
       </RightWrapper>
     </Box>
   )
-  }
+}
 
 Register.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 Register.guestGuard = true
-    
+
 export default Register
