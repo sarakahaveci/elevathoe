@@ -50,12 +50,18 @@ token=$(curl -X POST $login_url \
 
 #api_url=$base_url"updatePassword"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"newPassword\": \"osman\"}"
-#
+
 #api_url=$base_url"getElevators"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
-#
+
 #api_url=$base_url"addElevator"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"uniqueId\": \"11-22-33\", \"cancel\": 0, \"name\": \"myname\", \"projectId\": \"a74bb3ef-1830-41bf-b71a-9fc44e57587c\"}" | python3 -m json.tool
 
 #api_url=$base_url"call/initCall"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"mainId\": \"4c6a1881-5a45-4fe5-8c3a-fbac8b7c787a\", \"elevatorId\": \"135fe4ec-291b-45f3-bb8e-f0cad2646b67\"}" 
+
+#api_url=$base_url"call/setOpenTime"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"entryId\": \"4be191c6-702e-464b-811d-7af81d04d6d8\"}" 
+
+#api_url=$base_url"call/setClosedTime"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"entryId\": \"4be191c6-702e-464b-811d-7af81d04d6d8\"}" 
