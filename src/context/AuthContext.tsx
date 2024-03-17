@@ -11,7 +11,7 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
+import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -20,6 +20,7 @@ const defaultProvider: AuthValuesType = {
   setUser: () => null,
   setLoading: () => Boolean,
   login: () => Promise.resolve(),
+  signup: () => Promise.resolve(),
   logout: () => Promise.resolve()
 }
 
@@ -104,6 +105,40 @@ const AuthProvider = ({ children }: Props) => {
       })
   }
 
+  const handleSignup = (params: SignupParams, errorCallback?: ErrCallbackType) => {
+    const supabaseToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
+
+    axios
+      .post(authConfig.registerEndpoint, params, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseToken}`,
+        }
+      })
+      .then(async response => {
+        // params.rememberMe
+        //   ? window.localStorage.setItem(
+        //       authConfig.storageTokenKeyName,
+        //       response.data.signInResponse.data.session.access_token
+        //     )
+        //   : null
+        // const returnUrl = router.query.returnUrl
+
+        // setUser({ ...response.data.signInResponse.data.user })
+        // params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.signInResponse.data.user)) : null
+
+        // const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+
+        // router.replace(redirectURL as string)
+        console.log('Success: ', response.data)
+      })
+
+      .catch(err => {
+        if (errorCallback) errorCallback(err)
+      })
+  }
+
   const handleLogout = () => {
     setUser(null)
     window.localStorage.removeItem('userData')
@@ -117,6 +152,7 @@ const AuthProvider = ({ children }: Props) => {
     setUser,
     setLoading,
     login: handleLogin,
+    signup: handleSignup,
     logout: handleLogout
   }
 
