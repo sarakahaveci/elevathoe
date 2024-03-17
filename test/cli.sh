@@ -65,3 +65,6 @@ token=$(curl -X POST $login_url \
 
 #api_url=$base_url"call/setClosedTime"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"entryId\": \"4be191c6-702e-464b-811d-7af81d04d6d8\"}" 
+
+#api_url=$base_url"call/getCalls"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"entryId\": \"4be191c6-702e-464b-811d-7af81d04d6d8\"}"  | python3 -m json.tool
