@@ -82,6 +82,7 @@ const handleSignup = async (formData: FormData) => {
     console.error("Error during signup:", error);
 
 
+  } finally {
   }
 };
 
@@ -141,7 +142,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 const defaultValues = {
   password: '',
   email: '',
-  orgName: ''
+  orgName:''
 }
 
 const Register = () => {
@@ -169,17 +170,17 @@ const Register = () => {
     mode: 'onBlur',
     resolver: yupResolver(schema)
   })
+
   const onSubmit = (data: FormData) => {
-    const { email, password, orgName } = data;
-    setUserEmail(email); 
+    const { email, password, orgName } = data
     auth.signup({ email, password, orgName }, () => {
       setError('email', {
         type: 'manual',
         message: 'Email or Password is invalid'
-      });
-    });
-  };
-  
+      })
+    })
+  }
+
   const imageSource = skin === 'bordered' ? 'auth-v2-register-illustration-bordered' : 'auth-v2-register-illustration'
 
   return (
