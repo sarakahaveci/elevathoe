@@ -17,7 +17,6 @@ import authConfig from 'src/configs/auth'
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams } from './types'
 
-
 // ** Defaults
 const defaultProvider: AuthValuesType = {
  user: null,
@@ -29,13 +28,12 @@ const defaultProvider: AuthValuesType = {
  logout: () => Promise.resolve()
 }
 
+ const AuthContext = createContext(defaultProvider)
 
-const AuthContext = createContext(defaultProvider)
-
-
-type Props = {
- children: ReactNode
-}
+ type Props = {
+   children: ReactNode
+ }
+ 
 
 
 const AuthProvider = ({ children }: Props) => {

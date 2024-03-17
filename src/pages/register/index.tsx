@@ -40,6 +40,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { FormHelperText } from '@mui/material'
 import { useAuth } from 'src/hooks/useAuth'
 
+import VerifyEmailV1 from '../pages/auth/verify-email-v1'
+
 const schema = yup.object().shape({
   orgName: yup.string().required(),
   email: yup.string().email().required(),
@@ -145,6 +147,7 @@ const defaultValues = {
 
 const Register = () => {
   // ** States
+  const [userEmail, setUserEmail] = useState('');
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   // ** Hooks
