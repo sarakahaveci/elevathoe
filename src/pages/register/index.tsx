@@ -414,7 +414,6 @@ const Register = () => {
                 </IconButton>
               </Box>
             </form>
-      <VerifyEmailV1 email={userEmail} />
           </BoxWrapper>
         </Box>
       </RightWrapper>
