@@ -15,7 +15,7 @@ import authConfig from 'src/configs/auth'
 
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams, ResetParams } from './types'
+import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams, ForgotParams,UpdateParams } from './types'
 
 
 // ** Defaults
@@ -26,7 +26,8 @@ const defaultProvider: AuthValuesType = {
  setLoading: () => Boolean,
  login: () => Promise.resolve(),
  signup: () => Promise.resolve(),
- reset: () => Promise.resolve(),
+ update: () => Promise.resolve(),
+ forgot: () => Promise.resolve(),
  logout: () => Promise.resolve()
 }
 
@@ -145,7 +146,7 @@ const AuthProvider = ({ children }: Props) => {
  }
 
 
- const handleReset = (params: ResetParams, errorCallback?: ErrCallbackType) => {
+ const handleForgotPassword = (params: ForgotParams, errorCallback?: ErrCallbackType) => {
    const supabaseToken =
      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
    axios
@@ -156,17 +157,39 @@ const AuthProvider = ({ children }: Props) => {
        }
      })
      .then(async response => {
-       // const redirectURL = '/pages/auth/verify-email-v1'
        const redirectURL = '/pages/auth/verify-email-v1'
-       console.log('handleReset: ', response.data)
+       console.log('handleForgotPassword: ', response.data)
        router.push(redirectURL);
      })
      .catch(err => {
        if (errorCallback) errorCallback(err)
      })
-   const redirectURL = '/pages/auth/reset-password-v1'
-   router.push(redirectURL);
+  //  const redirectURL = '/pages/auth/reset-password-v1'
+  //  router.push(redirectURL);
  }
+
+ const handleUpdatePassword = (params: UpdateParams, errorCallback?: ErrCallbackType) => {
+  const supabaseToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
+  axios
+    .post(authConfig.updateEndpoint, params, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseToken}`,
+      }
+    })
+    .then(async response => {
+      const redirectURL = '/pages/auth/reset-password-v1'
+      console.log('handleUpdatePassword: ', response.data)
+      router.push(redirectURL);
+    })
+    .catch(err => {
+      if (errorCallback) errorCallback(err)
+    })
+ //  const redirectURL = '/pages/auth/reset-password-v1'
+ //  router.push(redirectURL);
+}
+
 
 
  const handleLogout = () => {
@@ -185,7 +208,8 @@ const AuthProvider = ({ children }: Props) => {
    login: handleLogin,
    signup: handleSignup,
    logout: handleLogout,
-   reset: handleReset
+   forgot: handleForgotPassword,
+   update: handleUpdatePassword,
  }
 
 

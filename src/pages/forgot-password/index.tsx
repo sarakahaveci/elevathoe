@@ -110,7 +110,7 @@ const ForgotPassword = () => {
 
   const onSubmit = (data: FormData) => {
     const { email } = data
-    auth.reset({ email }, () => {
+    auth.forgot({ email }, () => {
       setError('email', {
         type: 'manual',
         message: 'Email or Password is invalid'
