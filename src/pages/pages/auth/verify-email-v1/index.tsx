@@ -118,8 +118,7 @@ const VerifyEmailV1 = ({ email }: { email: string }) => {
               Verify your email ✉️
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>
-              Account activation link sent to your email address: <strong>{email}</strong> Please follow the
-              link inside to continue.
+              Account activation link sent to your email address <strong></strong><br/> Please follow the  link inside to continue.
             </Typography>
           </Box>
           <Button fullWidth variant='contained'>
