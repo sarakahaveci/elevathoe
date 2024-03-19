@@ -23868,7 +23868,7 @@ addCollection({
     forever: { parent: 'all-inclusive' },
     'forever-box': { parent: 'all-inclusive-box' },
     'forever-box-outline': { parent: 'all-inclusive-box-outline' },
-    'forgot-password': { parent: 'lock-question' },
+    '': { parent: 'lock-question' },
     form: { parent: 'list-box' },
     'form-outline': { parent: 'list-box-outline' },
     'format-align-centre': { parent: 'format-align-center' },

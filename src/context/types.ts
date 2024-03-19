@@ -8,10 +8,15 @@ export type LoginParams = {
 };
 
 export type SignupParams = {
-  email: string;
-  password: string;
+  email: string
+  password: string
   orgName: string;
-};
+} 
+
+export type ResetParams = {
+  email: string
+}
+
 export type UserDataType = {
   id: string;
   role: string;
@@ -23,11 +28,12 @@ export type UserDataType = {
 };
 
 export type AuthValuesType = {
-  loading: boolean;
-  logout: () => void;
-  user: UserDataType | null;
-  setLoading: (value: boolean) => void;
-  setUser: (value: UserDataType | null) => void;
-  login: (params: LoginParams, errorCallback?: ErrCallbackType) => void;
-  signup: (params: SignupParams, errorCallback?: ErrCallbackType) => void;
-};
+ loading: boolean
+  logout: () => void
+  user: UserDataType | null
+  setLoading: (value: boolean) => void
+  setUser: (value: UserDataType | null) => void
+  login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
+  signup: (params: SignupParams, errorCallback?: ErrCallbackType) => void
+  reset: (params: ResetParams, errorCallback?: ErrCallbackType) => void
+}

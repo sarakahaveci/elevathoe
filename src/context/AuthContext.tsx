@@ -15,7 +15,8 @@ import authConfig from 'src/configs/auth'
 
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams } from './types'
+import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams, ResetParams } from './types'
+
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -25,15 +26,17 @@ const defaultProvider: AuthValuesType = {
  setLoading: () => Boolean,
  login: () => Promise.resolve(),
  signup: () => Promise.resolve(),
+ reset: () => Promise.resolve(),
  logout: () => Promise.resolve()
 }
 
- const AuthContext = createContext(defaultProvider)
 
- type Props = {
-   children: ReactNode
- }
- 
+const AuthContext = createContext(defaultProvider)
+
+
+type Props = {
+ children: ReactNode
+}
 
 
 const AuthProvider = ({ children }: Props) => {
@@ -142,6 +145,30 @@ const AuthProvider = ({ children }: Props) => {
  }
 
 
+ const handleReset = (params: ResetParams, errorCallback?: ErrCallbackType) => {
+   const supabaseToken =
+     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
+   axios
+     .post(authConfig.forgotEndpoint, params, {
+       headers: {
+         'Content-Type': 'application/json',
+         'Authorization': `Bearer ${supabaseToken}`,
+       }
+     })
+     .then(async response => {
+       // const redirectURL = '/pages/auth/verify-email-v1'
+       const redirectURL = '/pages/auth/verify-email-v1'
+       console.log('handleReset: ', response.data)
+       router.push(redirectURL);
+     })
+     .catch(err => {
+       if (errorCallback) errorCallback(err)
+     })
+   const redirectURL = '/pages/auth/reset-password-v1'
+   router.push(redirectURL);
+ }
+
+
  const handleLogout = () => {
    setUser(null)
    window.localStorage.removeItem('userData')
@@ -157,7 +184,8 @@ const AuthProvider = ({ children }: Props) => {
    setLoading,
    login: handleLogin,
    signup: handleSignup,
-   logout: handleLogout
+   logout: handleLogout,
+   reset: handleReset
  }
 
 

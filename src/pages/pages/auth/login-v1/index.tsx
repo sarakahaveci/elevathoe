@@ -185,7 +185,7 @@ const LoginV1 = () => {
               sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
             >
               <FormControlLabel control={<Checkbox />} label='Remember Me' />
-              <LinkStyled href='/pages/auth/forgot-password-v1'>Forgot Password?</LinkStyled>
+              <LinkStyled href='/pages/auth-v1'>Forgot Password?</LinkStyled>
             </Box>
             <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
               Login

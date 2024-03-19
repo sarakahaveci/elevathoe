@@ -39,8 +39,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormHelperText } from '@mui/material'
 import { useAuth } from 'src/hooks/useAuth'
-
 import VerifyEmailV1 from '../pages/auth/verify-email-v1'
+
 
 const schema = yup.object().shape({
   orgName: yup.string().required(),
@@ -53,6 +53,7 @@ interface FormData {
   email: string;
   password: string;
 }
+
 const handleSignup = async (formData: FormData) => {
   try {
     const { orgName, email, password } = formData;
@@ -142,7 +143,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 const defaultValues = {
   password: '',
   email: '',
-  orgName:''
+  orgName: ''
 }
 
 const Register = () => {
