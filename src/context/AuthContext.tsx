@@ -15,8 +15,8 @@ import authConfig from 'src/configs/auth'
 
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams, ForgotParams,UpdateParams } from './types'
 
+import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupParams, ForgotParams,UpdateParams } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -26,9 +26,10 @@ const defaultProvider: AuthValuesType = {
  setLoading: () => Boolean,
  login: () => Promise.resolve(),
  signup: () => Promise.resolve(),
- update: () => Promise.resolve(),
- forgot: () => Promise.resolve(),
- logout: () => Promise.resolve()
+ updatePassword: () => Promise.resolve(),
+ forgotPassword: () => Promise.resolve(),
+ logout: () => Promise.resolve(),
+
 }
 
 
@@ -157,7 +158,7 @@ const AuthProvider = ({ children }: Props) => {
        }
      })
      .then(async response => {
-       const redirectURL = '/pages/auth/verify-email-v1'
+       const redirectURL = '/pages/auth/verify-password-v1'
        console.log('handleForgotPassword: ', response.data)
        router.push(redirectURL);
      })
@@ -191,7 +192,6 @@ const AuthProvider = ({ children }: Props) => {
 }
 
 
-
  const handleLogout = () => {
    setUser(null)
    window.localStorage.removeItem('userData')
@@ -201,16 +201,17 @@ const AuthProvider = ({ children }: Props) => {
 
 
  const values = {
-   user,
-   loading,
-   setUser,
-   setLoading,
-   login: handleLogin,
-   signup: handleSignup,
-   logout: handleLogout,
-   forgot: handleForgotPassword,
-   update: handleUpdatePassword,
- }
+  user,
+  loading,
+  setUser,
+  setLoading,
+  login: handleLogin,
+  signup: handleSignup,
+  logout: handleLogout,
+  forgotPassword: handleForgotPassword,
+  updatePassword: handleUpdatePassword,
+}
+
 
 
  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>

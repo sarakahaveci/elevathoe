@@ -22,6 +22,10 @@ export type ForgotParams = {
   email: string
 }
 
+export type UserParams ={
+  name: string
+}
+
 export type UserDataType = {
   id: string;
   role: string;
@@ -40,6 +44,6 @@ export type AuthValuesType = {
   setUser: (value: UserDataType | null) => void
   login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
   signup: (params: SignupParams, errorCallback?: ErrCallbackType) => void
-  forgot: (params: ForgotParams, errorCallback?: ErrCallbackType) => void
-  update: (params: UpdateParams, errorCallback?: ErrCallbackType) => void
+  forgotPassword: (params: ForgotParams, errorCallback?: ErrCallbackType) => void
+  updatePassword: (params: UpdateParams, errorCallback?: ErrCallbackType) => void
 }
