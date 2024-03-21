@@ -125,7 +125,6 @@ const AuthProvider = ({ children }: Props) => {
      })
  }
 
-
  const handleSignup = (params: SignupParams, errorCallback?: ErrCallbackType) => {
    const supabaseToken =
      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
@@ -165,13 +164,11 @@ const AuthProvider = ({ children }: Props) => {
      .catch(err => {
        if (errorCallback) errorCallback(err)
      })
-  //  const redirectURL = '/pages/auth/reset-password-v1'
-  //  router.push(redirectURL);
  }
-
  const handleUpdatePassword = (params: UpdateParams, errorCallback?: ErrCallbackType) => {
   const supabaseToken =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
+
   axios
     .post(authConfig.updateEndpoint, params, {
       headers: {
@@ -180,17 +177,35 @@ const AuthProvider = ({ children }: Props) => {
       }
     })
     .then(async response => {
-      const redirectURL = '/pages/auth/reset-password-v1'
-      console.log('handleUpdatePassword: ', response.data)
-      router.push(redirectURL);
+      setUser({ ...response.data.signInResponse.data.user })
+      window.localStorage.setItem('userData', JSON.stringify(response.data.signInResponse.data.user))
+
+      router.replace('/verify-password-update')
     })
     .catch(err => {
       if (errorCallback) errorCallback(err)
     })
- //  const redirectURL = '/pages/auth/reset-password-v1'
- //  router.push(redirectURL);
 }
 
+// const handleUpdatePassword = (params: UpdateParams, errorCallback?: ErrCallbackType) => {
+//   const supabaseToken =
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
+//   axios
+//     .post(authConfig.updateEndpoint, params, {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${supabaseToken}`,
+//       }
+//     })
+//     .then(response => {
+//       const redirectURL = '/pages/auth/verify-password-update'
+//       console.log('handleUpdatePassword: ', response.data)
+//       router.push(redirectURL);
+//     })
+//     .catch(err => {
+//       if (errorCallback) errorCallback(err)
+//     })
+// }
 
  const handleLogout = () => {
    setUser(null)

@@ -118,7 +118,6 @@ const ForgotPassword = () => {
     })
   }
 
-  console.log('test');
 
 
   // ** Vars

@@ -4,7 +4,7 @@ import { useState, ChangeEvent, ReactNode } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
-
+import { useForm } from 'react-hook-form'
 
 // ** MUI Components
 import Box from '@mui/material/Box'
@@ -34,6 +34,7 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
+import { useAuth } from '../../../../hooks/useAuth';
 
 
 interface State {
@@ -69,26 +70,59 @@ const ResetPasswordV1 = () => {
  })
 
 
+
+ const [showPassword, setShowPassword] = useState<boolean>(false)
+
  // ** Hook
  const theme = useTheme()
-
+const auth= useAuth()
 
  // Handle New Password
  const handleNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
    setValues({ ...values, [prop]: event.target.value })
  }
+
+ console.log('test');
  const handleClickShowNewPassword = () => {
    setValues({ ...values, showNewPassword: !values.showNewPassword })
  }
 
-
+ console.log('test');
  // Handle Confirm New Password
  const handleConfirmNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
    setValues({ ...values, [prop]: event.target.value })
+   
  }
  const handleClickShowConfirmNewPassword = () => {
    setValues({ ...values, showConfirmNewPassword: !values.showConfirmNewPassword })
  }
+
+ const defaultValues = {
+  password: '123456',
+   }
+ 
+ interface FormData {
+  password: string
+ }
+ 
+ const {
+  setError,
+  handleSubmit,
+  formState: { errors }
+} = useForm({
+  defaultValues,
+  mode: 'onBlur',
+});
+
+ const onSubmit = (data: FormData) => {
+  const { password } = data
+  auth.updatePassword({ password }, () => {
+    setError('password', {
+      type: 'manual',
+      message: 'Email or Password is invalid'
+    })
+  })
+}
 
 
  return (
@@ -174,7 +208,7 @@ const ResetPasswordV1 = () => {
            </Typography>
            <Typography variant='body2'>Your new password must be different from previously used passwords</Typography>
          </Box>
-         <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
+<form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
            <FormControl sx={{ display: 'flex', mb: 4 }}>
              <InputLabel htmlFor='auth-reset-password-new-password'>New Password</InputLabel>
              <OutlinedInput
