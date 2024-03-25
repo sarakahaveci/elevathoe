@@ -7,6 +7,10 @@ export type LoginParams = {
   rememberMe?: boolean;
 };
 
+export type GetCallsParams={
+  call: string
+} 
+
 export type SignupParams = {
   email: string
   password: string
@@ -25,6 +29,15 @@ export type ForgotParams = {
 export type UserParams ={
   name: string
 }
+
+export type AddCustomerParams ={
+  name: string
+}
+
+export type GetCustomerParams = {
+  name: string
+}
+
 
 export type UserDataType = {
   id: string;
@@ -46,4 +59,7 @@ export type AuthValuesType = {
   signup: (params: SignupParams, errorCallback?: ErrCallbackType) => void
   forgotPassword: (params: ForgotParams, errorCallback?: ErrCallbackType) => void
   updatePassword: (params: UpdateParams, errorCallback?: ErrCallbackType) => void
+  addcustomer: (params: AddCustomerParams, errorCallback?: ErrCallbackType) => void
+  getcustomer: (params: GetCustomerParams, errorCallback?: ErrCallbackType) => void
+  getcalls: (params: GetCallsParams, errorCallback?: ErrCallbackType) => void
 }
