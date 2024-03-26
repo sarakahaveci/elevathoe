@@ -21,7 +21,6 @@ import {
   ForgotParams,
   UpdateParams,
   AddCustomerParams,
-  GetCustomerParams,
   GetCallsParams,
 } from "./types";
 
@@ -37,9 +36,6 @@ const defaultProvider: AuthValuesType = {
   forgotPassword: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   addcustomer: () => Promise.resolve(),
-  getcustomer: () => Promise.resolve(),
-  getcalls: () => Promise.resolve(),
-  getAllCustomers: () => Promise.resolve(),
 };
 
 const AuthContext = createContext(defaultProvider);
@@ -47,6 +43,8 @@ const AuthContext = createContext(defaultProvider);
 type Props = {
   children: ReactNode;
 };
+
+let globalToken = '';
 
 const AuthProvider = ({ children }: Props) => {
   // ** States
@@ -98,7 +96,9 @@ const AuthProvider = ({ children }: Props) => {
   const handleLogin = (
     params: LoginParams,
     errorCallback?: ErrCallbackType
+    
   ) => {
+    
     const supabaseToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
 
@@ -109,8 +109,12 @@ const AuthProvider = ({ children }: Props) => {
           Authorization: `Bearer ${supabaseToken}`,
         },
       })
+     
       .then(async (response) => {
-        params.rememberMe
+        const signInToken = response.data.signInResponse.data.session.access_token;
+
+        globalToken = signInToken;
+           params.rememberMe
           ? window.localStorage.setItem(
               authConfig.storageTokenKeyName,
               response.data.signInResponse.data.session.access_token
@@ -158,89 +162,52 @@ const AuthProvider = ({ children }: Props) => {
         if (errorCallback) errorCallback(err);
       });
   };
-
+  
+  
   const handleAddCustomer = (
     params: AddCustomerParams,
     errorCallback?: ErrCallbackType
   ) => {
-    const supabaseToken = " eyJhbGciOiJIUzI1NiIsImtpZCI6InFiZHFOR3plbTZ0WXFidXAiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzExNDA5MDQ2LCJpYXQiOjE3MTE0MDU0NDYsImlzcyI6Imh0dHBzOi8vY2lhcmd5YW5jbG9rYmNyYWdhcncuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjZkMDg5YjMzLTAzODEtNDVkNy1iZmY1LTM4NWZjYzRmNTZiZSIsImVtYWlsIjoia2l2YW5jY2FrbWFrQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnt9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzExNDA1NDQ2fV0sInNlc3Npb25faWQiOiI4NzU5N2VmZi0zNzJiLTQ4ZmMtODAwYy0wYjg1N2Q5Mjc1YmEiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.Eevt3uijkqxEW6Fh2qd1atNaMZnR2J7I1NndU3fxeBw";
     axios
       .post(authConfig.addcustomerEndpoint, params, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${supabaseToken}`,
+          Authorization: `Bearer ${globalToken}`,
         },
       })
       .then(async (response) => {
-        console.log("Success: ", response.data);
+        setUser({ ...response.data.signInResponse.data.user });
+        window.localStorage.setItem(
+          "userData",
+          JSON.stringify(response.data.signInResponse.data.user)
+        );
       })
       .catch((err) => {
         if (errorCallback) errorCallback(err);
       });
   };
 
-  const handleGetCalls = (
-    params: GetCallsParams,
-    errorCallback?: ErrCallbackType
-  ) => {
-    const supabaseToken =
-      "eyJhbGciOiJIUzI1NiIsImtpZCI6InFiZHFOR3plbTZ0WXFidXAiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzExMjk1MTIyLCJpYXQiOjE3MTEyOTE1MjIsImlzcyI6Imh0dHBzOi8vY2lhcmd5YW5jbG9rYmNyYWdhcncuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjZkMDg5YjMzLTAzODEtNDVkNy1iZmY1LTM4NWZjYzRmNTZiZSIsImVtYWlsIjoia2l2YW5jY2FrbWFrQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnt9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzExMjkxNTIyfV0sInNlc3Npb25faWQiOiJlODg3NzdmOS1mNzQ0LTQxNzctODEzOC05NTE2NGU5MDVjYjIiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.u1tCll7_Mc7QswuCvf0_oEn-jjYFF_QnLleP75wvcRk";
-    axios
-      .post(authConfig.getcallsEndpoint, params, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${supabaseToken}`,
-        },
-      })
-      .then(async (response) => {
-        console.log("Success: ", response.data);
-      })
-      .catch((err) => {
-        if (errorCallback) errorCallback(err);
-      });
-  };
+  // const handleAddCustomer = (
+  //   params: AddCustomerParams,
+  //   errorCallback?: ErrCallbackType
+  // ) => {
+  //   const supabaseToken =
+  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
+  //   axios
+  //     .post(authConfig.addcustomerEndpoint, params, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${supabaseToken}`,
+  //       },
+  //     })
+  //     .then(async (response) => {
+  //       console.log("Success: ", response.data);
+  //     })
+  //     .catch((err) => {
+  //       if (errorCallback) errorCallback(err);
+  //     });
 
-  const handleGetCustomer = (
-    params: GetCustomerParams,
-    errorCallback?: ErrCallbackType
-  ) => {
-    const supabaseToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
-    axios
-      .post(authConfig.getcustomerEndpoint, params, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${supabaseToken}`,
-        },
-      })
-      .then(async (response) => {
-        console.log("Success: ", response.data);
-      })
-      .catch((err) => {
-        if (errorCallback) errorCallback(err);
-      });
-  };
-
-  const handleGetCustomers = (
-    params: {},
-    errorCallback?: ErrCallbackType
-  ) => {
-    const supabaseToken = "eyJhbGciOiJIUzI1NiIsImtpZCI6InFiZHFOR3plbTZ0WXFidXAiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzExNDA5MDQ2LCJpYXQiOjE3MTE0MDU0NDYsImlzcyI6Imh0dHBzOi8vY2lhcmd5YW5jbG9rYmNyYWdhcncuc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjZkMDg5YjMzLTAzODEtNDVkNy1iZmY1LTM4NWZjYzRmNTZiZSIsImVtYWlsIjoia2l2YW5jY2FrbWFrQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnt9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzExNDA1NDQ2fV0sInNlc3Npb25faWQiOiI4NzU5N2VmZi0zNzJiLTQ4ZmMtODAwYy0wYjg1N2Q5Mjc1YmEiLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.Eevt3uijkqxEW6Fh2qd1atNaMZnR2J7I1NndU3fxeBw";
-    axios
-      .post(authConfig.getAllCustomersEndPoint, params, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${supabaseToken}`,
-        },
-      })
-      .then(async (response) => {
-        console.log("Success: ", response.data);
-      })
-      .catch((err) => {
-        if (errorCallback) errorCallback(err);
-      });
-  };
-
+  // };
   const handleForgotPassword = (
     params: ForgotParams,
     errorCallback?: ErrCallbackType
@@ -263,6 +230,7 @@ const AuthProvider = ({ children }: Props) => {
         if (errorCallback) errorCallback(err);
       });
   };
+
   const handleUpdatePassword = (
     params: UpdateParams,
     errorCallback?: ErrCallbackType
@@ -329,9 +297,6 @@ const AuthProvider = ({ children }: Props) => {
     forgotPassword: handleForgotPassword,
     updatePassword: handleUpdatePassword,
     addcustomer: handleAddCustomer,
-    getcustomer: handleGetCustomer,
-    getcalls: handleGetCalls,
-    getAllCustomers: handleGetCustomers,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
