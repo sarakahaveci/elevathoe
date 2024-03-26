@@ -12,31 +12,29 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { useAuth } from 'src/hooks/useAuth';
 import Icon from 'src/@core/components/icon';
-import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
+import {AddCustomerParams} from 'src/context/types'
+// import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
+
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  update: yup.number().required(),
+  cancel: yup.number().required(),
+});
 
 interface Props {
   open: boolean;
   toggle: () => void;
-  clients: InvoiceClientType[] | undefined;
-  setClients: (val: InvoiceClientType[]) => void;
-  setSelectedClient: (val: InvoiceClientType) => void;
+  clients: AddCustomerParams [] | undefined;
+  setClients: (val: AddCustomerParams []) => void;
+  setSelectedClient: (val: AddCustomerParams ) => void;
 }
 
 interface FormData {
   name: string;
+  update: number;
+  cancel: number;
 }
-
-const Header = styled(Box)<BoxProps>(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(3, 4),
-  justifyContent: 'space-between',
-  backgroundColor: theme.palette.background.default,
-}));
-
-const schema = yup.object().shape({
-  name: yup.string().required(),
-});
 
 const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }: Props) => {
   const {
@@ -46,46 +44,42 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: { name: '' },
+    defaultValues: { name: '', update: 0, cancel: 0 },
   });
 
   const auth = useAuth();
 
+  const update = 0; 
+  const cancel = 0; 
+
+
   const onSubmit = (data: FormData) => {
-    const { name } = data;
+    const { name, update, cancel } = data;
     if (open) {
-      auth.addcustomer({ name: name }, () => {
-        // setError('name', {
-        //   type: 'manual',
-        //   message: 'Your input is incorrect',
-        // });
-
-  console.log('tstignadd123')
-
+      auth.addcustomer({ name, update, cancel }, () => {
+        console.log('testing add 123');
       });
     } else {
-      auth.getcustomer({ name: name }, () => {
-        // setError('name', {
-        //   type: 'manual',
-        //   message: 'Your input is incorrect',
-        // });
+      auth.getcustomer({ name, update, cancel }, () => {
+        console.log('testing get 123');
       });
     }
 
-    console.log('tstignadd123')
+    console.log('tstignadd123');
 
     if (clients !== undefined) {
       setClients([...clients, data]);
     }
     setSelectedClient(data);
     toggle();
-    reset({ name: '' });
+    reset({ name: '', update: 0, cancel: 0 })
   };
 
   const handleDrawerClose = () => {
     toggle();
-    reset({ name: '' });
+    reset({ name: '', update: 0, cancel: 0 })
   };
+
   return (
     <Drawer
       open={open}
@@ -95,14 +89,14 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
       ModalProps={{ keepMounted: true }}
       sx={{ '& .MuiDrawer-paper': { width: [300, 400] } }}
     >
-      <Header>
+      <Box>
         <Typography variant='h6'>Add New Customer</Typography>
-        <IconButton size='small' onClick={toggle} sx={{ color: 'text.primary' }}>
+        <IconButton size='small' onClick={toggle}>
           <Icon icon='mdi:close' fontSize={20} />
         </IconButton>
-      </Header>
-      <Box component='form' sx={{ p: 5 }} onSubmit={handleSubmit(onSubmit)}>
-        <FormControl fullWidth sx={{ mb: 6 }}>
+      </Box>
+      <Box component='form' onSubmit={handleSubmit(onSubmit)}>
+        <FormControl fullWidth>
           <Controller
             name='name'
             control={control}
@@ -118,19 +112,10 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
             )}
           />
           {errors.name && (
-            <FormHelperText sx={{ color: 'error.main' }} id='invoice-name-error'>
-              {errors.name.message}
-            </FormHelperText>
+            <FormHelperText error>{errors.name.message}</FormHelperText>
           )}
         </FormControl>
-        <div>
-          <Button size='large' type='submit' variant='contained' sx={{ mr: 4 }}>
-            Add
-          </Button>
-          <Button size='large' variant='outlined' color='secondary' onClick={handleDrawerClose}>
-            Cancel
-          </Button>
-        </div>
+        <Button type='submit'>Submit</Button>
       </Box>
     </Drawer>
   );

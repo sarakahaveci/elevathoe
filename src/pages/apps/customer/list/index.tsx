@@ -53,7 +53,6 @@ import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/t
 // ** Custom Table Components Imports
 import TableHeader from 'src/views/apps/customer/list/TableHeader'
 import AddCustomerDrawer from 'src/views/apps/customer/list/AddCustomerDrawer'
-import { addCustomer } from '../../../../store/apps/customer/index';
 
 // ** Vars
 interface CellType {

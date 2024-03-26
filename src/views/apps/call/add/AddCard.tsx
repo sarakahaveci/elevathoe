@@ -300,7 +300,7 @@ const AddCard = (props: Props) => {
             </Select>
             {selectedClient !== null && selectedClient !== undefined ? (
               <div>
-                <Typography variant='body2' sx={{ mb: 1 }}>
+                {/* <Typography variant='body2' sx={{ mb: 1 }}>
                   {selectedClient.company}
                 </Typography>
                 <Typography variant='body2' sx={{ mb: 1 }}>
@@ -311,7 +311,7 @@ const AddCard = (props: Props) => {
                 </Typography>
                 <Typography variant='body2' sx={{ mb: 1 }}>
                   {selectedClient.companyEmail}
-                </Typography>
+                </Typography> */}
               </div>
             ) : null}
           </Grid>
