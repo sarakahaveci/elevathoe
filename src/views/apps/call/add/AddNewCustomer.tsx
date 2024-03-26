@@ -12,70 +12,62 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { useAuth } from 'src/hooks/useAuth';
 import Icon from 'src/@core/components/icon';
-// import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
-import {AddCustomerParams} from 'src/context/types'
-// import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
+import { AddCustomerParams } from 'src/context/types';
 
-
+interface FormData {
+  name: string;
+}
 
 const schema = yup.object().shape({
   name: yup.string().required(),
-  update: yup.number().required(),
-  cancel: yup.number().required(),
 });
 
 interface Props {
   open: boolean;
   toggle: () => void;
-  clients: AddCustomerParams [] | undefined;
-  setClients: (val: AddCustomerParams []) => void;
-  setSelectedClient: (val: AddCustomerParams ) => void;
+  clients: AddCustomerParams[] | undefined;
+  setClients: (val: AddCustomerParams[]) => void;
+  setSelectedClient: (val: AddCustomerParams) => void;
 }
 
-interface FormData {
-  name: string;
-  update: number;
-  cancel: number;
-}
-
-const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }: Props) => {
+const AddNewCustomer = ({
+  open,
+  toggle,
+  setSelectedClient,
+  clients,
+  setClients,
+}: Props) => {
   const {
     reset,
-    control,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormData>({
     resolver: yupResolver(schema),
-    defaultValues: { name: '', update: 0, cancel: 0 },
+    defaultValues: { name: '' },
   });
 
   const auth = useAuth();
 
-  const update = 0; 
-  const cancel = 0; 
-
-
   const onSubmit = (data: FormData) => {
-    const { name, update, cancel } = data;
+    const { name } = data;
+    const newCustomer: AddCustomerParams = { name, update: 0, cancel: 0 };
     if (open) {
-      auth.addcustomer({ name, update, cancel }, () => {
-        //('testing add 123');
+      auth.addcustomer(newCustomer, () => {
+        console.log('123');
       });
     }
-
-    //('tstignadd123');
-
     if (clients !== undefined) {
-      setClients([...clients, data]);
+      setClients([...clients, newCustomer]);
     }
-    setSelectedClient(data);
+    setSelectedClient(newCustomer);
     toggle();
-    reset({ name: '', update: 0, cancel: 0 })
+    reset({ name: '' });
   };
 
   const handleDrawerClose = () => {
     toggle();
-    reset({ name: '', update: 0, cancel: 0 })
+    reset({ name: '' });
   };
 
   return (
