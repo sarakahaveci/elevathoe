@@ -1,5 +1,6 @@
 // ** React Imports
 import { useState, useEffect, MouseEvent, useCallback } from 'react'
+import { useAuth } from 'src/hooks/useAuth'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -52,6 +53,7 @@ import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/t
 // ** Custom Table Components Imports
 import TableHeader from 'src/views/apps/customer/list/TableHeader'
 import AddCustomerDrawer from 'src/views/apps/customer/list/AddCustomerDrawer'
+import { addCustomer } from '../../../../store/apps/customer/index';
 
 // ** Vars
 interface CellType {
@@ -170,9 +172,10 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.customer)
+  const auth = useAuth()
 
   useEffect(() => {
-    console.log("fetchData call in customer");
+  console.log("fetchData call in customer");
     dispatch(
       fetchData({
         role,
@@ -182,6 +185,17 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
       })
     )
   }, [dispatch, plan, role, status, value])
+
+  // useEffect(
+  //   () => {
+  //     const fetchCustomers = async () => {
+  //       const res = await auth.getAllCustomers({});
+  //       console.log('res: ', res);
+  //     }
+  //     fetchCustomers();
+  //   },
+  //   []
+  // )
 
   console.log("before useCallback");
 
@@ -196,11 +210,15 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   console.log(store.data);
 
   console.log("trying to return sth");
+  interface FormData {
+    name: string;
+  }
 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
+          {/* FOR DISPLAYING */}
           <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddCustomerDrawer} />
           <DataGrid
             autoHeight
@@ -214,6 +232,7 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
           />
         </Card>
       </Grid>
+      {/* For adding new cutomers */}
       <AddCustomerDrawer open={addCustomerOpen} toggle={toggleAddCustomerDrawer} />
     </Grid>
   )
