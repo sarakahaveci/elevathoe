@@ -1,5 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
+import { useAuth } from 'src/hooks/useAuth'
 
 // ** MUI Imports
 import Drawer from '@mui/material/Drawer'
@@ -38,7 +39,7 @@ interface SidebarAddCustomerType {
 }
 
 interface CustomerData {
-  fullName: string
+  name: string
 }
 
 const showErrors = (field: string, valueLen: number, min: number) => {
@@ -60,14 +61,14 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const schema = yup.object().shape({
-  fullName: yup
+  name: yup
     .string()
     .min(3, obj => showErrors('First Name', obj.value.length, obj.min))
     .required()
 })
 
 const defaultValues = {
-  fullName: ''
+  name: ''
 }
 
 const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
@@ -89,10 +90,32 @@ const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
+  // const onSubmit = (data: CustomerData) => {
+  //   dispatch(addCustomer({ ...data }))
+  //   toggle()
+  //   reset()
+  // }
+
+  const auth = useAuth();
+
+  // #api_url=$base_url"addCustomer"
+  // #curl -X POST  $api_url -H 
+  // "Content-Type: application/json" -H 
+  // "Authorization: Bearer $token" --data 
+  // "{\"update\": 0, \"name\": \"burj el arab\", \"cancel\": 0}"
+
   const onSubmit = (data: CustomerData) => {
-    dispatch(addCustomer({ ...data }))
-    toggle()
-    reset()
+    const { name } = data;
+    if (open) {
+      auth.addcustomer({ name: name, cancel: 0, update: 0 }, () => {
+        // setError('name', {
+        //   type: 'manual',
+        //   message: 'Your input is incorrect',
+        // });
+
+        console.log('testing'); 
+      });
+    }
   }
 
   const handleClose = () => {
@@ -119,14 +142,14 @@ const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl fullWidth sx={{ mb: 6 }}>
             <Controller
-              name='fullName'
+              name='name'
               control={control}
               rules={{ required: true }}
               render={({ field: { value, onChange } }) => (
-                <TextField value={value} label='Name' onChange={onChange} error={Boolean(errors.fullName)} />
+                <TextField value={value} label='Name' onChange={onChange} error={Boolean(errors.name)} />
               )}
             />
-            {errors.fullName && <FormHelperText sx={{ color: 'error.main' }}>{errors.fullName.message}</FormHelperText>}
+            {errors.name && <FormHelperText sx={{ color: 'error.main' }}>{errors.name.message}</FormHelperText>}
           </FormControl>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Button size='large' type='submit' variant='contained' sx={{ mr: 3 }}>
