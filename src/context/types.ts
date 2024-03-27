@@ -39,8 +39,6 @@ export type AddCustomerParams = {
 
 export type GetCustomerParams = {
   name: string
-  update: number
-  cancel: number
 }
 
 
@@ -66,7 +64,5 @@ export type AuthValuesType = {
   updatePassword: (params: UpdateParams, errorCallback?: ErrCallbackType) => void
   addcustomer: (params: AddCustomerParams, errorCallback?: ErrCallbackType) => void
   getcustomer: (params: GetCustomerParams, errorCallback?: ErrCallbackType) => void
-  
-  
-  
+
 }

@@ -188,12 +188,13 @@ const AuthProvider = ({ children }: Props) => {
       });
   };
 
+  
   const handleGetCustomer = (
     params: GetCustomerParams,
     errorCallback?: ErrCallbackType
   ) => {
     axios
-      .post(authConfig.getcustomerEndPoint, params, {
+      .post(authConfig. getcustomerEndPoint, params, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${globalToken}`,
@@ -210,6 +211,8 @@ const AuthProvider = ({ children }: Props) => {
         if (errorCallback) errorCallback(err);
       });
   };
+
+  
   // const handleAddCustomer = (
   //   params: AddCustomerParams,
   //   errorCallback?: ErrCallbackType
