@@ -21,7 +21,7 @@ import {
   ForgotParams,
   UpdateParams,
   AddCustomerParams,
-  GetCallsParams,
+  GetCustomerParams,
 } from "./types";
 
 // ** Defaults
@@ -36,6 +36,7 @@ const defaultProvider: AuthValuesType = {
   forgotPassword: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   addcustomer: () => Promise.resolve(),
+  getcustomer: () => Promise.resolve(),
 };
 
 const AuthContext = createContext(defaultProvider);
@@ -187,27 +188,30 @@ const AuthProvider = ({ children }: Props) => {
       });
   };
 
-  // const handleAddCustomer = (
-  //   params: AddCustomerParams,
-  //   errorCallback?: ErrCallbackType
-  // ) => {
-  //   const supabaseToken =
-  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
-  //   axios
-  //     .post(authConfig.addcustomerEndpoint, params, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${supabaseToken}`,
-  //       },
-  //     })
-  //     .then(async (response) => {
-  //       console.log("Success: ", response.data);
-  //     })
-  //     .catch((err) => {
-  //       if (errorCallback) errorCallback(err);
-  //     });
 
-  // };
+  const handleGetCustomer = (
+    params: GetCustomerParams,
+    errorCallback?: ErrCallbackType
+  ) => {
+    axios
+      .post(authConfig.getcustomersEndPoint, params, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${globalToken}`,
+        },
+      })
+      .then(async (response) => {
+        setUser({ ...response.data.signInResponse.data.user });
+        window.localStorage.setItem(
+          "userData",
+          JSON.stringify(response.data.signInResponse.data.user)
+        );
+      })
+      .catch((err) => {
+        if (errorCallback) errorCallback(err);
+      });
+  };
+
   const handleForgotPassword = (
     params: ForgotParams,
     errorCallback?: ErrCallbackType
@@ -259,25 +263,6 @@ const AuthProvider = ({ children }: Props) => {
       });
   };
 
-  // const handleUpdatePassword = (params: UpdateParams, errorCallback?: ErrCallbackType) => {
-  //   const supabaseToken =
-  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
-  //   axios
-  //     .post(authConfig.updateEndpoint, params, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${supabaseToken}`,
-  //       }
-  //     })
-  //     .then(response => {
-  //       const redirectURL = '/pages/auth/verify-password-update'
-  //       console.log('handleUpdatePassword: ', response.data)
-  //       router.push(redirectURL);
-  //     })
-  //     .catch(err => {
-  //       if (errorCallback) errorCallback(err)
-  //     })
-  // }
 
   const handleLogout = () => {
     setUser(null);
@@ -297,6 +282,7 @@ const AuthProvider = ({ children }: Props) => {
     forgotPassword: handleForgotPassword,
     updatePassword: handleUpdatePassword,
     addcustomer: handleAddCustomer,
+    getcustomer:handleGetCustomer
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
