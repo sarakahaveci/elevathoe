@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, useEffect, MouseEvent, useCallback } from 'react'
 import { useAuth } from 'src/hooks/useAuth'
-
+import SidebarAddCustomer from 'src/views/apps/customer/list/AddCustomerDrawer'
 // ** Next Imports
 import Link from 'next/link'
 import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
@@ -167,12 +167,21 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   const [status, setStatus] = useState<string>('')
   const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  const [isAddCustomerOpen, setIsAddCustomerOpen] = useState(false);
+  const [customerList, setCustomerList] = useState<Customer[]>([]);
 
-  // ** Hooks
-  const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.customer)
+  interface Customer {
+    name: string;
+   }
+   const dispatch = useDispatch<AppDispatch>();
+   const store = useSelector((state: RootState) => state.customer);
   const auth = useAuth()
+  
 
+  useEffect(() => {
+    console.log("fetchData call in customer");
+    dispatch(fetchData({ role, status, q: value, currentPlan: plan }));
+  }, [dispatch, plan, role, status, value]);
   useEffect(() => {
   console.log("fetchData call in customer");
     dispatch(
@@ -184,23 +193,20 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
       })
     )
   }, [dispatch, plan, role, status, value])
+  
 
-  // useEffect(
-  //   () => {
-  //     const fetchCustomers = async () => {
-  //       const res = await auth.getAllCustomers({});
-  //       console.log('res: ', res);
-  //     }
-  //     fetchCustomers();
-  //   },
-  //   []
-  // )
 
+  const handleUpdateCustomerList = (newCustomer: Customer) => {
+    setCustomerList(prevList => [...prevList, newCustomer]);
+  }
+  
   console.log("before useCallback");
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
+  
+  console.log("before useCallback");
 
   console.log("before setAddCustomerOpen");
 
@@ -212,6 +218,7 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   interface FormData {
     name: string;
   }
+  
 
   return (
     <Grid container spacing={6}>
@@ -232,7 +239,10 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
         </Card>
       </Grid>
       {/* For adding new cutomers */}
-      <AddCustomerDrawer open={addCustomerOpen} toggle={toggleAddCustomerDrawer} />
+      <AddCustomerDrawer 
+      open={isAddCustomerOpen}
+      toggle={() => setIsAddCustomerOpen(!isAddCustomerOpen)}
+      updateCustomerList={handleUpdateCustomerList} />
     </Grid>
   )
 }
