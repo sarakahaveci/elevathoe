@@ -1,4 +1,4 @@
-import { addCustomer } from "../store/apps/customer/index";
+import { addCustomer } from '../store/apps/customer/index';
 //types
 export type ErrCallbackType = (err: { [key: string]: string }) => void;
 
@@ -9,34 +9,36 @@ export type LoginParams = {
 };
 
 export type GetCallsParams = {
-  call: string;
-};
+  call: string
+}
 
 export type SignupParams = {
-  email: string;
-  password: string;
+  email: string
+  password: string
   orgName: string;
-};
+}
 
 export type UpdateParams = {
-  password: string;
-};
+  password: string
+}
+
 
 export type ForgotParams = {
-  email: string;
-};
+  email: string
+}
 
 export type UserParams = {
-  name: string;
-};
+  name: string
+}
 
 export type AddCustomerParams = {
   name: string;
   update: number;
   cancel: number;
-};
+}
 
 export type GetCustomerParams = {
+<<<<<<< HEAD
   // name: string
   // entryId: string
   // orgId: string 
@@ -59,6 +61,9 @@ export type CustomerResponse = {
       customers: Customer[];
     };
   }
+=======
+  name: string
+>>>>>>> 01ab291 (unuseful code)
 }
 
 
@@ -73,27 +78,16 @@ export type UserDataType = {
 };
 
 export type AuthValuesType = {
-  loading: boolean;
-  logout: () => void;
-  user: UserDataType | null;
-  setLoading: (value: boolean) => void;
-  setUser: (value: UserDataType | null) => void;
-  login: (params: LoginParams, errorCallback?: ErrCallbackType) => void;
-  signup: (params: SignupParams, errorCallback?: ErrCallbackType) => void;
-  forgotPassword: (
-    params: ForgotParams,
-    errorCallback?: ErrCallbackType
-  ) => void;
-  updatePassword: (
-    params: UpdateParams,
-    errorCallback?: ErrCallbackType
-  ) => void;
-  addcustomer: (
-    params: AddCustomerParams,
-    errorCallback?: ErrCallbackType
-  ) => void;
-  getcustomer: (
-    params: GetCustomerParams,
-    errorCallback?: ErrCallbackType
-  ) => void;
-};
+  loading: boolean
+  logout: () => void
+  user: UserDataType | null
+  setLoading: (value: boolean) => void
+  setUser: (value: UserDataType | null) => void
+  login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
+  signup: (params: SignupParams, errorCallback?: ErrCallbackType) => void
+  forgotPassword: (params: ForgotParams, errorCallback?: ErrCallbackType) => void
+  updatePassword: (params: UpdateParams, errorCallback?: ErrCallbackType) => void
+  addcustomer: (params: AddCustomerParams, errorCallback?: ErrCallbackType) => void
+  getcustomer: (params: GetCustomerParams, errorCallback?: ErrCallbackType) => void
+
+}
