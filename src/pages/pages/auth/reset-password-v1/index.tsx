@@ -82,12 +82,12 @@ const auth= useAuth()
    setValues({ ...values, [prop]: event.target.value })
  }
 
- console.log('test');
+ //('test');
  const handleClickShowNewPassword = () => {
    setValues({ ...values, showNewPassword: !values.showNewPassword })
  }
 
- console.log('test');
+ //('test');
  // Handle Confirm New Password
  const handleConfirmNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
    setValues({ ...values, [prop]: event.target.value })

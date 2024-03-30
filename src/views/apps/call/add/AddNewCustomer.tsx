@@ -66,15 +66,15 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
     const { name, update, cancel } = data;
     if (open) {
       auth.addcustomer({ name, update, cancel }, () => {
-        console.log('testing add 123');
+        //('testing add 123');
       });
     } else {
       auth.getcustomer({ name, update, cancel }, () => {
-        console.log('testing get 123');
+        //('testing get 123');
       });
     }
 
-    console.log('tstignadd123');
+    //('tstignadd123');
 
     if (clients !== undefined) {
       setClients([...clients, data]);

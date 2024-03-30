@@ -19,12 +19,12 @@ interface Redux {
 
 // ** Fetch Projects
 export const fetchData = createAsyncThunk('appProjects/fetchData', async (params: DataParams) => {
-  console.log("fetching data /apps/projects/list");
+  //("fetching data /apps/projects/list");
   const response = await axios.get('/apps/projects/list', {
     params
   })
 
-  console.log("fetched data /apps/projects/list");
+  //("fetched data /apps/projects/list");
 
   return response.data
 })

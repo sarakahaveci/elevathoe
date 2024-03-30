@@ -39,6 +39,8 @@ export type AddCustomerParams = {
 
 export type GetCustomerParams = {
   name: string
+  entryId: string
+  orgId: string 
 }
 
 

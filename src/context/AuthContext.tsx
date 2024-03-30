@@ -97,9 +97,9 @@ const AuthProvider = ({ children }: Props) => {
   const handleLogin = (
     params: LoginParams,
     errorCallback?: ErrCallbackType
-    
+
   ) => {
-    
+
     const supabaseToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
 
@@ -110,25 +110,25 @@ const AuthProvider = ({ children }: Props) => {
           Authorization: `Bearer ${supabaseToken}`,
         },
       })
-     
+
       .then(async (response) => {
         const signInToken = response.data.signInResponse.data.session.access_token;
 
         globalToken = signInToken;
-           params.rememberMe
+        params.rememberMe
           ? window.localStorage.setItem(
-              authConfig.storageTokenKeyName,
-              response.data.signInResponse.data.session.access_token
-            )
+            authConfig.storageTokenKeyName,
+            response.data.signInResponse.data.session.access_token
+          )
           : null;
         const returnUrl = router.query.returnUrl;
 
         setUser({ ...response.data.signInResponse.data.user });
         params.rememberMe
           ? window.localStorage.setItem(
-              "userData",
-              JSON.stringify(response.data.signInResponse.data.user)
-            )
+            "userData",
+            JSON.stringify(response.data.signInResponse.data.user)
+          )
           : null;
 
         const redirectURL = returnUrl && returnUrl !== "/" ? returnUrl : "/";
@@ -156,15 +156,15 @@ const AuthProvider = ({ children }: Props) => {
       })
       .then(async (response) => {
         const redirectURL = "/pages/auth/verify-email-v1";
-        console.log("Success: ", response.data);
+        //("Success: ", response.data);
         router.push(redirectURL);
       })
       .catch((err) => {
         if (errorCallback) errorCallback(err);
       });
   };
-  
-  
+
+
   const handleAddCustomer = (
     params: AddCustomerParams,
     errorCallback?: ErrCallbackType
@@ -188,31 +188,21 @@ const AuthProvider = ({ children }: Props) => {
       });
   };
 
-  
+
   const handleGetCustomer = (
     params: GetCustomerParams,
     errorCallback?: ErrCallbackType
   ) => {
-    axios
-      .post(authConfig. getcustomerEndPoint, params, {
+    return axios
+      .post(authConfig.getcustomerEndPoint, params, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${globalToken}`,
         },
       })
-      .then(async (response) => {
-        setUser({ ...response.data.signInResponse.data.user });
-        window.localStorage.setItem(
-          "userData",
-          JSON.stringify(response.data.signInResponse.data.user)
-        );
-      })
-      .catch((err) => {
-        if (errorCallback) errorCallback(err);
-      });
   };
 
-  
+
   // const handleAddCustomer = (
   //   params: AddCustomerParams,
   //   errorCallback?: ErrCallbackType
@@ -227,7 +217,7 @@ const AuthProvider = ({ children }: Props) => {
   //       },
   //     })
   //     .then(async (response) => {
-  //       console.log("Success: ", response.data);
+  //       //("Success: ", response.data);
   //     })
   //     .catch((err) => {
   //       if (errorCallback) errorCallback(err);
@@ -249,7 +239,7 @@ const AuthProvider = ({ children }: Props) => {
       })
       .then(async (response) => {
         const redirectURL = "/pages/auth/verify-password-v1";
-        console.log("handleForgotPassword: ", response.data);
+        //("handleForgotPassword: ", response.data);
         router.push(redirectURL);
       })
       .catch((err) => {
@@ -297,7 +287,7 @@ const AuthProvider = ({ children }: Props) => {
   //     })
   //     .then(response => {
   //       const redirectURL = '/pages/auth/verify-password-update'
-  //       console.log('handleUpdatePassword: ', response.data)
+  //       //('handleUpdatePassword: ', response.data)
   //       router.push(redirectURL);
   //     })
   //     .catch(err => {

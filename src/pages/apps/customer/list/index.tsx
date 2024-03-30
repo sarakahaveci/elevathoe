@@ -56,7 +56,14 @@ import AddCustomerDrawer from 'src/views/apps/customer/list/AddCustomerDrawer'
 
 // ** Vars
 interface CellType {
-  row: CustomerTypes
+  row: ReturnCustomer
+}
+
+interface ReturnCustomer {
+  entryId: string;
+  name: string;
+  orgId: number;
+  id: number;
 }
 
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -69,6 +76,12 @@ const LinkStyled = styled(Link)(({ theme }) => ({
     color: theme.palette.primary.main
   }
 }))
+
+const transformData = (customers: ReturnCustomer[]) => customers.map(customer => ({
+  ...customer,
+  id: customer.entryId, // Transform entryId to id
+}));
+
 
 const RowOptions = ({ id }: { id: number | string }) => {
   // ** Hooks
@@ -137,14 +150,14 @@ const columns: GridColDef[] = [
   {
     flex: 0.2,
     minWidth: 230,
-    field: 'fullName',
+    field: 'name',
     headerName: 'Name',
     renderCell: ({ row }: CellType) => {
-      const { fullName } = row
+      const { name } = row
 
       return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ color: "#000", display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{fullName}</Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }} id={row.entryId}>
+          <Box sx={{ color: "#000", display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{name}</Box>
         </Box>
       )
     }
@@ -155,7 +168,7 @@ const columns: GridColDef[] = [
     sortable: false,
     field: 'actions',
     headerName: 'Actions',
-    renderCell: ({ row }: CellType) => <RowOptions id={row.id} />
+    renderCell: ({ row }: CellType) => <RowOptions id={row.entryId} />
   }
 ]
 
@@ -167,48 +180,55 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   const [status, setStatus] = useState<string>('')
   const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  const [data, setData] = useState<ReturnCustomer[]>([])
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.customer)
   const auth = useAuth()
 
+  // useEffect(() => {
+  // //("fetchData call in customer");
+  //   dispatch(
+  //     fetchData({
+  //       role,
+  //       status,
+  //       q: value,
+  //       currentPlan: plan
+  //     })
+  //   )
+  // }, [dispatch, plan, role, status, value])
+
   useEffect(() => {
-  console.log("fetchData call in customer");
-    dispatch(
-      fetchData({
-        role,
-        status,
-        q: value,
-        currentPlan: plan
-      })
-    )
-  }, [dispatch, plan, role, status, value])
+    const fetchCustomers = async () => {
+      try {
+        //('before running')
+        const res = await auth.getcustomer({ name: '', orgId: '', entryId: '' });
+        console.log('response in use effect: ', res.data.data.customers);
+        setData(transformData(res.data.data.customers))
 
-  // useEffect(
-  //   () => {
-  //     const fetchCustomers = async () => {
-  //       const res = await auth.getAllCustomers({});
-  //       console.log('res: ', res);
-  //     }
-  //     fetchCustomers();
-  //   },
-  //   []
-  // )
+        //('res: ', res);
+      } catch (error) {
+        console.error('Error fetching customers:', error);
+      }
+    };
+    fetchCustomers();
+  }, [auth]);
 
-  console.log("before useCallback");
+
+  //("before useCallback");
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
 
-  console.log("before setAddCustomerOpen");
+  //("before setAddCustomerOpen");
 
   const toggleAddCustomerDrawer = () => setAddCustomerOpen(!addCustomerOpen)
 
-  console.log(store.data);
+  //(store.data);
 
-  console.log("trying to return sth");
+  //("trying to return sth");
   interface FormData {
     name: string;
   }
@@ -221,7 +241,7 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
           <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddCustomerDrawer} />
           <DataGrid
             autoHeight
-            rows={store.data}
+            rows={data}
             columns={columns}
             checkboxSelection
             disableRowSelectionOnClick

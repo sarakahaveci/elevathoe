@@ -10,12 +10,12 @@ const ForgotPassword: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
-    console.log('Submitting form with email:', email);
+    //('Submitting form with email:', email);
   
     try {
       const success = await sendResetLink({ email });
   
-      console.log('Reset link sent:', success);
+      //('Reset link sent:', success);
   
       if (success) {
         alert('Password reset link sent to your email.'); // Display success message
