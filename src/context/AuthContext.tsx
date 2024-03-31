@@ -165,30 +165,6 @@ const AuthProvider = ({ children }: Props) => {
   };
 
 
-  // const handleAddCustomer = (
-  //   params: AddCustomerParams,
-  //   errorCallback?: ErrCallbackType
-  // ) => {
-  //   axios
-  //     .post(authConfig.addcustomerEndpoint, params, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${globalToken}`,
-  //       },
-  //     })
-  //     .then(async (response) => {
-  //       setUser({ ...response.data.signInResponse.data.user });
-  //       window.localStorage.setItem(
-  //         "userData",
-  //         JSON.stringify(response.data.signInResponse.data.user)
-  //       );
-  //     })
-  //     .catch((err) => {
-  //       if (errorCallback) errorCallback(err);
-  //     });
-  // };
-
-
   const handleGetCustomer = (
     params: GetCustomerParams,
     errorCallback?: ErrCallbackType
@@ -201,6 +177,8 @@ const AuthProvider = ({ children }: Props) => {
         },
       })
   };
+
+  //add new custoer
   const handleAddCustomer = (
     params: AddCustomerParams,
     errorCallback?: ErrCallbackType
@@ -214,28 +192,6 @@ const AuthProvider = ({ children }: Props) => {
       })
   };
 
-
-  // const handleAddCustomer = (
-  //   params: AddCustomerParams,
-  //   errorCallback?: ErrCallbackType
-  // ) => {
-  //   const supabaseToken =
-  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
-  //   axios
-  //     .post(authConfig.addcustomerEndpoint, params, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${supabaseToken}`,
-  //       },
-  //     })
-  //     .then(async (response) => {
-  //       //("Success: ", response.data);
-  //     })
-  //     .catch((err) => {
-  //       if (errorCallback) errorCallback(err);
-  //     });
-
-  // };
   const handleForgotPassword = (
     params: ForgotParams,
     errorCallback?: ErrCallbackType
@@ -286,26 +242,6 @@ const AuthProvider = ({ children }: Props) => {
         if (errorCallback) errorCallback(err);
       });
   };
-
-  // const handleUpdatePassword = (params: UpdateParams, errorCallback?: ErrCallbackType) => {
-  //   const supabaseToken =
-  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
-  //   axios
-  //     .post(authConfig.updateEndpoint, params, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${supabaseToken}`,
-  //       }
-  //     })
-  //     .then(response => {
-  //       const redirectURL = '/pages/auth/verify-password-update'
-  //       //('handleUpdatePassword: ', response.data)
-  //       router.push(redirectURL);
-  //     })
-  //     .catch(err => {
-  //       if (errorCallback) errorCallback(err)
-  //     })
-  // }
 
   const handleLogout = () => {
     setUser(null);
