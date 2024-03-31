@@ -2,9 +2,11 @@
 import { useState, useEffect, MouseEvent, useCallback } from 'react'
 import { useAuth } from 'src/hooks/useAuth'
 
+
 // ** Next Imports
 import Link from 'next/link'
 import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
+
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -23,25 +25,32 @@ import CardContent from '@mui/material/CardContent'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
+
 
 // ** Custom Components Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import CardStatisticsHorizontal from 'src/@core/components/card-statistics/card-stats-horizontal'
 
+
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
+
 
 // ** Actions Imports
 import { fetchData, deleteCustomer } from 'src/store/apps/customer'
 
+
 // ** Third Party Components
 import axios from 'axios'
+
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -50,222 +59,255 @@ import { ThemeColor } from 'src/@core/layouts/types'
 import { CustomerTypes } from 'src/types/apps/customerTypes'
 import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
 
+
 // ** Custom Table Components Imports
 import TableHeader from 'src/views/apps/customer/list/TableHeader'
 import AddCustomerDrawer from 'src/views/apps/customer/list/AddCustomerDrawer'
 
+
 // ** Vars
 interface CellType {
-  row: ReturnCustomer
+ row: ReturnCustomer
 }
+
 
 interface ReturnCustomer {
-  entryId: string;
-  name: string;
-  orgId: number;
-  id: number;
+ entryId: string;
+ name: string;
+ orgId: number;
+ id: number;
 }
 
+
 const LinkStyled = styled(Link)(({ theme }) => ({
-  fontWeight: 600,
-  fontSize: '1rem',
-  cursor: 'pointer',
-  textDecoration: 'none',
-  color: theme.palette.text.secondary,
-  '&:hover': {
-    color: theme.palette.primary.main
-  }
+ fontWeight: 600,
+ fontSize: '1rem',
+ cursor: 'pointer',
+ textDecoration: 'none',
+ color: theme.palette.text.secondary,
+ '&:hover': {
+   color: theme.palette.primary.main
+ }
 }))
 
-const transformData = (customers: ReturnCustomer[]) => customers.map(customer => ({
-  ...customer,
-  id: customer.entryId, // Transform entryId to id
-}));
+
+
+
 
 
 const RowOptions = ({ id }: { id: number | string }) => {
-  // ** Hooks
-  const dispatch = useDispatch<AppDispatch>()
+ // ** Hooks
+ const dispatch = useDispatch<AppDispatch>()
 
-  // ** State
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  const rowOptionsOpen = Boolean(anchorEl)
+ // ** State
+ const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-  const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleRowOptionsClose = () => {
-    setAnchorEl(null)
-  }
 
-  const handleDelete = () => {
-    dispatch(deleteCustomer(id))
-    handleRowOptionsClose()
-  }
+ const rowOptionsOpen = Boolean(anchorEl)
 
-  return (
-    <>
-      <IconButton size='small' onClick={handleRowOptionsClick}>
-        <Icon icon='mdi:dots-vertical' />
-      </IconButton>
-      <Menu
-        keepMounted
-        anchorEl={anchorEl}
-        open={rowOptionsOpen}
-        onClose={handleRowOptionsClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
-        PaperProps={{ style: { minWidth: '8rem' } }}
-      >
-        <MenuItem
-          component={Link}
-          sx={{ '& svg': { mr: 2 } }}
-          onClick={handleRowOptionsClose}
-          href='/apps/customer/view/overview/'
-        >
-          <Icon icon='mdi:eye-outline' fontSize={20} />
-          View
-        </MenuItem>
-        <MenuItem onClick={handleRowOptionsClose} sx={{ '& svg': { mr: 2 } }}>
-          <Icon icon='mdi:pencil-outline' fontSize={20} />
-          Edit
-        </MenuItem>
-        <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
-          <Icon icon='mdi:delete-outline' fontSize={20} />
-          Delete
-        </MenuItem>
-      </Menu>
-    </>
-  )
+
+ const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
+   setAnchorEl(event.currentTarget)
+ }
+ const handleRowOptionsClose = () => {
+   setAnchorEl(null)
+ }
+
+
+ const handleDelete = () => {
+   dispatch(deleteCustomer(id))
+   handleRowOptionsClose()
+ }
+
+
+ return (
+   <>
+     <IconButton size='small' onClick={handleRowOptionsClick}>
+       <Icon icon='mdi:dots-vertical' />
+     </IconButton>
+     <Menu
+       keepMounted
+       anchorEl={anchorEl}
+       open={rowOptionsOpen}
+       onClose={handleRowOptionsClose}
+       anchorOrigin={{
+         vertical: 'bottom',
+         horizontal: 'right'
+       }}
+       transformOrigin={{
+         vertical: 'top',
+         horizontal: 'right'
+       }}
+       PaperProps={{ style: { minWidth: '8rem' } }}
+     >
+       <MenuItem
+         component={Link}
+         sx={{ '& svg': { mr: 2 } }}
+         onClick={handleRowOptionsClose}
+         href='/apps/customer/view/overview/'
+       >
+         <Icon icon='mdi:eye-outline' fontSize={20} />
+         View
+       </MenuItem>
+       <MenuItem onClick={handleRowOptionsClose} sx={{ '& svg': { mr: 2 } }}>
+         <Icon icon='mdi:pencil-outline' fontSize={20} />
+         Edit
+       </MenuItem>
+       <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
+         <Icon icon='mdi:delete-outline' fontSize={20} />
+         Delete
+       </MenuItem>
+     </Menu>
+   </>
+ )
 }
+
 
 const columns: GridColDef[] = [
-  {
-    flex: 0.2,
-    minWidth: 230,
-    field: 'name',
-    headerName: 'Name',
-    renderCell: ({ row }: CellType) => {
-      const { name } = row
+ {
+   flex: 0.2,
+   minWidth: 230,
+   field: 'name',
+   headerName: 'Name',
+   renderCell: ({ row }: CellType) => {
+     const { name } = row
 
-      return (
-        <Box sx={{ display: 'flex', alignItems: 'center' }} id={row.entryId}>
-          <Box sx={{ color: "#000", display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{name}</Box>
-        </Box>
-      )
-    }
-  },
-  {
-    flex: 0,
-    minWidth: 90,
-    sortable: false,
-    field: 'actions',
-    headerName: 'Actions',
-    renderCell: ({ row }: CellType) => <RowOptions id={row.entryId} />
-  }
+
+     return (
+       <Box sx={{ display: 'flex', alignItems: 'center' }} id={row.entryId}>
+         <Box sx={{ color: "#000", display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{name}</Box>
+       </Box>
+     )
+   }
+ },
+ {
+   flex: 0,
+   minWidth: 90,
+   sortable: false,
+   field: 'actions',
+   headerName: 'Actions',
+   renderCell: ({ row }: CellType) => <RowOptions id={row.entryId} />
+ }
 ]
 
+
 const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // ** State
-  const [role, setRole] = useState<string>('')
-  const [plan, setPlan] = useState<string>('')
-  const [value, setValue] = useState<string>('')
-  const [status, setStatus] = useState<string>('')
-  const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
-  const [data, setData] = useState<ReturnCustomer[]>([])
+ // ** State
+ const [role, setRole] = useState<string>('')
+ const [plan, setPlan] = useState<string>('')
+ const [value, setValue] = useState<string>('')
+ const [status, setStatus] = useState<string>('')
+ const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
+ const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+ const [data, setData] = useState<ReturnCustomer[]>([])
 
-  // ** Hooks
-  const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.customer)
-  const auth = useAuth()
 
+ // ** Hooks
+ const dispatch = useDispatch<AppDispatch>()
+ const store = useSelector((state: RootState) => state.customer)
+ const auth = useAuth()
+ const transformData = (customers: any[]) => customers.map((customer: any) => ({
+   ...customer,
+   id: customer.entryId as string,
+ }));
   // useEffect(() => {
-  // //("fetchData call in customer");
-  //   dispatch(
-  //     fetchData({
-  //       role,
-  //       status,
-  //       q: value,
-  //       currentPlan: plan
-  //     })
-  //   )
-  // }, [dispatch, plan, role, status, value])
-
-  useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        //('before running')
-        const res = await auth.getcustomer({ name: '', orgId: '', entryId: '' });
-        console.log('response in use effect: ', res.data.data.customers);
-        setData(transformData(res.data.data.customers))
-
-        //('res: ', res);
-      } catch (error) {
-        console.error('Error fetching customers:', error);
-      }
-    };
-    fetchCustomers();
-  }, [auth]);
+ // //("fetchData call in customer");
+ //   dispatch(
+ //     fetchData({
+ //       role,
+ //       status,
+ //       q: value,
+ //       currentPlan: plan
+ //     })
+ //   )
+ // }, [dispatch, plan, role, status, value])
 
 
-  //("before useCallback");
+ useEffect(() => {
+   const fetchCustomers = async () => {
+     try {
+       //('before running')
+       const res = await auth.getcustomer({ name: '', orgId: '', entryId: '' });
+       console.log('response in use effect: ', res.data.data.customers);
+       setData(transformData(res.data.data.customers))
 
-  const handleFilter = useCallback((val: string) => {
-    setValue(val)
-  }, [])
 
-  //("before setAddCustomerOpen");
+       //('res: ', res);
+     } catch (error) {
+       console.error('Error fetching customers:', error);
+     }
+   };
+   fetchCustomers();
+ }, [auth]);
 
-  const toggleAddCustomerDrawer = () => setAddCustomerOpen(!addCustomerOpen)
 
-  //(store.data);
 
-  //("trying to return sth");
-  interface FormData {
-    name: string;
-  }
 
-  return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <Card>
-          {/* FOR DISPLAYING */}
-          <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddCustomerDrawer} />
-          <DataGrid
-            autoHeight
-            rows={data}
-            columns={columns}
-            checkboxSelection
-            disableRowSelectionOnClick
-            pageSizeOptions={[10, 25, 50]}
-            paginationModel={paginationModel}
-            onPaginationModelChange={setPaginationModel}
-          />
-        </Card>
-      </Grid>
-      {/* For adding new cutomers */}
-      <AddCustomerDrawer open={addCustomerOpen} toggle={toggleAddCustomerDrawer} />
-    </Grid>
-  )
+ //("before useCallback");
+
+
+ const handleFilter = useCallback((val: string) => {
+   setValue(val)
+ }, [])
+
+
+ //("before setAddCustomerOpen");
+
+
+ const toggleAddCustomerDrawer = () => setAddCustomerOpen(!addCustomerOpen)
+
+
+ //(store.data);
+
+
+ //("trying to return sth");
+ interface FormData {
+   name: string;
+ }
+
+
+ return (
+   <Grid container spacing={6}>
+     <Grid item xs={12}>
+       <Card>
+         {/* FOR DISPLAYING */}
+         <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddCustomerDrawer} />
+         <DataGrid
+           autoHeight
+           rows={data}
+           columns={columns}
+           checkboxSelection
+           disableRowSelectionOnClick
+           pageSizeOptions={[10, 25, 50]}
+           paginationModel={paginationModel}
+           onPaginationModelChange={setPaginationModel}
+         />
+       </Card>
+     </Grid>
+     {/* For adding new cutomers */}
+     <AddCustomerDrawer open={addCustomerOpen} toggle={toggleAddCustomerDrawer} />
+   </Grid>
+ )
 }
+
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await axios.get('/cards/statistics')
-  const apiData: CardStatsType = res.data
+ const res = await axios.get('/cards/statistics')
+ const apiData: CardStatsType = res.data
 
-  return {
-    props: {
-      apiData
-    }
-  }
+
+ return {
+   props: {
+     apiData
+   }
+ }
 }
 
+
 export default CustomerList
+
+
+
+
+
