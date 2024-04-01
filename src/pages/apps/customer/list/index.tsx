@@ -211,18 +211,6 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
    ...customer,
    id: customer.entryId as string,
  }));
-  // useEffect(() => {
- // //("fetchData call in customer");
- //   dispatch(
- //     fetchData({
- //       role,
- //       status,
- //       q: value,
- //       currentPlan: plan
- //     })
- //   )
- // }, [dispatch, plan, role, status, value])
-
 
  useEffect(() => {
    const fetchCustomers = async () => {
