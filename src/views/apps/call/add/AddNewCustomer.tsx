@@ -12,8 +12,10 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { useAuth } from 'src/hooks/useAuth';
 import Icon from 'src/@core/components/icon';
+// import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
 import {AddCustomerParams} from 'src/context/types'
 // import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
+
 
 
 const schema = yup.object().shape({
@@ -57,15 +59,11 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
     const { name, update, cancel } = data;
     if (open) {
       auth.addcustomer({ name, update, cancel }, () => {
-        console.log('testing add 123');
-      });
-    } else {
-      auth.getcustomer({ name, update, cancel }, () => {
-        console.log('testing get 123');
+        //('testing add 123');
       });
     }
 
-    console.log('tstignadd123');
+    //('tstignadd123');
 
     if (clients !== undefined) {
       setClients([...clients, data]);

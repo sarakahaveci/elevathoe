@@ -39,7 +39,7 @@ mock.onPost('/apps/elevators/add-elevator').reply(config => {
 
 // GET: DATA
 mock.onGet('/apps/elevators/list').reply(config => {
-  console.log("in @fake-db /apps/elevators/list");
+  //("in @fake-db /apps/elevators/list");
   const { q = '', role = null, status = null, currentPlan = null } = config.params ?? ''
 
   const queryLowered = q.toLowerCase()
@@ -52,7 +52,7 @@ mock.onGet('/apps/elevators/list').reply(config => {
     )
   )
 
-  console.log("returning from @fake-db");
+  //("returning from @fake-db");
   
   return [
     200,

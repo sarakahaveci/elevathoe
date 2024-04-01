@@ -217,7 +217,7 @@ const elevatorList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   const store = useSelector((state: RootState) => state.elevator)
 
   useEffect(() => {
-    console.log("fetchData call in elevator");
+    //("fetchData call in elevator");
     dispatch(
       fetchData({
         role,
@@ -228,17 +228,17 @@ const elevatorList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
     )
   }, [dispatch, plan, role, status, value])
 
-  console.log("before useCallback");
+  //("before useCallback");
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
 
-  console.log("before setAddElevatorOpen");
+  //("before setAddElevatorOpen");
 
   const toggleAddElevatorDrawer = () => setAddElevatorOpen(!addElevatorOpen)
 
-  console.log("trying to return sth");
+  //("trying to return sth");
 
   return (
     <Grid container spacing={6}>

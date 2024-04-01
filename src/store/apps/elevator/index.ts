@@ -19,12 +19,12 @@ interface Redux {
 
 // ** Fetch elevators
 export const fetchData = createAsyncThunk('appElevators/fetchData', async (params: DataParams) => {
-  console.log("fetching data /apps/elevators/list");
+  //("fetching data /apps/elevators/list");
   const response = await axios.get('/apps/elevators/list', {
     params
   })
 
-  console.log("fetched data /apps/elevators/list");
+  //("fetched data /apps/elevators/list");
 
   return response.data
 })

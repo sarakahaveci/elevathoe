@@ -59,7 +59,7 @@ const data: { calls: CallType[] } = {
 // GET: Return Invoice List
 // ------------------------------------------------
 mock.onGet('/apps/call/calls').reply(config => {
-  console.log(config.params);
+  //(config.params);
   const { q = '', status = '', dates = [] } = config.params ?? ''
   const queryLowered = q.toLowerCase()
   const filteredData = data.calls.filter(call => {

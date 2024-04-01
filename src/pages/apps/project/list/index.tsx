@@ -187,7 +187,7 @@ const projectList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>
   const store = useSelector((state: RootState) => state.project)
 
   useEffect(() => {
-    console.log("fetchData call in project");
+    //("fetchData call in project");
     dispatch(
       fetchData({
         role,
@@ -198,17 +198,17 @@ const projectList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>
     )
   }, [dispatch, plan, role, status, value])
 
-  console.log("before useCallback");
+  //("before useCallback");
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
 
-  console.log("before setAddprojectOpen");
+  //("before setAddprojectOpen");
 
   const toggleAddProjectDrawer = () => setAddProjectOpen(!addProjectOpen)
 
-  console.log("trying to return sth");
+  //("trying to return sth");
 
   return (
     <Grid container spacing={6}>
