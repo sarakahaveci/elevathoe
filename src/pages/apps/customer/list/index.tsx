@@ -212,24 +212,36 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
    id: customer.entryId as string,
  }));
 
+
+interface CustomerResponse {
+  data: {
+    customers: Customer[];
+  };
+}
+interface Customer {
+  id: string;
+  name: string;
+  orgId: number;
+  entryId: string;
+}
+
  useEffect(() => {
-   const fetchCustomers = async () => {
-     try {
-       //('before running')
-       const res = await auth.getcustomer({ name: '', orgId: '', entryId: '' });
-       console.log('response in use effect: ', res.data.data.customers);
-       setData(transformData(res.data.data.customers))
-
-
-       //('res: ', res);
-     } catch (error) {
-       console.error('Error fetching customers:', error);
-     }
-   };
-   fetchCustomers();
- }, [auth]);
-
-
+  const fetchCustomers = async () => {
+    try {
+      const res = await auth.getcustomer({ name: '', orgId: '', entryId: '' });
+      if (res !== null && res !== undefined) {
+        const customerResponse: CustomerResponse = res as CustomerResponse;
+        console.log('response in use effect: ', customerResponse.data.customers);
+        setData(transformData(customerResponse.data.customers));
+      } else {
+        console.error('Invalid response');
+      }
+    } catch (error) {
+      console.error('Error fetching customers:', error);
+    }
+  };
+  fetchCustomers();
+}, [auth]);
 
 
  //("before useCallback");

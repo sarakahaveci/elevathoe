@@ -61,10 +61,6 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
       auth.addcustomer({ name, update, cancel }, () => {
         //('testing add 123');
       });
-    } else {
-      auth.getcustomer({ name, update, cancel }, () => {
-        //('testing get 123');
-      });
     }
 
     //('tstignadd123');
