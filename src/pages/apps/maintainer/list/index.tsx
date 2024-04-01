@@ -187,7 +187,7 @@ const MaintainerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticPro
   const store = useSelector((state: RootState) => state.maintainer)
 
   useEffect(() => {
-    console.log("fetchData call in maintainer");
+    //("fetchData call in maintainer");
     dispatch(
       fetchData({
         role,
@@ -198,19 +198,19 @@ const MaintainerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticPro
     )
   }, [dispatch, plan, role, status, value])
 
-  console.log("before useCallback");
+  //("before useCallback");
 
   const handleFilter = useCallback((val: string) => {
     setValue(val)
   }, [])
 
-  console.log("before setAddMaintainerOpen");
+  //("before setAddMaintainerOpen");
 
   const toggleAddMaintainerDrawer = () => setAddMaintainerOpen(!addMaintainerOpen)
 
-  console.log(store.data);
+  //(store.data);
 
-  console.log("trying to return sth");
+  //("trying to return sth");
 
   return (
     <Grid container spacing={6}>

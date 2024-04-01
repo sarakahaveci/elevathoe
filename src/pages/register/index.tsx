@@ -73,7 +73,7 @@ const handleSignup = async (formData: FormData) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Signup successful:", data);
+      //("Signup successful:", data);
     } else {
       const errorData = await response.json();
       console.error("Signup failed:", errorData);

@@ -113,7 +113,7 @@ const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
         //   message: 'Your input is incorrect',
         // });
 
-        console.log('testing'); 
+        //('testing'); 
       });
     }
   }

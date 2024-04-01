@@ -110,7 +110,7 @@ mock.onPost('/apps/customers/add-customer').reply(config => {
 
 // GET: DATA
 mock.onGet('/apps/customers/list').reply(config => {
-  console.log("in @fake-db /apps/customers/list");
+  //("in @fake-db /apps/customers/list");
   const { q = '', role = null, status = null, currentPlan = null } = config.params ?? ''
 
   const queryLowered = q.toLowerCase()
@@ -122,7 +122,7 @@ mock.onGet('/apps/customers/list').reply(config => {
     )
   )
 
-  console.log("returning from @fake-db");
+  //("returning from @fake-db");
   
   return [
     200,

@@ -112,7 +112,7 @@ const data: { faqData: FaqType } = {
           id: 'order-success',
           question: 'Has my order been successful?',
           answer:
-            'All successful order transactions will receive an order confirmation email once the order has been processed. If you have not received your order confirmation email within 24 hours, check your junk email or spam folder. Alternatively, log in to your account to check your order summary. If you do not have a account, you can contact our Customer Care Team on 1-000-000-000.'
+            'All successful order trans will receive an order confirmation email once the order has been processed. If you have not received your order confirmation email within 24 hours, check your junk email or spam folder. Alternatively, log in to your account to check your order summary. If you do not have a account, you can contact our Customer Care Team on 1-000-000-000.'
         },
         {
           id: 'promo-code',

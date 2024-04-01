@@ -1,3 +1,4 @@
+import { addCustomer } from '../store/apps/customer/index';
 //types
 export type ErrCallbackType = (err: { [key: string]: string }) => void;
 
@@ -38,8 +39,8 @@ export type AddCustomerParams = {
 
 export type GetCustomerParams = {
   name: string
-  update: number
-  cancel: number
+  entryId: string
+  orgId: string 
 }
 
 
@@ -65,6 +66,5 @@ export type AuthValuesType = {
   updatePassword: (params: UpdateParams, errorCallback?: ErrCallbackType) => void
   addcustomer: (params: AddCustomerParams, errorCallback?: ErrCallbackType) => void
   getcustomer: (params: GetCustomerParams, errorCallback?: ErrCallbackType) => void
-  getcalls: (params: GetCallsParams, errorCallback?: ErrCallbackType) => void
-  getAllCustomers: (params: {}, errorCallback?: ErrCallbackType) => void
+
 }
