@@ -165,7 +165,7 @@ const AuthProvider = ({ children }: Props) => {
   };
 
 
-  const handleGetCustomer = (
+   const handleGetCustomer = (
     params: GetCustomerParams,
     errorCallback?: ErrCallbackType
   ) => {
