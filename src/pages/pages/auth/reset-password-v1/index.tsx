@@ -37,7 +37,7 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 import { useAuth } from '../../../../hooks/useAuth';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/';
+const supabaseUrl = 'https://ciargyanclokbcragarw.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXJneWFuY2xva2JjcmFnYXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU3Mzg1NzUsImV4cCI6MjAyMTMxNDU3NX0.c8h74b1YIhcd4Y1CFVLvJKqAMVXRAH1h2UXLGJ9cNqQ';
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -76,10 +76,6 @@ const ResetPasswordV1 = () => {
  useEffect(() => {
   supabase.auth.onAuthStateChange(async (event, session) => {
     console.log(event);
-    if (event == "PASSWORD_RECOVERY") {
-      const { data, error } = await supabase.auth
-        .updateUser({ password: values.newPassword }) 
-    }
   })
 }, [])
 
@@ -126,16 +122,23 @@ const auth= useAuth()
   mode: 'onBlur',
 });
 
- const onSubmit = (data: FormData) => {
-  const { password } = data
-  auth.updatePassword({ password }, () => {
-    setError('password', {
-      type: 'manual',
-      message: 'Email or Password is invalid'
-    })
+useEffect(() => {
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log(event);  
   })
-}
+}, [])
 
+ const onSubmit = (values: FormData) => {
+  const { password } = values
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log(event);
+  })
+  console.log("call-1 updateUser");
+  console.log(password);
+  supabase.auth.updateUser({ password: password }) 
+  console.log("call-2 updateUser");
+
+}
 
  return (
    <Box className='content-center'>
