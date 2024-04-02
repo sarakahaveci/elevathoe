@@ -41,6 +41,8 @@ export type GetCustomerParams = {
   name: string
   entryId: string
   orgId: string 
+  id:string
+
 }
 
 

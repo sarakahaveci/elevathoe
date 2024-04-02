@@ -224,23 +224,28 @@ interface Customer {
   orgId: number;
   entryId: string;
 }
-
- useEffect(() => {
+useEffect(() => {
   const fetchCustomers = async () => {
     try {
-      const res = await auth.getcustomer({ name: '', orgId: '', entryId: '' });
-      if (res !== null && res !== undefined) {
-        const customerResponse: CustomerResponse = res as CustomerResponse;
-        console.log('response in use effect: ', customerResponse.data.customers);
-        setData(transformData(customerResponse.data.customers));
-      } else {
-        console.error('Invalid response');
-      }
+      const res:any = await auth.getcustomer({ name: '', orgId: '', entryId: '', id: ''});
+      console.log('response in use effect: ', res.data.data.customers);
+      setData(transformData(res.data.data.customers));
+      return res; 
     } catch (error) {
       console.error('Error fetching customers:', error);
+      return null; 
     }
   };
-  fetchCustomers();
+
+  const fetchData = async () => {
+    const result = await fetchCustomers();
+
+    if (result) {
+    } else {
+    }
+  };
+
+  fetchData(); 
 }, [auth]);
 
 
