@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ChangeEvent, ReactNode } from 'react'
+import { useState, ChangeEvent, ReactNode, useEffect } from 'react'
 
 
 // ** Next Import
@@ -35,7 +35,11 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Demo Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 import { useAuth } from '../../../../hooks/useAuth';
+import { createClient } from '@supabase/supabase-js';
 
+const supabaseUrl = 'https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpYXJneWFuY2xva2JjcmFnYXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDU3Mzg1NzUsImV4cCI6MjAyMTMxNDU3NX0.c8h74b1YIhcd4Y1CFVLvJKqAMVXRAH1h2UXLGJ9cNqQ';
+export const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface State {
  newPassword: string
@@ -69,7 +73,15 @@ const ResetPasswordV1 = () => {
    showConfirmNewPassword: false
  })
 
-
+ useEffect(() => {
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    console.log(event);
+    if (event == "PASSWORD_RECOVERY") {
+      const { data, error } = await supabase.auth
+        .updateUser({ password: values.newPassword }) 
+    }
+  })
+}, [])
 
  const [showPassword, setShowPassword] = useState<boolean>(false)
 
