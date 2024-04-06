@@ -33,8 +33,8 @@ token=$(curl -X POST $login_url \
 #api_url=$base_url"addProject"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Kristal Kule\", \"cancel\": 0, \"customerId\": \"c02aa3df-3147-4014-8fd6-e7f064a29ba0\", \"address\": \"4 Levent\"}" | python3 -m json.tool
 
-api_url=$base_url"getCustomers"
-curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"start\": 0, \"finish\": 2}" | python3 -m json.tool
+#api_url=$base_url"getCustomers"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"start\": 0, \"finish\": 2}" | python3 -m json.tool
 
 #api_url=$base_url"getUsers"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
@@ -80,5 +80,5 @@ curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Be
 #api_url=$base_url"updatePassword"
 #curl -X POST  $api_url -H "apikey: $apikey" -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"newPassword\": \"123456789\"}"
 #
-#api_url=$base_url"getLimits"
-#curl -X POST  $api_url -H "apikey: $apikey" -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"start\": 1, \"finish\": 2}"
+api_url=$base_url"addProjectMaintainer"
+curl -X POST  $api_url -H "apikey: $apikey" -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"projectId\": \"a74bb3ef-1830-41bf-b71a-9fc44e57587c\", \"maintainerId\": \"4c6a1881-5a45-4fe5-8c3a-fbac8b7c787a\", \"update\": 0, \"cancel\": 0, \"entryId\": \"\"}"
