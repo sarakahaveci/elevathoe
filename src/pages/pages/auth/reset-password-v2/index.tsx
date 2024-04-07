@@ -30,7 +30,7 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
 import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
-
+// Initialize Supabase client
 interface State {
   newPassword: string
   showNewPassword: boolean
