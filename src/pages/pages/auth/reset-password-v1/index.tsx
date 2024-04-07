@@ -81,6 +81,7 @@ const ResetPasswordV1 = () => {
 
  const [showPassword, setShowPassword] = useState<boolean>(false)
 
+
  // ** Hook
  const theme = useTheme()
 const auth= useAuth()
@@ -90,13 +91,11 @@ const auth= useAuth()
    setValues({ ...values, [prop]: event.target.value })
  }
 
- //('test');
+ console.log('test');
  const handleClickShowNewPassword = () => {
    setValues({ ...values, showNewPassword: !values.showNewPassword })
  }
 
- //('test');
- // Handle Confirm New Password
  const handleConfirmNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
    setValues({ ...values, [prop]: event.target.value })
    
@@ -122,24 +121,32 @@ const auth= useAuth()
   mode: 'onBlur',
 });
 
+ const onSubmit = (data: FormData) => {
+  const { password } = data
+  auth.updatePassword({ password }, () => {
+    setError('password', {
+      type: 'manual',
+      message: 'Email or Password is invalid'
+    })
+  })
+}
 useEffect(() => {
   supabase.auth.onAuthStateChange(async (event, session) => {
     console.log(event);  
   })
 }, [])
 
- const onSubmit = (values: FormData) => {
-  const { password } = values
-  supabase.auth.onAuthStateChange(async (event, session) => {
-    console.log(event);
-  })
-  console.log("call-1 updateUser");
-  console.log(password);
-  supabase.auth.updateUser({ password: password }) 
-  console.log("call-2 updateUser");
+//  const onSubmit = (values: FormData) => {
+//   const { password } = values
+//   supabase.auth.onAuthStateChange(async (event, session) => {
+//     console.log(event);
+//   })
+//   console.log("call-1 updateUser");
+//   console.log(password);
+//   supabase.auth.updateUser({ password: password }) 
+//   console.log("call-2 updateUser");
 
-}
-
+// }
  return (
    <Box className='content-center'>
      <Card sx={{ zIndex: 1 }}>
