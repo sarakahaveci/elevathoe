@@ -90,34 +90,23 @@ const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
-  // const onSubmit = (data: CustomerData) => {
-  //   dispatch(addCustomer({ ...data }))
-  //   toggle()
-  //   reset()
-  // }
 
   const auth = useAuth();
 
-  // #api_url=$base_url"addCustomer"
-  // #curl -X POST  $api_url -H 
-  // "Content-Type: application/json" -H 
-  // "Authorization: Bearer $token" --data 
-  // "{\"update\": 0, \"name\": \"burj el arab\", \"cancel\": 0}"
-
-  const onSubmit = (data: CustomerData) => {
+  const onSubmit = async (data: CustomerData) => {
     const { name } = data;
     if (open) {
-      auth.addcustomer({ name: name, cancel: 0, update: 0 }, () => {
-        // setError('name', {
-        //   type: 'manual',
-        //   message: 'Your input is incorrect',
-        // });
-
-        //('testing'); 
-      });
+      try {
+        await auth.addcustomer({ name: name, cancel: 0, update: 0 });
+        toggle(); 
+        reset();
+      } catch (error) {
+        console.error(error);
+        }
     }
-  }
-
+  };
+  
+  
   const handleClose = () => {
     toggle()
     reset()
