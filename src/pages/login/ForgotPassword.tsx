@@ -6,28 +6,49 @@ import sendResetLink from './sendResetLink'; // Import your sendResetLink functi
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');
   const router = useRouter();
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
-    //('Submitting form with email:', email);
-  
+    if (email.trim().length < 6) {
+      alert('Password must be at least 6 characters long.'); 
+      return;
+    }
     try {
       const success = await sendResetLink({ email });
   
-      //('Reset link sent:', success);
-  
       if (success) {
-        alert('Password reset link sent to your email.'); // Display success message
+        alert('Password reset link sent to your email.'); 
         router.push('/pages/auth/verify-email-v1');
       } else {
-        alert('Email not found. Please recheck your email.'); // Display error message
+        alert('Email not found. Please recheck your email.');
       }
     } catch (error) {
       console.error('Error sending reset link:', error);
-      alert('An error occurred. Please try again.'); // Display error message
+      alert('An error occurred. Please try again.'); 
     }
   };
+  
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  
+  //   //('Submitting form with email:', email);
+  
+  //   try {
+  //     const success = await sendResetLink({ email });
+  
+  //     //('Reset link sent:', success);
+  
+  //     if (success) {
+  //       alert('Password reset link sent to your email.'); // Display success message
+  //       router.push('/pages/auth/verify-email-v1');
+  //     } else {
+  //       alert('Email not found. Please recheck your email.'); // Display error message
+  //     }
+  //   } catch (error) {
+  //     console.error('Error sending reset link:', error);
+  //     alert('An error occurred. Please try again.'); // Display error message
+  //   }
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
