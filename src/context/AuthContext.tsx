@@ -45,7 +45,7 @@ type Props = {
   children: ReactNode;
 };
 
-let globalToken = '';
+let globalToken = "";
 
 const AuthProvider = ({ children }: Props) => {
   // ** States
@@ -93,16 +93,12 @@ const AuthProvider = ({ children }: Props) => {
     initAuth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const handleLogin = (
     params: LoginParams,
     errorCallback?: ErrCallbackType
-
   ) => {
-
     const supabaseToken =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
-
     axios
       .post(authConfig.loginEndpoint, params, {
         headers: {
@@ -110,32 +106,24 @@ const AuthProvider = ({ children }: Props) => {
           Authorization: `Bearer ${supabaseToken}`,
         },
       })
-
       .then(async (response) => {
-        const signInToken = response.data.signInResponse.data.session.access_token;
-
-        globalToken = signInToken;
         params.rememberMe
           ? window.localStorage.setItem(
-            authConfig.storageTokenKeyName,
-            response.data.signInResponse.data.session.access_token
-          )
+              authConfig.storageTokenKeyName,
+              response.data.signInResponse.data.session.access_token
+            )
           : null;
         const returnUrl = router.query.returnUrl;
-
         setUser({ ...response.data.signInResponse.data.user });
         params.rememberMe
           ? window.localStorage.setItem(
-            "userData",
-            JSON.stringify(response.data.signInResponse.data.user)
-          )
+              "userData",
+              JSON.stringify(response.data.signInResponse.data.user)
+            )
           : null;
-
         const redirectURL = returnUrl && returnUrl !== "/" ? returnUrl : "/";
-
         router.replace(redirectURL as string);
       })
-
       .catch((err) => {
         if (errorCallback) errorCallback(err);
       });
@@ -156,40 +144,12 @@ const AuthProvider = ({ children }: Props) => {
       })
       .then(async (response) => {
         const redirectURL = "/pages/auth/verify-email-v1";
-        //("Success: ", response.data);
+        console.log("Success: ", response.data);
         router.push(redirectURL);
       })
       .catch((err) => {
         if (errorCallback) errorCallback(err);
       });
-  };
-
-
-  const handleGetCustomer = (
-    params: GetCustomerParams,
-    errorCallback?: ErrCallbackType
-  ) => {
-    return axios
-      .post(authConfig.getcustomerEndPoint, params, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${globalToken}`,
-        },
-      })
-  };
-
-  //add new custoer
-  const handleAddCustomer = (
-    params: AddCustomerParams,
-    errorCallback?: ErrCallbackType
-  ) => {
-    return axios
-      .post(authConfig.addcustomerEndpoint, params, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${globalToken}`,
-        },
-      })
   };
 
   const handleForgotPassword = (
@@ -207,7 +167,7 @@ const AuthProvider = ({ children }: Props) => {
       })
       .then(async (response) => {
         const redirectURL = "/pages/auth/verify-password-v1";
-        //("handleForgotPassword: ", response.data);
+        console.log("handleForgotPassword: ", response.data);
         router.push(redirectURL);
       })
       .catch((err) => {
@@ -241,6 +201,70 @@ const AuthProvider = ({ children }: Props) => {
       .catch((err) => {
         if (errorCallback) errorCallback(err);
       });
+  };
+
+  useEffect(() => {
+    const initAuth = async (): Promise<void> => {
+      const storedToken = window.localStorage.getItem(
+        authConfig.storageTokenKeyName
+      )!;
+      if (storedToken) {
+        setLoading(true);
+        await axios
+          .get(authConfig.meEndpoint, {
+            headers: {
+              Authorization: storedToken,
+            },
+          })
+          .then(async (response) => {
+            setLoading(false);
+            setUser({ ...response.data.userData });
+          })
+          .catch(() => {
+            localStorage.removeItem("userData");
+            localStorage.removeItem("refreshToken");
+            localStorage.removeItem("accessToken");
+            setUser(null);
+            setLoading(false);
+            if (
+              authConfig.onTokenExpiration === "logout" &&
+              !router.pathname.includes("login")
+            ) {
+              router.replace("/login");
+            }
+          });
+      } else {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleGetCustomer = (
+    params: GetCustomerParams,
+    errorCallback?: ErrCallbackType
+  ) => {
+    return axios.post(authConfig.getcustomerEndPoint, params, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${globalToken}`,
+      },
+    });
+  };
+
+  //add new custoer
+  const handleAddCustomer = (
+    params: AddCustomerParams,
+    errorCallback?: ErrCallbackType
+  ) => {
+    return axios.post(authConfig.addcustomerEndpoint, params, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${globalToken}`,
+      },
+    });
   };
 
   const handleLogout = () => {
