@@ -92,17 +92,17 @@ const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
   })
 
   const auth = useAuth();
-
+  
   const onSubmit = async (data: CustomerData) => {
     const { name } = data;
     if (open) {
       try {
         await auth.addcustomer({ name: name, cancel: 0, update: 0 });
-        toggle(); 
-        reset();
+        toggle();
+        reset(); 
       } catch (error) {
         console.error(error);
-        }
+      }
     }
   };
   
