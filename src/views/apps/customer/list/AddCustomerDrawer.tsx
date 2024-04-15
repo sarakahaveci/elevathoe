@@ -98,11 +98,11 @@ const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
     if (open) {
       try {
         await auth.addcustomer({ name: name, cancel: 0, update: 0 });
-        toggle(); 
+        toggle();
         reset();
       } catch (error) {
         console.error(error);
-        }
+      }
     }
   };
   
