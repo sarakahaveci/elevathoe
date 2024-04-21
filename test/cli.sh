@@ -33,8 +33,9 @@ token=$(curl -X POST $login_url \
 #api_url=$base_url"addProject"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Kristal Kule\", \"cancel\": 0, \"customerId\": \"c02aa3df-3147-4014-8fd6-e7f064a29ba0\", \"address\": \"4 Levent\"}" | python3 -m json.tool
 
-#api_url=$base_url"getCustomers"
-#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"start\": 0, \"finish\": 2}" | python3 -m json.tool
+api_url=$base_url"getCustomers"
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"start\": 0, \"finish\": 10}" | python3 -m json.tool
+curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"start\": 0, \"finish\": 10, \"text\": \"Soy\"}" | python3 -m json.tool
 
 #api_url=$base_url"getUsers"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
