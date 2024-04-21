@@ -42,6 +42,7 @@ token=$(curl -X POST $login_url \
 
 #api_url=$base_url"getProjects"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{}" | python3 -m json.tool
+#curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"text\": \"Kri\"}" | python3 -m json.tool
 
 #api_url=$base_url"addMaintainer"
 #curl -X POST  $api_url -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"update\": 0, \"name\": \"Taygun Yildirim\", \"cancel\": 0, \"phoneNumber\": \"05533366024\", \"isCustomer\": 0}" | python3 -m json.tool
