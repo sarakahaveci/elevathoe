@@ -63,31 +63,32 @@ import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/t
 // ** Custom Table Components Imports
 import TableHeader from 'src/views/apps/customer/list/TableHeader'
 import AddCustomerDrawer from 'src/views/apps/customer/list/AddCustomerDrawer'
+import { CustomerResponse } from 'src/context/types'
 
 
 // ** Vars
 interface CellType {
- row: ReturnCustomer
+  row: ReturnCustomer
 }
 
 
 interface ReturnCustomer {
- entryId: string;
- name: string;
- orgId: number;
- id: number;
+  entryId: string;
+  name: string;
+  orgId: number;
+  id: number;
 }
 
 
 const LinkStyled = styled(Link)(({ theme }) => ({
- fontWeight: 600,
- fontSize: '1rem',
- cursor: 'pointer',
- textDecoration: 'none',
- color: theme.palette.text.secondary,
- '&:hover': {
-   color: theme.palette.primary.main
- }
+  fontWeight: 600,
+  fontSize: '1rem',
+  cursor: 'pointer',
+  textDecoration: 'none',
+  color: theme.palette.text.secondary,
+  '&:hover': {
+    color: theme.palette.primary.main
+  }
 }))
 
 
@@ -96,217 +97,210 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 
 
 const RowOptions = ({ id }: { id: number | string }) => {
- // ** Hooks
- const dispatch = useDispatch<AppDispatch>()
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
 
 
- // ** State
- const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  // ** State
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
 
- const rowOptionsOpen = Boolean(anchorEl)
+  const rowOptionsOpen = Boolean(anchorEl)
 
 
- const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
-   setAnchorEl(event.currentTarget)
- }
- const handleRowOptionsClose = () => {
-   setAnchorEl(null)
- }
+  const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleRowOptionsClose = () => {
+    setAnchorEl(null)
+  }
 
 
- const handleDelete = () => {
-   dispatch(deleteCustomer(id))
-   handleRowOptionsClose()
- }
+  const handleDelete = () => {
+    dispatch(deleteCustomer(id))
+    handleRowOptionsClose()
+  }
 
 
- return (
-   <>
-     <IconButton size='small' onClick={handleRowOptionsClick}>
-       <Icon icon='mdi:dots-vertical' />
-     </IconButton>
-     <Menu
-       keepMounted
-       anchorEl={anchorEl}
-       open={rowOptionsOpen}
-       onClose={handleRowOptionsClose}
-       anchorOrigin={{
-         vertical: 'bottom',
-         horizontal: 'right'
-       }}
-       transformOrigin={{
-         vertical: 'top',
-         horizontal: 'right'
-       }}
-       PaperProps={{ style: { minWidth: '8rem' } }}
-     >
-       <MenuItem
-         component={Link}
-         sx={{ '& svg': { mr: 2 } }}
-         onClick={handleRowOptionsClose}
-         href='/apps/customer/view/overview/'
-       >
-         <Icon icon='mdi:eye-outline' fontSize={20} />
-         View
-       </MenuItem>
-       <MenuItem onClick={handleRowOptionsClose} sx={{ '& svg': { mr: 2 } }}>
-         <Icon icon='mdi:pencil-outline' fontSize={20} />
-         Edit
-       </MenuItem>
-       <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
-         <Icon icon='mdi:delete-outline' fontSize={20} />
-         Delete
-       </MenuItem>
-     </Menu>
-   </>
- )
+  return (
+    <>
+      <IconButton size='small' onClick={handleRowOptionsClick}>
+        <Icon icon='mdi:dots-vertical' />
+      </IconButton>
+      <Menu
+        keepMounted
+        anchorEl={anchorEl}
+        open={rowOptionsOpen}
+        onClose={handleRowOptionsClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        PaperProps={{ style: { minWidth: '8rem' } }}
+      >
+        <MenuItem
+          component={Link}
+          sx={{ '& svg': { mr: 2 } }}
+          onClick={handleRowOptionsClose}
+          href='/apps/customer/view/overview/'
+        >
+          <Icon icon='mdi:eye-outline' fontSize={20} />
+          View
+        </MenuItem>
+        <MenuItem onClick={handleRowOptionsClose} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='mdi:pencil-outline' fontSize={20} />
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleDelete} sx={{ '& svg': { mr: 2 } }}>
+          <Icon icon='mdi:delete-outline' fontSize={20} />
+          Delete
+        </MenuItem>
+      </Menu>
+    </>
+  )
 }
 
 
 const columns: GridColDef[] = [
- {
-   flex: 0.2,
-   minWidth: 230,
-   field: 'name',
-   headerName: 'Name',
-   renderCell: ({ row }: CellType) => {
-     const { name } = row
+  {
+    flex: 0.2,
+    minWidth: 230,
+    field: 'name',
+    headerName: 'Name',
+    renderCell: ({ row }: CellType) => {
+      const { name } = row
 
 
-     return (
-       <Box sx={{ display: 'flex', alignItems: 'center' }} id={row.entryId}>
-         <Box sx={{ color: "#000", display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{name}</Box>
-       </Box>
-     )
-   }
- },
- {
-   flex: 0,
-   minWidth: 90,
-   sortable: false,
-   field: 'actions',
-   headerName: 'Actions',
-   renderCell: ({ row }: CellType) => <RowOptions id={row.entryId} />
- }
+      return (
+        <Box sx={{ display: 'flex', alignItems: 'center' }} id={row.entryId}>
+          <Box sx={{ color: "#000", display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>{name}</Box>
+        </Box>
+      )
+    }
+  },
+  {
+    flex: 0,
+    minWidth: 90,
+    sortable: false,
+    field: 'actions',
+    headerName: 'Actions',
+    renderCell: ({ row }: CellType) => <RowOptions id={row.entryId} />
+  }
 ]
 
 
 const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
- // ** State
- const [role, setRole] = useState<string>('')
- const [plan, setPlan] = useState<string>('')
- const [value, setValue] = useState<string>('')
- const [status, setStatus] = useState<string>('')
- const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
- const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
- const [data, setData] = useState<ReturnCustomer[]>([])
+  // ** State
+  const [role, setRole] = useState<string>('')
+  const [plan, setPlan] = useState<string>('')
+  const [value, setValue] = useState<string>('')
+  const [status, setStatus] = useState<string>('')
+  const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
+  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  const [data, setData] = useState<ReturnCustomer[]>([])
 
 
- // ** Hooks
- const dispatch = useDispatch<AppDispatch>()
- const store = useSelector((state: RootState) => state.customer)
- const auth = useAuth()
- const transformData = (customers: any[]) => customers.map((customer: any) => ({
-   ...customer,
-   id: customer.entryId as string,
- }));
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+  const store = useSelector((state: RootState) => state.customer)
+  const auth = useAuth()
+  const transformData = (customers: any[]) => customers.map((customer: any) => ({
+    ...customer,
+    id: customer.entryId as string,
+  }));
 
 
-interface CustomerResponse {
-  data: {
-    customers: Customer[];
-  };
-}
-interface Customer {
-  id: string;
-  name: string;
-  orgId: number;
-  entryId: string;
-}
-useEffect(() => {
-  const fetchCustomers = async () => {
-    try {
-      const res:any = await auth.getcustomer({ name: '', orgId: '', entryId: '', id: ''});
-      console.log('response in use effect: ', res.data.data.customers);
-      setData(transformData(res.data.data.customers));
-      return res; 
-    } catch (error) {
-      console.error('Error fetching customers:', error);
-      return null; 
-    }
-  };
-
-  const fetchData = async () => {
-    const result = await fetchCustomers();
-
-    if (result) {
-    } else {
-    }
-  };
-
-  fetchData(); 
-}, [auth]);
 
 
- //("before useCallback");
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const res: any = await auth.getcustomer({ start: 0, finish: 1e10 });
+        setData(transformData(res.data.data.customers));
+        return res;
+      } catch (error) {
+        console.error('Error fetching customers:', error);
+        return null;
+      }
+    };
+
+    const fetchData = async () => {
+      const result = await fetchCustomers();
+
+      if (result) {
+      } else {
+      }
+    };
+
+    fetchData();
+  }, [auth]);
 
 
- const handleFilter = useCallback((val: string) => {
-   setValue(val)
- }, [])
+  //("before useCallback");
 
 
- //("before setAddCustomerOpen");
+  const handleFilter = useCallback(
+    async (val: string) => {
+      setValue(val)
+      const searchResult: any = await auth.getcustomer({ start: 0, finish: 1e10, text: val });
+      setData(transformData(searchResult.data.data.customers));
+    }, [value])
 
 
- const toggleAddCustomerDrawer = () => setAddCustomerOpen(!addCustomerOpen)
+  //("before setAddCustomerOpen");
 
 
- //(store.data);
+  const toggleAddCustomerDrawer = () => setAddCustomerOpen(!addCustomerOpen)
 
 
- //("trying to return sth");
- interface FormData {
-   name: string;
- }
+  //(store.data);
 
 
- return (
-   <Grid container spacing={6}>
-     <Grid item xs={12}>
-       <Card>
-         {/* FOR DISPLAYING */}
-         <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddCustomerDrawer} />
-         <DataGrid
-           autoHeight
-           rows={data}
-           columns={columns}
-           checkboxSelection
-           disableRowSelectionOnClick
-           pageSizeOptions={[10, 25, 50]}
-           paginationModel={paginationModel}
-           onPaginationModelChange={setPaginationModel}
-         />
-       </Card>
-     </Grid>
-     {/* For adding new cutomers */}
-     <AddCustomerDrawer open={addCustomerOpen} toggle={toggleAddCustomerDrawer} />
-   </Grid>
- )
+  //("trying to return sth");
+  interface FormData {
+    name: string;
+  }
+
+
+  return (
+    <Grid container spacing={6}>
+      <Grid item xs={12}>
+        <Card>
+          {/* FOR DISPLAYING */}
+          <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddCustomerDrawer} />
+          <DataGrid
+            autoHeight
+            rows={data}
+            columns={columns}
+            checkboxSelection
+            disableRowSelectionOnClick
+            pageSizeOptions={[10, 25, 50]}
+            paginationModel={paginationModel}
+            onPaginationModelChange={setPaginationModel}
+          />
+        </Card>
+      </Grid>
+      {/* For adding new cutomers */}
+      <AddCustomerDrawer open={addCustomerOpen} toggle={toggleAddCustomerDrawer} />
+    </Grid>
+  )
 }
 
 
 export const getStaticProps: GetStaticProps = async () => {
- const res = await axios.get('/cards/statistics')
- const apiData: CardStatsType = res.data
+  const res = await axios.get('/cards/statistics')
+  const apiData: CardStatsType = res.data
 
 
- return {
-   props: {
-     apiData
-   }
- }
+  return {
+    props: {
+      apiData
+    }
+  }
 }
 
 
