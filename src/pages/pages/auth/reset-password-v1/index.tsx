@@ -91,25 +91,21 @@ const auth= useAuth()
    setValues({ ...values, [prop]: event.target.value })
  }
 
- console.log('test');
  const handleClickShowNewPassword = () => {
    setValues({ ...values, showNewPassword: !values.showNewPassword })
  }
 
  const handleConfirmNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
    setValues({ ...values, [prop]: event.target.value })
-   
  }
  const handleClickShowConfirmNewPassword = () => {
    setValues({ ...values, showConfirmNewPassword: !values.showConfirmNewPassword })
  }
 
- const defaultValues = {
-  password: '123456',
-   }
  
  interface FormData {
-  password: string
+  newPassword: string,
+  confirmNewPassword: string
  }
  
  const {
@@ -117,18 +113,14 @@ const auth= useAuth()
   handleSubmit,
   formState: { errors }
 } = useForm({
-  defaultValues,
   mode: 'onBlur',
 });
 
- const onSubmit = (data: FormData) => {
-  const { password } = data
-  auth.updatePassword({ password }, () => {
-    setError('password', {
-      type: 'manual',
-      message: 'Email or Password is invalid'
-    })
-  })
+ const onSubmit = () => {
+  console.log("v2 call-1");
+  console.log(values);
+  supabase.auth.updateUser({ password: values.newPassword })
+  console.log("v2 call-2");
 }
 useEffect(() => {
   supabase.auth.onAuthStateChange(async (event, session) => {
@@ -136,17 +128,6 @@ useEffect(() => {
   })
 }, [])
 
-//  const onSubmit = (values: FormData) => {
-//   const { password } = values
-//   supabase.auth.onAuthStateChange(async (event, session) => {
-//     console.log(event);
-//   })
-//   console.log("call-1 updateUser");
-//   console.log(password);
-//   supabase.auth.updateUser({ password: password }) 
-//   console.log("call-2 updateUser");
-
-// }
  return (
    <Box className='content-center'>
      <Card sx={{ zIndex: 1 }}>
