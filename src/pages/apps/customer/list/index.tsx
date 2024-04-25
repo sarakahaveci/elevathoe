@@ -72,13 +72,14 @@ interface CellType {
 }
 
 
+const ResultsPerPage = 10;
+
 interface ReturnCustomer {
   entryId: string;
   name: string;
   orgId: number;
   id: number;
 }
-
 
 const LinkStyled = styled(Link)(({ theme }) => ({
   fontWeight: 600,
@@ -90,10 +91,6 @@ const LinkStyled = styled(Link)(({ theme }) => ({
     color: theme.palette.primary.main
   }
 }))
-
-
-
-
 
 
 const RowOptions = ({ id }: { id: number | string }) => {
@@ -216,37 +213,36 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
 
 
 
+  const fetchCustomers = async (start: number, finish: number) => {
+    try {
+      const res:any = await auth.getcustomer({ start, finish });
+      return transformData(res.data.customers);
+    } catch (error) {
+      console.error('Error fetching customers:', error);
+      return null;
+    }
+  };
+  
+  const fetchData = async (page: number) => {
+    const start = (page - 1) * ResultsPerPage;
+    const result = await fetchCustomers(start, start + ResultsPerPage);
+  
+    if (result) {
+      setData(result);
+    } else {
+    }
+  };
+  
   useEffect(() => {
-    const fetchCustomers = async () => {
-      try {
-        const res: any = await auth.getcustomer({ start: 0, finish: 1e10 });
-        setData(transformData(res.data.data.customers));
-        return res;
-      } catch (error) {
-        console.error('Error fetching customers:', error);
-        return null;
-      }
-    };
-
-    const fetchData = async () => {
-      const result = await fetchCustomers();
-
-      if (result) {
-      } else {
-      }
-    };
-
-    fetchData();
+    fetchData(1);
   }, [auth]);
-
-
   //("before useCallback");
 
 
   const handleFilter = useCallback(
     async (val: string) => {
       setValue(val)
-      const searchResult: any = await auth.getcustomer({ start: 0, finish: 1e10, text: val });
+      const searchResult: any = await auth.getcustomer({ start: 0, finish: 10, text: val });
       setData(transformData(searchResult.data.data.customers));
     }, [value])
 
