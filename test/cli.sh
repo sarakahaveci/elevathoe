@@ -91,3 +91,9 @@ token=$(curl -X POST $login_url \
 #
 #api_url=$base_url"doTrial"
 #curl -X POST  $api_url -H "apikey: $apikey" -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"cancel\": 1, \"id\": 9, \"update\": 1}"
+#
+#api_url=$base_url"getProjectDetails"
+#curl -X POST  $api_url -H "apikey: $apikey" -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"entryId\": \"a74bb3ef-1830-41bf-b71a-9fc44e57587c\"}" | python3 -m json.tool
+#
+#api_url=$base_url"getProjectMaintainer"
+#curl -X POST  $api_url -H "apikey: $apikey" -H "Content-Type: application/json" -H "Authorization: Bearer $token" --data "{\"projectId\": \"a74bb3ef-1830-41bf-b71a-9fc44e57587c\"}"
