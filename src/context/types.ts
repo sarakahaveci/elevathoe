@@ -38,11 +38,28 @@ export type AddCustomerParams = {
 }
 
 export type GetCustomerParams = {
-  name: string
-  entryId: string
-  orgId: string 
-  id:string
+  // name: string
+  // entryId: string
+  // orgId: string 
+  // id:string
+  start: number;
+  finish?: number;
+  text?: string;
+}
 
+export type Customer = {
+  id: string;
+  name: string;
+  orgId: number;
+  entryId: string;
+}
+
+export type CustomerResponse = {
+  data: {
+    data: {
+      customers: Customer[];
+    };
+  }
 }
 
 
