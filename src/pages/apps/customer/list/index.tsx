@@ -196,31 +196,33 @@ const CustomerList = ({
     page: 0,
     pageSize: 10,
   });
-  const [data, setData] = useState<ReturnCustomer[]>([]);
-  const [page, setPage] = useState(1);
+
+  const [allData, setAllData] = useState<CustomerData[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>();
   const store = useSelector((state: RootState) => state.customer);
   const auth = useAuth();
 
-  const ResultsPerPage = 10;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res: any = await auth.getcustomer({
-          start: paginationModel.page * paginationModel.pageSize,
-          finish: (paginationModel.page + 1) * paginationModel.pageSize,
+          start: 0,
+          finish: 100, 
         });
-        setData(transformData(res.data.data.customers));
+        console.log('API RESPONSE', res.data);
+        const fetchedData = transformData(res.data.data.customers);
+        setAllData(fetchedData); 
+        setTotalPages(Math.ceil(res.data.data.totalCount / paginationModel.pageSize));
       } catch (error) {
         console.error("Error fetching customers:", error);
-        setData([]);
+        setAllData([]); 
       }
     };
     fetchData();
-  }, [auth, paginationModel]);
+  }, [auth]); 
 
   const transformData = (customers: any[]): CustomerData[] => {
     return customers.map((customer) => ({
@@ -231,45 +233,28 @@ const CustomerList = ({
     }));
   };
 
-  const handleNextPage: any = () => {
-    setPaginationModel((prevPaginationModel) => ({
-      ...prevPaginationModel,
-      page: prevPaginationModel.page + 1,
-    }));
-  };
-
-  const handlePrevPage = () => {
-    if (paginationModel.page > 1) {
-      setPaginationModel((prevPaginationModel) => ({
-        ...prevPaginationModel,
-        page: prevPaginationModel.page - 1,
-      }));
-    }
-  };
-
   const handleFilter = useCallback(
     async (val: string) => {
       setValue(val);
       const searchResult: any = await auth.getcustomer({
-        start: 0,
-        finish: 10,
+        start: (paginationModel.page) * paginationModel.pageSize,
+        finish: (paginationModel.page + 1) * paginationModel.pageSize,
         text: val,
       });
-      setData(transformData(searchResult.data.data.customers));
+      setAllData(transformData(searchResult.data.data.customers));
     },
-    [value]
+    [value, paginationModel.page, paginationModel.pageSize]
   );
-
-  //("before setAddCustomerOpen");
 
   const toggleAddCustomerDrawer = () => setAddCustomerOpen(!addCustomerOpen);
 
-  //(store.data);
+  const handlePageChange = (model: any) => {
+    setPaginationModel(model);
+  };
 
-  //("trying to return sth");
-  interface FormData {
-    name: string;
-  }
+  const dataSliceStart = paginationModel.page * paginationModel.pageSize;
+  const dataSliceEnd = dataSliceStart + paginationModel.pageSize;
+  const slicedData = allData.slice(dataSliceStart, dataSliceEnd);
 
   return (
     <Grid container spacing={6}>
@@ -281,22 +266,22 @@ const CustomerList = ({
             handleFilter={handleFilter}
             toggle={toggleAddCustomerDrawer}
           />
-
           <DataGrid
             autoHeight
-            rows={data}
+            rows={slicedData}
             columns={columns}
             checkboxSelection
             disableRowSelectionOnClick
             pageSizeOptions={[10, 25, 50]}
-            paginationModel={{ page: page - 1, pageSize: ResultsPerPage }}
-            onPaginationModelChange={(model) => {
-              setPage(model.page + 1);
-            }}
+            paginationModel={paginationModel}
+            onPaginationModelChange={handlePageChange}
+            rowCount={allData.length} 
+            pagination 
+            paginationMode="server"
           />
         </Card>
       </Grid>
-      {/* For adding new cutomers */}
+      {/* For adding new customers */}
       <AddCustomerDrawer
         open={addCustomerOpen}
         toggle={toggleAddCustomerDrawer}
