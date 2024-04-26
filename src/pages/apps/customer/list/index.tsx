@@ -72,9 +72,15 @@ interface CellType {
 }
 
 
-const ResultsPerPage = 10;
-
 interface ReturnCustomer {
+  entryId: string;
+  name: string;
+  orgId: number;
+  id: number;
+}
+
+
+interface CustomerData {
   entryId: string;
   name: string;
   orgId: number;
@@ -197,47 +203,57 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
   const [value, setValue] = useState<string>('')
   const [status, setStatus] = useState<string>('')
   const [addCustomerOpen, setAddCustomerOpen] = useState<boolean>(false)
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
-  const [data, setData] = useState<ReturnCustomer[]>([])
-
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10,
+  });
+  const [data, setData] = useState<ReturnCustomer[]>([]);
+  const [page, setPage] = useState(1);
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const store = useSelector((state: RootState) => state.customer)
   const auth = useAuth()
-  const transformData = (customers: any[]) => customers.map((customer: any) => ({
-    ...customer,
-    id: customer.entryId as string,
-  }));
-
-
-
-
-  const fetchCustomers = async (start: number, finish: number) => {
-    try {
-      const res:any = await auth.getcustomer({ start, finish });
-      return transformData(res.data.customers);
-    } catch (error) {
-      console.error('Error fetching customers:', error);
-      return null;
-    }
-  };
-  
-  const fetchData = async (page: number) => {
-    const start = (page - 1) * ResultsPerPage;
-    const result = await fetchCustomers(start, start + ResultsPerPage);
-  
-    if (result) {
-      setData(result);
-    } else {
-    }
-  };
-  
   useEffect(() => {
-    fetchData(1);
-  }, [auth]);
-  //("before useCallback");
+    const fetchData = async () => {
+      try {
+        const res: any = await auth.getcustomer({
+          start: paginationModel.page * paginationModel.pageSize, 
+          finish: (paginationModel.page + 1) * paginationModel.pageSize,
+        });
+        setData(transformData(res.data.data.customers));
+      } catch (error) {
+        console.error("Error fetching customers:", error);
+        setData([]); 
+      }
+    };
+    fetchData();
+  }, [auth, paginationModel]);
 
+  const transformData = (customers: any[]): CustomerData[] => {
+    return customers.map((customer) => ({
+      id: customer.entryId,
+      entryId: customer.entryId,
+      name: customer.name,
+      orgId: customer.orgId,
+    }));
+  };
+
+  const handleNextPage:any = () => {
+    setPaginationModel((prevPaginationModel) => ({
+      ...prevPaginationModel,
+      page: prevPaginationModel.page + 1,
+    }));
+  };
+
+  const handlePrevPage = () => {
+    if (paginationModel.page > 1) {
+      setPaginationModel((prevPaginationModel) => ({
+        ...prevPaginationModel,
+        page: prevPaginationModel.page - 1,
+      }));
+    }
+  };
 
   const handleFilter = useCallback(
     async (val: string) => {
@@ -268,7 +284,8 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
         <Card>
           {/* FOR DISPLAYING */}
           <TableHeader value={value} handleFilter={handleFilter} toggle={toggleAddCustomerDrawer} />
-          <DataGrid
+         
+  <DataGrid
             autoHeight
             rows={data}
             columns={columns}
@@ -277,7 +294,11 @@ const CustomerList = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps
             pageSizeOptions={[10, 25, 50]}
             paginationModel={paginationModel}
             onPaginationModelChange={setPaginationModel}
+            rowCount={100} 
+            pagination 
+            onPageChange={handleNextPage} 
           />
+
         </Card>
       </Grid>
       {/* For adding new cutomers */}
