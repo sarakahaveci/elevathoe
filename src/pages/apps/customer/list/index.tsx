@@ -210,7 +210,7 @@ const CustomerList = ({
       try {
         const res: any = await auth.getcustomer({
           start: 0,
-          finish: 31, 
+          finish: 100, 
         });
         console.log('API RESPONSE', res.data);
         const fetchedData = transformData(res.data.data.customers);
