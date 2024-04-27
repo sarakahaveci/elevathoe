@@ -85,35 +85,27 @@ const ResetPasswordV1 = () => {
  // ** Hook
  const theme = useTheme()
 const auth= useAuth()
-const handleNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-  const { value } = event.target;
-  if (value.length >= 6) {
-    setValues({ ...values, [prop]: value });
-  }
-};
 
-const handleConfirmNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-  const { value } = event.target;
-  if (value.length >= 6) {
-    setValues({ ...values, [prop]: value });
-  }
-};
+ // Handle New Password
+ const handleNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
+   setValues({ ...values, [prop]: event.target.value })
+ }
 
-const handleClickShowNewPassword = () => {
+ const handleClickShowNewPassword = () => {
    setValues({ ...values, showNewPassword: !values.showNewPassword })
  }
 
- 
+ const handleConfirmNewPasswordChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
+   setValues({ ...values, [prop]: event.target.value })
+ }
  const handleClickShowConfirmNewPassword = () => {
    setValues({ ...values, showConfirmNewPassword: !values.showConfirmNewPassword })
  }
 
- const defaultValues = {
-  password: '123456',
-   }
  
  interface FormData {
-  password: string
+  newPassword: string,
+  confirmNewPassword: string
  }
  
  const {
@@ -121,18 +113,14 @@ const handleClickShowNewPassword = () => {
   handleSubmit,
   formState: { errors }
 } = useForm({
-  defaultValues,
   mode: 'onBlur',
 });
 
- const onSubmit = (data: FormData) => {
-  const { password } = data
-  auth.updatePassword({ password }, () => {
-    setError('password', {
-      type: 'manual',
-      message: 'Email or Password is invalid'
-    })
-  })
+ const onSubmit = () => {
+  console.log("v2 call-1");
+  console.log(values);
+  supabase.auth.updateUser({ password: values.newPassword })
+  console.log("v2 call-2");
 }
 useEffect(() => {
   supabase.auth.onAuthStateChange(async (event, session) => {
