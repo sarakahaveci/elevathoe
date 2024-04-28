@@ -2,3 +2,4 @@
 node_modules
 .next
 test/output.json
+test/__pycache__
