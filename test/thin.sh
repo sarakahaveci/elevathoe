@@ -4,6 +4,9 @@ rm -rf output.json output.pdf
 # get customer list
 #python3 thin.py 'kivanccakmak@gmail.com' '987654321' 'POST' 'getCustomers' '{}'
 
+# get customer list (by search)
+#python3 thin.py 'kivanccakmak@gmail.com' '987654321' 'POST' 'getCustomers' '{"text": "Duman"}'
+
 # get user list
 #python3 thin.py 'kivanccakmak@gmail.com' '987654321' 'POST' 'getUsers' '{}'
 
