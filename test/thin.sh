@@ -16,4 +16,10 @@ rm -rf output.json output.pdf
 # get project details
 #python3 thin.py 'kivanccakmak@gmail.com' '987654321' 'POST' 'getProjectDetails' '{"entryId": "a74bb3ef-1830-41bf-b71a-9fc44e57587c"}'
 
+# get visit plan
+#python3 thin.py 'kivanccakmak@gmail.com' '987654321' 'POST' 'getVisitPlan' '{"startTime": "2024-04-27T20:55:59.996Z", "endTime": "2024-04-29T20:55:59.996Z"}'
+
+# add visit plan
+#python3 thin.py 'kivanccakmak@gmail.com' '987654321' 'POST' 'addVisitPlan' '{"projectId": "a74bb3ef-1830-41bf-b71a-9fc44e57587c", "update": 0}'
+
 ./show.sh
