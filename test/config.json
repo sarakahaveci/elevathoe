@@ -1,6 +1,9 @@
 {
+ "LOCAL": 1,
  "LOGIN_URL": "https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/signin",
  "BASE_URL": "https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/",
+ "LOCAL_LOGIN_URL":"http://localhost:54321/functions/v1/rest/signin",
+ "LOCAL_BASE_URL":"http://localhost:54321/functions/v1/rest/",
  "OUTPUT_FILE": "output.json",
  "LOGIN_FILE": "login.json",
  "OUTPUT_PDF": "output.pdf"

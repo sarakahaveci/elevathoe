@@ -12,11 +12,17 @@ import common as common
 
 CONFIG = common.read_json(config.CONFIG_FILE)
 
+def get_base_url(CONFIG):
+    if CONFIG["LOCAL"] == 0:
+        return CONFIG["BASE_URL"]
+    else:
+        return CONFIG["LOCAL_BASE_URL"]
+
 def __download_with_headers(path, data, token):
     """
     """
     output = None
-    url = os.path.join(CONFIG["BASE_URL"], path)
+    url = os.path.join(get_base_url(CONFIG), path)
     headers = {'Authorization': 'Bearer {}'.format(token)}
     r = requests.get(url, json=data, headers=headers, verify=True, cert=ssl_context)
 
@@ -36,7 +42,7 @@ def __upload_with_headers(path, data, token):
     """
     """
     output = None
-    url = os.path.join(CONFIG["BASE_URL"], path)
+    url = os.path.join(get_base_url(CONFIG), path)
     headers = {'Authorization': 'Bearer {}'.format(token)}
 
     data["md5sum"] = hashlib.md5(open(data["fpath"], "rb").read()).hexdigest()
@@ -55,7 +61,7 @@ def __upload_with_headers(path, data, token):
 def __send_get_request(path, data, token):
     """
     """
-    url = os.path.join(CONFIG["BASE_URL"], path)
+    url = os.path.join(get_base_url(CONFIG), path)
     headers = {'Authorization': 'Bearer {}'.format(token)}
     r = requests.get(url, json=data, headers=headers, verify=True, cert=ssl_context)
     try:
@@ -70,7 +76,7 @@ def __send_get_request(path, data, token):
 def __send_post_request(path, data, token):
     """
     """
-    url = os.path.join(CONFIG["BASE_URL"], path)
+    url = os.path.join(get_base_url(CONFIG), path)
     headers = {'Authorization': 'Bearer {}'.format(token)}
     r = requests.post(url, json=data, headers=headers, verify=False)
     try:
@@ -84,7 +90,7 @@ def __send_post_request(path, data, token):
 def __send_file(path, data, token):
     """
     """
-    url = os.path.join(CONFIG["BASE_URL"], path)
+    url = os.path.join(get_base_url(CONFIG), path)
     r, files = None, None
 
     headers = {'Authorization': 'Bearer {}'.format(token)}
