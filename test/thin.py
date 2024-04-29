@@ -32,14 +32,20 @@ def main():
 
     username = sys.argv[1]
     password = sys.argv[2]
+    login_url = ""
     rtype = sys.argv[3]
     path = sys.argv[4]
     data = ast.literal_eval(sys.argv[5])
 
+    if CONFIG["LOCAL"] == 0:
+        login_url = CONFIG["LOGIN_URL"]
+    else:
+        login_url = CONFIG["LOCAL_LOGIN_URL"]
+
     if username == 'free' and password == 'free':
         token = 'deadbeef'
     else:
-        token = network.get_token(CONFIG["LOGIN_URL"], username, password)
+        token = network.get_token(login_url, username, password)
 
     network.dispatch_request(rtype, path, data, token)
 
