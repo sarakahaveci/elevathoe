@@ -64,14 +64,14 @@ interface ReturnCustomer {
   entryId: string;
   name: string;
   orgId: number;
-  id: number;
+  id: string;
 }
 
 interface CustomerData {
   entryId: string;
   name: string;
   orgId: number;
-  id: number;
+  id: string;
 }
 
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -195,6 +195,7 @@ const CustomerList = ({
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 10,
+    totalItems: 0,
   });
 
   const [allData, setAllData] = useState<CustomerData[]>([]);
@@ -210,7 +211,7 @@ const CustomerList = ({
       try {
         const res: any = await auth.getcustomer({
           start: 0,
-          finish: 100, 
+          finish: Number.MAX_SAFE_INTEGER,
         });
         console.log('API RESPONSE', res.data);
         const fetchedData = transformData(res.data.data.customers);
@@ -222,22 +223,27 @@ const CustomerList = ({
       }
     };
     fetchData();
-  }, [auth]); 
+  }, [auth, paginationModel.page, paginationModel.pageSize]);
+  
+  const totalPagesNumber = Math.ceil(
+    paginationModel.totalItems / paginationModel.pageSize
+  );
 
   const transformData = (customers: any[]): CustomerData[] => {
+    let idCounter = 0; 
     return customers.map((customer) => ({
-      id: customer.entryId,
+      id: `customer-${idCounter++}`,
       entryId: customer.entryId,
       name: customer.name,
       orgId: customer.orgId,
     }));
   };
-
+    
   const handleFilter = useCallback(
     async (val: string) => {
       setValue(val);
       const searchResult: any = await auth.getcustomer({
-        start: (paginationModel.page) * paginationModel.pageSize,
+        start: paginationModel.page * paginationModel.pageSize,
         finish: (paginationModel.page + 1) * paginationModel.pageSize,
         text: val,
       });
@@ -252,11 +258,19 @@ const CustomerList = ({
     setPaginationModel(model);
   };
 
-  const dataSliceStart = paginationModel.page * paginationModel.pageSize;
-  const dataSliceEnd = dataSliceStart + paginationModel.pageSize;
-  const slicedData = allData.slice(dataSliceStart, dataSliceEnd);
+const dataSliceStart = paginationModel.page * paginationModel.pageSize;
+console.log(typeof allData);
+const dataSliceEnd = dataSliceStart + paginationModel.pageSize;
+const slicedData = Object.values(allData).slice(dataSliceStart, dataSliceEnd);
+// try {
+//   const slicedData = allData.slice(dataSliceStart, dataSliceEnd);
+// } catch (error) {
+//   console.error('Error slicing allData:', error);
+//   // Handle the error appropriately, such as displaying an error message to the user
+// }
 
-  return (
+  
+return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
@@ -275,8 +289,8 @@ const CustomerList = ({
             pageSizeOptions={[10, 25, 50]}
             paginationModel={paginationModel}
             onPaginationModelChange={handlePageChange}
-            rowCount={allData.length} 
-            pagination 
+            rowCount={allData.length}
+            pagination
             paginationMode="server"
           />
         </Card>
