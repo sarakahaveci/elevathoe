@@ -12,12 +12,9 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { useAuth } from 'src/hooks/useAuth';
 import Icon from 'src/@core/components/icon';
-<<<<<<< HEAD
 import { AddCustomerParams, GetCustomerParams } from 'src/context/types';
-=======
-import {AddCustomerParams} from 'src/context/types'
 // import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
->>>>>>> parent of 3dcd7ba (fixed bug of adding new customer)
+
 
 
 const schema = yup.object().shape({
@@ -63,12 +60,7 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
       auth.addcustomer({ name, update, cancel }, () => {
         console.log('testing add 123');
       });
-    } else {
-      auth.getcustomer({ name, update, cancel }, () => {
-        console.log('testing get 123');
-      });
     }
-
     console.log('tstignadd123');
 
     if (clients !== undefined) {
