@@ -6,7 +6,6 @@ export default {
   updateEndpoint: 'https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/updatePassword',
   addcustomerEndpoint: 'https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/addCustomer',
   getcustomerEndPoint: 'https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/getCustomers',
-  addelevatorEndPoint: 'https://ciargyanclokbcragarw.supabase.co/functions/v1/rest/addElevator',
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
 }

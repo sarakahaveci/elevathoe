@@ -6,6 +6,10 @@ import { useAuth } from "src/hooks/useAuth";
 import Link from "next/link";
 import { GetStaticProps, InferGetStaticPropsType } from "next/types";
 
+// ** Next Imports
+import Link from 'next/link'
+import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
+
 // ** MUI Imports
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";

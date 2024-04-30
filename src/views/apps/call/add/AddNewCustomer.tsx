@@ -12,62 +12,76 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { useAuth } from 'src/hooks/useAuth';
 import Icon from 'src/@core/components/icon';
+<<<<<<< HEAD
 import { AddCustomerParams, GetCustomerParams } from 'src/context/types';
+=======
+import {AddCustomerParams} from 'src/context/types'
+// import { InvoiceClientType } from 'src/types/apps/invoiceTypes';
+>>>>>>> parent of 3dcd7ba (fixed bug of adding new customer)
 
-interface FormData {
-  name: string;
-}
 
 const schema = yup.object().shape({
   name: yup.string().required(),
+  update: yup.number().required(),
+  cancel: yup.number().required(),
 });
 
 interface Props {
   open: boolean;
   toggle: () => void;
-  clients: AddCustomerParams[] | undefined;
-  setClients: (val: AddCustomerParams[]) => void;
-  setSelectedClient: (val: AddCustomerParams) => void;
+  clients: AddCustomerParams [] | undefined;
+  setClients: (val: AddCustomerParams []) => void;
+  setSelectedClient: (val: AddCustomerParams ) => void;
 }
 
-const AddNewCustomer = ({
-  open,
-  toggle,
-  setSelectedClient,
-  clients,
-  setClients,
-}: Props) => {
+interface FormData {
+  name: string;
+  update: number;
+  cancel: number;
+}
+
+const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }: Props) => {
   const {
     reset,
-    handleSubmit,
     control,
+    handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: { name: '' },
+    defaultValues: { name: '', update: 0, cancel: 0 },
   });
 
   const auth = useAuth();
 
+  const update = 0; 
+  const cancel = 0; 
+
+
   const onSubmit = (data: FormData) => {
-    const { name } = data;
-    const newCustomer: AddCustomerParams = { name, update: 0, cancel: 0 };
+    const { name, update, cancel } = data;
     if (open) {
-      auth.addcustomer(newCustomer, () => {
-        console.log('123');
+      auth.addcustomer({ name, update, cancel }, () => {
+        console.log('testing add 123');
+      });
+    } else {
+      auth.getcustomer({ name, update, cancel }, () => {
+        console.log('testing get 123');
       });
     }
+
+    console.log('tstignadd123');
+
     if (clients !== undefined) {
-      setClients([...clients, newCustomer]);
+      setClients([...clients, data]);
     }
-    setSelectedClient(newCustomer);
+    setSelectedClient(data);
     toggle();
-    reset({ name: '' });
+    reset({ name: '', update: 0, cancel: 0 })
   };
 
   const handleDrawerClose = () => {
     toggle();
-    reset({ name: '' });
+    reset({ name: '', update: 0, cancel: 0 })
   };
 
   return (

@@ -191,7 +191,27 @@ const AuthProvider = ({ children }: Props) => {
         },
       })
   };
+  // const handleAddCustomer = (
+  //   params: AddCustomerParams,
+  //   errorCallback?: ErrCallbackType
+  // ) => {
+  //   const supabaseToken =
+  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0";
+  //   axios
+  //     .post(authConfig.addcustomerEndpoint, params, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${supabaseToken}`,
+  //       },
+  //     })
+  //     .then(async (response) => {
+  //       console.log("Success: ", response.data);
+  //     })
+  //     .catch((err) => {
+  //       if (errorCallback) errorCallback(err);
+  //     });
 
+  // };
   const handleForgotPassword = (
     params: ForgotParams,
     errorCallback?: ErrCallbackType
