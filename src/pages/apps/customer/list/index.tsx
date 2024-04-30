@@ -230,13 +230,29 @@ const CustomerList = ({
  const store = useSelector((state: RootState) => state.customer);
  const auth = useAuth();
 
-
  useEffect(() => {
+
+  // const fetchData = async () => {
+  //   try {
+  //     const start = page * pageSize; // Calculate start based on page number
+  //     const finish = (page + 1) * pageSize; // Calculate finish based on page number
+  
+  //     const res: any = await auth.getcustomer({ start, finish });
+  //     // Remaining code...
+  //   } catch (error) {
+  //     console.error("Error fetching customers:", error);
+  //     setAllData([]);
+  //     setTotalPages(0);
+  //   }
+  // };
+  
    const fetchData = async () => {
      try {
+
+       const { page, pageSize } = paginationModel;
        const res: any = await auth.getcustomer({
-         start: 0,
-         finish: Number.MAX_SAFE_INTEGER, // Fetch all data
+         start:  pageSize*page-1,
+         finish: pageSize*page // Fetch all data
        });
        console.log('API RESPONSE', res.data);
        const fetchedData = transformData(res.data.data.customers);
