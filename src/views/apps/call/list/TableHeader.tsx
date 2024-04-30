@@ -8,8 +8,6 @@ import Select from '@mui/material/Select'
 import { GridRowId } from '@mui/x-data-grid'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
-import { useAuth } from '../../../../hooks/useAuth';
-import { useState, useEffect } from 'react';
 
 interface TableHeaderProps {
   value: string
@@ -17,34 +15,9 @@ interface TableHeaderProps {
   handleFilter: (val: string) => void
 }
 
-interface User {
-  name: string;
-  update: number;
-  cancel: number;
-}
-
 const TableHeader = (props: TableHeaderProps) => {
   // ** Props
   const { value, selectedRows, handleFilter } = props
-  const auth = useAuth();
-  const [users, setUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = await auth.getcustomer({ name: '', update: 0, cancel: 0 });
-        if (userData !== undefined) {
-          setUsers(userData);
-        } else {
-          console.error('No data returned from auth.getcustomer()');
-        }
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-  
-    fetchData(); 
-  }, []);
 
   return (
     <Box
@@ -68,17 +41,8 @@ const TableHeader = (props: TableHeaderProps) => {
           onChange={e => handleFilter(e.target.value)}
         />
       </Box>
-
-      {/* Display fetched users in the table */}
-      <Box>
-        <ul>
-          {users.map((user, index) => (
-            <li key={index}>{user.name}</li>
-          ))}
-        </ul>
-      </Box>
     </Box>
   )
 }
 
-export default TableHeader;
+export default TableHeader

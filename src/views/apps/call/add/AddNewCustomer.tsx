@@ -12,7 +12,7 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { useAuth } from 'src/hooks/useAuth';
 import Icon from 'src/@core/components/icon';
-import { AddCustomerParams } from 'src/context/types';
+import { AddCustomerParams, GetCustomerParams } from 'src/context/types';
 
 interface FormData {
   name: string;
@@ -105,7 +105,7 @@ const AddNewCustomer = ({
             <FormHelperText error>{errors.name.message}</FormHelperText>
           )}
         </FormControl>
-        <Button type='submit'>Submit</Button>
+        <Button>Submit</Button>
       </Box>
     </Drawer>
   );
