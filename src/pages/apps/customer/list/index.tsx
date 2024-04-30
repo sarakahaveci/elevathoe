@@ -232,20 +232,6 @@ const CustomerList = ({
 
  useEffect(() => {
 
-  // const fetchData = async () => {
-  //   try {
-  //     const start = page * pageSize; // Calculate start based on page number
-  //     const finish = (page + 1) * pageSize; // Calculate finish based on page number
-  
-  //     const res: any = await auth.getcustomer({ start, finish });
-  //     // Remaining code...
-  //   } catch (error) {
-  //     console.error("Error fetching customers:", error);
-  //     setAllData([]);
-  //     setTotalPages(0);
-  //   }
-  // };
-  
    const fetchData = async () => {
      try {
 
