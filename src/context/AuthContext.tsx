@@ -211,9 +211,6 @@ const AuthProvider = ({ children }: Props) => {
   //       if (errorCallback) errorCallback(err);
   //     });
 
-<<<<<<< HEAD
-=======
-  
   // const handleAddCustomer = (
   //   params: AddCustomerParams,
   //   errorCallback?: ErrCallbackType
@@ -234,8 +231,6 @@ const AuthProvider = ({ children }: Props) => {
   //       if (errorCallback) errorCallback(err);
   //     });
 
->>>>>>> 01ab291 (unuseful code)
-  // };
   const handleForgotPassword = (
     params: ForgotParams,
     errorCallback?: ErrCallbackType
@@ -287,8 +282,6 @@ const AuthProvider = ({ children }: Props) => {
       });
   };
 
-<<<<<<< HEAD
-=======
   // const handleUpdatePassword = (params: UpdateParams, errorCallback?: ErrCallbackType) => {
   //   const supabaseToken =
   //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0'
@@ -301,7 +294,7 @@ const AuthProvider = ({ children }: Props) => {
   //     })
   //     .then(response => {
   //       const redirectURL = '/pages/auth/verify-password-update'
-  //       console.log('handleUpdatePassword: ', response.data)
+  //       //('handleUpdatePassword: ', response.data)
   //       router.push(redirectURL);
   //     })
   //     .catch(err => {
@@ -309,7 +302,6 @@ const AuthProvider = ({ children }: Props) => {
   //     })
   // }
 
->>>>>>> 01ab291 (unuseful code)
   const handleLogout = () => {
     setUser(null);
     window.localStorage.removeItem("userData");

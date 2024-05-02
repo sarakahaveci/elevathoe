@@ -58,7 +58,7 @@ const AddNewCustomer = ({ open, toggle, setSelectedClient, clients, setClients }
     const { name, update, cancel } = data;
     if (open) {
       auth.addcustomer({ name, update, cancel }, () => {
-        console.log('testing add 123');
+        //('testing add 123');
       });
     }
     console.log('tstignadd123');

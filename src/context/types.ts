@@ -38,9 +38,6 @@ export type AddCustomerParams = {
 }
 
 export type GetCustomerParams = {
-<<<<<<< HEAD
-  // name: string
-  // entryId: string
   // orgId: string 
   // id:string
   start: number;
@@ -61,9 +58,7 @@ export type CustomerResponse = {
       customers: Customer[];
     };
   }
-=======
   name: string
->>>>>>> 01ab291 (unuseful code)
 }
 
 
