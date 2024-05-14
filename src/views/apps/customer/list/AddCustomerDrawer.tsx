@@ -90,7 +90,7 @@ const SidebarAddCustomer = (props: SidebarAddCustomerType) => {
     mode: 'onChange',
     resolver: yupResolver(schema)
   })
-<<<<<<< HEAD
+
 
   const auth = useAuth();
 
